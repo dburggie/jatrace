@@ -1,7 +1,7 @@
-package threeD.skies;
+package raytrace.threeD.skies;
 
-import threeD.Vect;
-import threeD.Color;
+import raytrace.threeD.Vect;
+import raytrace.threeD.Color;
 
 public class Bluesky implements Sky
 {
