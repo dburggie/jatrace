@@ -1,4 +1,4 @@
-package raytrace.threeD;
+//package raytrace.threeD;
 
 public class Color
 {
@@ -21,7 +21,7 @@ public class Color
     
     public Color dup()
     {
-        return new Color(red, green, blue);
+        return new Color(red, green, blue, alpha);
     }
     
     public Color copy(Color c)
@@ -32,43 +32,29 @@ public class Color
     
     public Color add(Color c)
     {
-        red += c.red; green += c.green; blue += c.blue;
+        red += c.red; green += c.green; blue += c.blue; alpha += c.alpha;
         return this;
     }
     
-    private byte dtob(double d)
+    public int [] p()
     {
-        assert (d <= 1.0 && d >= 0.0);
-        return (byte) Math.min(127, d * 256 - 128);
+    	int [] i = new int [4];
+        i[0] = Math.min(255, (int) (256 * red));
+        i[1] = Math.min(255, (int) (256 * green));
+        i[2] = Math.min(255, (int) (256 * blue));
+        i[3] = Math.min(255, (int) (256 * alpha));
+        return i;
     }
     
-    public byte [] p()
-    {
-        byte p[] = new byte [3];
-        p[0] = dtob(red);
-        p[1] = dtob(green);
-        p[2] = dtob(blue);
-        return p;
-    }
-    
-    public byte [] p(boolean alpha_channel)
-    {
-        byte p[];
-        if (alpha_channel) 
-        {
-            p = new byte [4];
-            p[0] = dtob(red);
-            p[1] = dtob(green);
-            p[2] = dtob(blue);
-            p[3] = dtob(alpha);
-            return p;
-        }
-        else return this.p();
-    }
-    
-    public Color setrgb( double r, double g, double b )
+    public Color setRGB( double r, double g, double b )
     {
         red = r; green = g; blue = b;
+        return this;
+    }
+    
+    public Color setRGBA( double r, double g, double b, double a)
+    {
+        red = r; green = g; blue = b; alpha = a;
         return this;
     }
     
@@ -79,7 +65,7 @@ public class Color
     
     public Color dim(double s)
     {
-        red *= s; green *= s; blue *= s; return this;
+        red *= s; green *= s; blue *= s; alpha *= s; return this;
     }
     
     public Color gamma(double e)

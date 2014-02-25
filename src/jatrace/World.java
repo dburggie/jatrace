@@ -8,15 +8,18 @@ import raytrace.threeD.skies.Sky;
 
 public class World
 {
-	protected Body bodies[];
+	protected linkedBody bodies;
 	protected Sky sky;
 	protected Vect lights[];
-	protected Interface i;
+	protected myInterface i;
 	protected double baseBrightness;
 	
 	public World(Body b[], Sky s)
 	{
-		bodies = b;
+		for ( Body x : b )
+		{
+			bodies = new linkedBody(x);
+		}
 		sky = s;
 		i = new Interface;
 		lights = s.getLights();

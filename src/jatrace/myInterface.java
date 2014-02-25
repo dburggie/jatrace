@@ -4,7 +4,7 @@ import raytrace.threeD.Vect;
 import raytrace.threeD.Ray;
 import raytrace.threeD.bodies.Body;
 
-private class Interface
+private class myInterface
 {
 	private boolean isMatte;
 	private double exp, distance;
@@ -12,7 +12,7 @@ private class Interface
 	private Body body;
 	private Color color;
 	
-	public Interface()
+	public myInterface()
 	{
 		distance = null;
 		poi = null;
@@ -23,7 +23,7 @@ private class Interface
 		exp = null;
 	}
 	
-	public Interface(double d, Vect p, Vect n, Body b, Color c)
+	public myInterface(double d, Vect p, Vect n, Body b, Color c)
 	{
 		distance = d;
 		poi = p;
@@ -42,12 +42,12 @@ private class Interface
 		}
 	}
 	
-	public Interface dup()
+	public myInterface dup()
 	{
-		return new Interface(distance, poi, normal, body, color);
+		return new myInterface(distance, poi, normal, body, color);
 	}
 	
-	public Interface reset()
+	public myInterface reset()
 	{
 		distance = null;
 		poi = null;
@@ -59,7 +59,7 @@ private class Interface
 		return this;
 	}
 	
-	public Interface hit(Body b, double d)
+	public myInterface hit(Body b, double d)
 	{
 		if (!b)
 		{
@@ -74,7 +74,7 @@ private class Interface
 		return this;
 	}
 	
-	public Interface registerHit(Ray r)
+	public myInterface registerHit(Ray r)
 	{
 		if (!b && d > 0.0)
 		{

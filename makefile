@@ -31,4 +31,4 @@ $(CTS)/Bluesky.class: $(STS)/Bluesky.java
 	$(JC) $(JOPT) $(STS)/Bluesky.java
 
 clean:
-	rm $(CLASSES)
+	rm -r classes/*
