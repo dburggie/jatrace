@@ -42,7 +42,8 @@ public class Color
         i[0] = Math.min(255, (int) (256 * red));
         i[1] = Math.min(255, (int) (256 * green));
         i[2] = Math.min(255, (int) (256 * blue));
-        i[3] = Math.min(255, (int) (256 * alpha));
+        i[3] = 255;
+        //i[3] = Math.min(255, (int) (256 * alpha));
         return i;
     }
     

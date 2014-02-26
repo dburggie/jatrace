@@ -21,7 +21,7 @@ public class Bluesky implements Sky
     @Override
     public Color getColor(Vect direction)
     {
-        double exp = Math.pow(direction.dot(sun), 20.0);
+        double exp = Math.pow(Math.max(0.0,direction.dot(sun)), 20.0);
         return color.dup().gamma(1 - exp);
     }
     

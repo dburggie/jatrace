@@ -13,8 +13,6 @@ public class World
 	
 	public World()
 	{
-		this.addBody(new Sphere());
-		this.setSky(new Bluesky());
 		i = new myInterface();
 		baseBrightness = 0.2;
 	}
@@ -109,13 +107,14 @@ public class World
 				while (lb != null)
 				{
 					b = lb.b();
+					lb = lb.next();
 					distance = b.intersection(ray);
+					
 					if (distance > 0.0 && (b != i.body || distance > 0.00001))
 					{
 						lb = null;
 						hitSomething = true;
 					}
-					lb = lb.next();
 				}
 				if (!hitSomething)
 				{
@@ -123,6 +122,8 @@ public class World
 				}
 			}
 		}
+		
+		brightness = Math.max(brightness, baseBrightness);
 		return Math.min(1.0, brightness);
 	}
 	
@@ -153,6 +154,7 @@ public class World
 			return sky.getColor(ray.d());
 		}
 		
+		//find surface illumnation
 		this.getLights();
 		double lux = this.shade();
 		

@@ -3,7 +3,7 @@ package jatrace;
 final class myInterface
 {
 	public boolean isMatte;
-	public double exp, distance;
+	public double exp, distance, reflectivity;
 	public Vect poi, normal;
 	public Body body;
 	public Color color;
@@ -17,6 +17,7 @@ final class myInterface
 		color = null;
 		isMatte = false;
 		exp = 1.0;
+		reflectivity = 0.0;
 	}
 	
 	public myInterface(double d, Vect p, Vect n, Body b, Color c)
@@ -30,11 +31,13 @@ final class myInterface
 		{
 			isMatte = body.isMatte(poi);
 			exp = body.getSpecularity(poi);
+			reflectivity = body.getReflectivity(poi);
 		}
 		else
 		{
 			isMatte = false;
 			exp = 1.0;
+			reflectivity = 0.0;
 		}
 	}
 	
@@ -52,6 +55,7 @@ final class myInterface
 		color = null;
 		isMatte = false;
 		exp = 1.0;
+		reflectivity = 0.0;
 		return this;
 	}
 	
@@ -78,6 +82,7 @@ final class myInterface
 			normal = body.getNormal(poi);
 			color = body.getColor(poi);
 			exp = body.getSpecularity(poi);
+			reflectivity = body.getReflectivity(poi);
 			isMatte = body.isMatte(poi);
 		}
 		

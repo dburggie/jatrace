@@ -6,32 +6,29 @@ public class testTracer
 {
 	public static void main(String [] args)
 	{
+		//camera setup
 		Camera c = new Camera();
-		c.setPPU(10);
+		c.setPPU(100);
 		c.setPosition( new Vect(0.0,0.0,10.0) );
 		c.setFocus( new Vect(0.0,0.0,0.0) );
+		c.setWindow(4.0,4.0);
 		
-		Sphere s = new Sphere( new Vect(0.0,0.0,0.0), 1.0, new Color( 0.9,0.3,0.3) );
-		s.setReflectivity(0.1);
 		
-		Sphere [] bodies = new Sphere [1];
-		bodies[0] = s;
+		//body setup
+		Sphere s1 = new Sphere( new Vect(-1.0,0.0,0.0), 1.0, new Color( 0.9,0.3,0.3) );
+		s1.setReflectivity(0.4);
 		
+		Sphere s2 = new Sphere( new Vect(1.0,0.0,0.0), 1.0, new Color( 0.3,0.3,0.3) );
+		s2.setReflectivity(0.4);
+		
+		
+		//sky and world setup
 		Bluesky bs = new Bluesky();
+		World w = new World();
+		w.setSky(bs).addBody(s1).addBody(s2);
+		w.setBaseBrightness(0.6);
 		
-		World w = new World(bodies,bs);
-		
-		Ray r = new Ray( new Vect(0.0,1.0,0.0), new Vect(0.0,-1.0,0.0));
-		
-		Color color = s.getColor(new Vect());
-		int [] samples = color.p();
-		System.out.println("red: " + samples[0] + " green: " + samples[1] + " blue: " + samples[2]);
-		
-		color = w.sample(r,0);
-		samples = color.p();
-		System.out.println("red: " + samples[0] + " green: " + samples[1] + " blue: " + samples[2]);
-		
-//		Tracer t =  new Tracer(new World(bodies, bs), c);
-//		t.draw(1).write();
+		Tracer t =  new Tracer(w, c);
+		t.draw().write();
 	}
 }
