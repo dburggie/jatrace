@@ -6,11 +6,11 @@ import raytrace.threeD.bodies.Body;
 
 private class myInterface
 {
-	private boolean isMatte;
-	private double exp, distance;
-	private Vect poi, normal;
-	private Body body;
-	private Color color;
+	public final boolean isMatte;
+	public final double exp, distance;
+	public final Vect poi, normal;
+	public final Body body;
+	public final Color color;
 	
 	public myInterface()
 	{
