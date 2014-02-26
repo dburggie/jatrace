@@ -8,6 +8,15 @@ public class Sphere extends Body
 {
     protected double radius, RR;
     
+    public Sphere()
+    {
+    	this.setDefaults();
+    	this.setPosition(new Vect(0.0,0.0,0.0));
+    	this.setColor(new Color(0.3,0.3,0.3));
+    	this.setMatte(false);
+    	this.setRadius(1.0);
+    }
+    
     public Sphere(Vect p, double r, Color c)
     {
     	this.setDefaults();

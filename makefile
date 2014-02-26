@@ -20,7 +20,7 @@ TEST=./test
 
 JAR=./raytrace.jar
 
-all: $(CLASSES_CJ) $(CLASSES_CJT) $(CLASSES_CJTB) $(CLASSES_CJTS)
+all: $(CLASSES_CJT) $(CLASSES_CJTB) $(CLASSES_CJTS)  $(CLASSES_CJ)
 
 ##### threeD #####
 $(CJT)/Vect.class: $(SJT)/Vect.java
@@ -58,7 +58,7 @@ $(CJTS)/Bluesky.class: $(SJTS)/Bluesky.java $(CJTS)/Sky.class
 
 
 
-##### raytrace #####
+##### jatrace #####
 $(CJ)/myImage.class: $(SJ)/myImage.java $(CJT)/Color.class
 	$(JC) $(JOPT) $(SJ)/myImage.java 
 
@@ -71,8 +71,8 @@ $(CJ)/linkedBody.class: $(SJ)/linkedBody.java $(CJTB)/Body.class
 $(CJ)/World.class: $(SJ)/World.java $(CJ)/linkedBody.class $(CJ)/myInterface.class
 	$(JC) $(JOPT) $(SJ)/World.java
 
-#$(CJ)/Tracer.class: $(SJ)/Tracer.java $(CJ)/myImage.class $(CJ)/World.class $(CJT)/Camera.class
-#	$(JC) $(JOPT) $(SJ)/
+$(CJ)/Tracer.class: $(SJ)/Tracer.java $(CJ)/myImage.class $(CJ)/World.class $(CJT)/Camera.class $(CJT)/Color.class
+	$(JC) $(JOPT) $(SJ)/Tracer.java
 
 
 clean:

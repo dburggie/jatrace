@@ -83,6 +83,10 @@ public class Camera
 		return this;
 	}
 	
+	public int getPPU() { return ppu; }
+	public double getWidth() { return width; }
+	public double getHeight() {return height; }
+	
 	public Camera setWindow(double w, double h)
 	{
 		width = w; height = h;
