@@ -5,8 +5,8 @@ class defaults
 	public static final int ppu = 100;
 	public static final double width = 1.0;
 	public static final double height = 1.0;
-	public static final Vect position = new Vect(0.0,1.0,0.0);
-	public static final Vect focus = new Vect(0.0,1.0,-1.0);
+	public static final Vect position = new Vect(0.0,1.0,10.0);
+	public static final Vect focus = new Vect(0.0,0.0,0.0);
 	public static final Vect orientation = new Vect(0.0,1.0,0.0);
 }
 
@@ -70,7 +70,7 @@ public class Camera
 	
 	public Camera setOrientation(Vect Up)
 	{
-		right = forward.cross(up).norm();
+		right = forward.cross(Up).norm();
 		up = right.cross(forward).norm();
 		return this;
 	}

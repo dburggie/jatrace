@@ -12,6 +12,7 @@ public class Body implements BodyInterface
 	{
 		this.setPosition( new Vect(0.0,0.0,0.0) );
 		this.setOrientation( new Vect(0.0,1.0,0.0) );
+		this.setReflectivity(0.2);
 		this.setColor(new Color(0.3,0.1,0.1));
 		this.setOpacity(1.0);
 		this.setIndex(3.0);

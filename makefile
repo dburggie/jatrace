@@ -1,5 +1,6 @@
 JC=javac
 JOPT=-d classes -classpath ./src
+TOPT=-d ./classes -classpath ./src:./test
 
 SJ=./src/jatrace
 SJT=$(SJ)/threeD
@@ -16,7 +17,10 @@ CLASSES_CJT= $(CJT)/Vect.class $(CJT)/Ray.class $(CJT)/Color.class $(CJT)/Camera
 CLASSES_CJTS= $(CJTS)/Sky.class $(CJTS)/Bluesky.class
 CLASSES_CJTB= $(CJTB)/BodyInterface.class $(CJTB)/Body.class $(CJTB)/Sphere.class
 
-TEST=./test
+TD=./test
+CT=./classes
+TESTSOURCES= $(TD)/testTracer.java
+TESTCLASSES= $(CT)/testTracer.class
 
 JAR=./raytrace.jar
 
@@ -74,6 +78,10 @@ $(CJ)/World.class: $(SJ)/World.java $(CJ)/linkedBody.class $(CJ)/myInterface.cla
 $(CJ)/Tracer.class: $(SJ)/Tracer.java $(CJ)/myImage.class $(CJ)/World.class $(CJT)/Camera.class $(CJT)/Color.class
 	$(JC) $(JOPT) $(SJ)/Tracer.java
 
+test: $(TESTCLASSES)
+
+$(TESTCLASSES): $(TESTSOURCES)
+	$(JC) $(TOPT) $(TESTSOURCES)
 
 clean:
 	rm -r classes/*

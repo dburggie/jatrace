@@ -13,6 +13,7 @@ public class Sphere extends Body
     	this.setDefaults();
     	this.setPosition(new Vect(0.0,0.0,0.0));
     	this.setColor(new Color(0.3,0.3,0.3));
+    	this.setReflectivity(0.3);
     	this.setMatte(false);
     	this.setRadius(1.0);
     }
@@ -62,7 +63,6 @@ public class Sphere extends Body
             if (hit < 0.0001) 
                 return -1.0;
             else return hit;
-        }
-        else return hit;
+        } else return hit;
     }
 }
