@@ -2,7 +2,7 @@ package jatrace;
 
 import jatrace.threeD.bodies.Body;
 
-private class linkedBody
+final class linkedBody
 {
 	private static linkedBody head = null;
 
@@ -10,29 +10,29 @@ private class linkedBody
 	private Body body;
 	private boolean inserted;
 	
-	public final static linkedBody top()
+	public static linkedBody top()
 	{
 		return head;
 	}
 	
-	public final linkedBody(Body b)
+	public linkedBody(Body b)
 	{
 		body = b;
 		inserted = false;
 		this.insert();
 	}
 	
-	public final Body b()
+	public Body b()
 	{
 		return body;
 	}
 	
-	public final linkedBody next()
+	public linkedBody next()
 	{
 		return nextLink;
 	}
 	
-	private final void insert()
+	private void insert()
 	{
 		if (!inserted)
 		{

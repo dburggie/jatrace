@@ -13,13 +13,13 @@ final class myInterface
 	
 	public myInterface()
 	{
-		distance = null;
+		distance = -1.0;
 		poi = null;
 		normal = null;
 		body = null;
 		color = null;
 		isMatte = false;
-		exp = null;
+		exp = 1.0;
 	}
 	
 	public myInterface(double d, Vect p, Vect n, Body b, Color c)
@@ -29,15 +29,15 @@ final class myInterface
 		normal = n;
 		body = b;
 		color = c;
-		if (body)
+		if (body != null)
 		{
-			isMatte = body.isMatte();
-			exp = body.specularity();
+			isMatte = body.isMatte(poi);
+			exp = body.getSpecularity(poi);
 		}
 		else
 		{
 			isMatte = false;
-			exp = null;
+			exp = 1.0;
 		}
 	}
 	
@@ -48,19 +48,19 @@ final class myInterface
 	
 	public myInterface reset()
 	{
-		distance = null;
+		distance = -1.0;
 		poi = null;
 		normal = null;
 		body = null;
 		color = null;
 		isMatte = false;
-		exp = null;
+		exp = 1.0;
 		return this;
 	}
 	
 	public myInterface hit(Body b, double d)
 	{
-		if (!b)
+		if (b == null)
 		{
 			body = b;
 			distance = d;
@@ -75,13 +75,13 @@ final class myInterface
 	
 	public myInterface registerHit(Ray r)
 	{
-		if (!b && d > 0.0)
+		if (body != null && distance > 0.0)
 		{
 			poi = r.follow(distance);
-			normal = body.normal(poi);
+			normal = body.getNormal(poi);
 			color = body.getColor(poi);
-			exp = body.specularity();
-			isMatte = body.isMatte();
+			exp = body.getSpecularity(poi);
+			isMatte = body.isMatte(poi);
 		}
 		
 		return this;

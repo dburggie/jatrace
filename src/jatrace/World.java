@@ -1,6 +1,6 @@
 package jatrace;
 
-import jatrace.threeD.Vector;
+import jatrace.threeD.Vect;
 import jatrace.threeD.Ray;
 import jatrace.threeD.Color;
 import jatrace.threeD.bodies.Body;
@@ -18,10 +18,10 @@ public class World
 	{
 		for ( Body x : b )
 		{
-			this.addBody(b);
+			this.addBody(x);
 		}
 		this.setSky(s);
-		i = new Interface;
+		i = new myInterface();
 		baseBrightness = 0.2;
 	}
 	
@@ -37,15 +37,9 @@ public class World
 		return this;
 	}
 	
-	public Color getSkyColor(Vect direction)
-	{
-		return sky.getColor(direction);
-		return this;
-	}
-	
 	public World getLights()
 	{
-		lights = sky.getLights();
+		lights = sky.getLight();
 		return this;
 	}
 	
@@ -63,15 +57,15 @@ public class World
 		Body b;
 		double distance;
 		
-		while (lb)
+		while (lb != null)
 		{
 			b = lb.b();
 			distance = b.intersection(ray);
 			if (distance > 0.0)
 			{
-				if (b != lastHit || d > 0.00001)
+				if (b != lastHit || distance > 0.00001)
 				{
-					i.hit(b,distance)
+					i.hit(b,distance);
 				}
 			}
 			lb = lb.next();
@@ -89,10 +83,14 @@ public class World
 	{
 		Vect poi = i.poi;
 		Ray ray;
-		linkedBody lbody;
+		linkedBody lb;
+		Body b;
 		
 		int numLights = lights.length;
-		double brightness = 0.0, lambertian = 0.0, brightnessPerLight = 1.0 / numLights;
+		double	distance = -1.0,
+				brightness = 0.0, 
+				lambertian = 0.0, 
+				brightnessPerLight = 1.0 / numLights;
 		boolean hitSomething;
 		
 		for (Vect L : lights)
@@ -102,14 +100,14 @@ public class World
 			{
 				hitSomething = false;
 				ray = new Ray(i.poi, L);
-				lbody = linkedBody.top();
-				while (lbody != null)
+				lb = linkedBody.top();
+				while (lb != null)
 				{
 					b = lb.b();
 					distance = b.intersection(ray);
-					if (distance > 0.0 && (b != i.body or distance > 0.00001))
+					if (distance > 0.0 && (b != i.body || distance > 0.00001))
 					{
-						lbody = null;
+						lb = null;
 						hitSomething = true;
 					}
 					lb = lb.next();
@@ -126,7 +124,7 @@ public class World
 	
 	public Color highlight(double lux, Ray ray)
 	{
-		lux = Math.max(lux, self.baseBrightness);
+		lux = Math.max(lux, baseBrightness);
 		
 		double highlight = 0.0;
 		Vect d = ray.reflect(i.poi, i.normal).d();
@@ -147,7 +145,7 @@ public class World
 		//return sky color if we didn't hit anything
 		if (i.body == null)
 		{
-			return sky.getSky(ray.d());
+			return sky.getColor(ray.d());
 		}
 		
 		double lux = this.shade();
@@ -170,7 +168,7 @@ public class World
 		{
 			double cosine = Math.abs(ray.d().dot(i.normal));
 			
-			double R = i.body.reflectivity(i.poi);
+			double R = i.body.getReflectivity(i.poi);
 			double D = 1.0 - R;
 			double sPower = R + D * Math.pow(1.0 - cosine, i.exp);
 			double tPower = 1.0 - sPower;
@@ -192,6 +190,6 @@ public class World
 	
 	public Color sample(Ray ray)
 	{
-		return this.sample(Ray ray, 8, null);
+		return this.sample(ray, 8, null);
 	}
 }
