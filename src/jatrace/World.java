@@ -158,6 +158,7 @@ public class World
 			return sky.getColor(ray.d());
 		}
 		
+		this.getLights();
 		double lux = this.shade();
 		
 		// return a specularly highlighted color for matte object
@@ -165,9 +166,6 @@ public class World
 		{
 			return this.highlight(lux, ray);
 		}
-		
-		
-		
 		
 		//handle depth
 		if (depth == 0)

@@ -60,7 +60,7 @@ final class myInterface
 	
 	public myInterface hit(Body b, double d)
 	{
-		if (b == null)
+		if (body == null)
 		{
 			body = b;
 			distance = d;
