@@ -1,16 +1,15 @@
-package raytrace;
+package jatrace;
 
-import raytrace.threeD.Vect;
-import raytrace.threeD.Ray;
-import raytrace.threeD.bodies.Body;
+import jatrace.threeD.*;
+import jatrace.threeD.bodies.Body;
 
-private class myInterface
+final class myInterface
 {
-	public final boolean isMatte;
-	public final double exp, distance;
-	public final Vect poi, normal;
-	public final Body body;
-	public final Color color;
+	public boolean isMatte;
+	public double exp, distance;
+	public Vect poi, normal;
+	public Body body;
+	public Color color;
 	
 	public myInterface()
 	{

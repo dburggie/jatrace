@@ -1,10 +1,10 @@
-package raytrace;
+package jatrace;
 
-import raytrace.threeD.Vector;
-import raytrace.threeD.Ray;
-import raytrace.threeD.Color;
-import raytrace.threeD.bodies.Body;
-import raytrace.threeD.skies.Sky;
+import jatrace.threeD.Vector;
+import jatrace.threeD.Ray;
+import jatrace.threeD.Color;
+import jatrace.threeD.bodies.Body;
+import jatrace.threeD.skies.Sky;
 
 public class World
 {

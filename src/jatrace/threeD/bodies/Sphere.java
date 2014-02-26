@@ -1,8 +1,8 @@
-package raytrace.threeD.bodies;
+package jatrace.threeD.bodies;
 
-import raytrace.threeD.Ray;
-import raytrace.threeD.Color;
-import raytrace.threeD.Vect;
+import jatrace.threeD.Ray;
+import jatrace.threeD.Color;
+import jatrace.threeD.Vect;
 
 public class Sphere extends Body
 {

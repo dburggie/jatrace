@@ -1,4 +1,4 @@
-package raytrace.threeD;
+package jatrace.threeD;
 
 public class Vect
 {

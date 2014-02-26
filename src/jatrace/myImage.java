@@ -1,5 +1,6 @@
 package jatrace;
 
+import jatrace.threeD.Color;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;

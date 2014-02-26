@@ -1,34 +1,79 @@
 JC=javac
 JOPT=-d classes -classpath ./src
-ST=./src/raytrace/threeD
-STB=$(ST)/bodies
-STS=$(ST)/skies
-CT=./classes/raytrace/threeD
-CTB=$(CT)/bodies
-CTS=$(CT)/skies
-CLASSES= $(CT)/Vect.class $(CT)/Ray.class $(CT)/Camera.class $(CT)/Color.class $(CTS)/Bluesky.class $(CTB)/Sphere.class
-TEST=./test/
+
+SJ=./src/jatrace
+SJT=$(SJ)/threeD
+SJTB=$(SJT)/bodies
+SJTS=$(SJT)/skies
+
+CJ=./classes/jatrace
+CJT=$(CJ)/threeD
+CJTB=$(CJT)/bodies
+CJTS=$(CJT)/skies
+
+CLASSES_CJ=$(CJ)/myImage.class $(CJ)/myInterface.class $(CJ)/linkedBody.class $(CJ)/World.class $(CJ)/Tracer.class
+CLASSES_CJT= $(CJT)/Vect.class $(CJT)/Ray.class $(CJT)/Color.class $(CJT)/Camera.class
+CLASSES_CJTS= $(CJTS)/Sky.class $(CJTS)/Bluesky.class
+CLASSES_CJTB= $(CJTB)/BodyInterface.class $(CJTB)/Body.class $(CJTB)/Sphere.class
+
+TEST=./test
+
 JAR=./raytrace.jar
 
-all: $(CLASSES)
+all: $(CLASSES_CJ) $(CLASSES_CJT) $(CLASSES_CJTB) $(CLASSES_CJTS)
 
-$(CT)/Vect.class: $(ST)/Vect.java
-	$(JC) $(JOPT) $(ST)/Vect.java
+##### threeD #####
+$(CJT)/Vect.class: $(SJT)/Vect.java
+	$(JC) $(JOPT) $(SJT)/Vect.java
 
-$(CT)/Ray.class: $(ST)/Ray.java $(CT)/Vect.class
-	$(JC) $(JOPT) $(ST)/Ray.java
+$(CJT)/Ray.class: $(SJT)/Ray.java $(CJT)/Vect.class
+	$(JC) $(JOPT) $(SJT)/Ray.java
 
-$(CT)/Camera.class: $(ST)/Camera.java
-	$(JC) $(JOPT) $(ST)/Camera.java
+$(CJT)/Camera.class: $(SJT)/Camera.java $(CJT)/Vect.class
+	$(JC) $(JOPT) $(SJT)/Camera.java
 
-$(CT)/Color.class: $(ST)/Color.java
-	$(JC) $(JOPT) $(ST)/Color.java
+$(CJT)/Color.class: $(SJT)/Color.java
+	$(JC) $(JOPT) $(SJT)/Color.java
 
-$(CTB)/Sphere.class: $(STB)/Sphere.java
-	$(JC) $(JOPT) $(STB)/Sphere.java
 
-$(CTS)/Bluesky.class: $(STS)/Bluesky.java
-	$(JC) $(JOPT) $(STS)/Bluesky.java
+
+##### bodies #####
+$(CJTB)/BodyInterface.class: $(SJTB)/BodyInterface.java
+	$(JC) $(JOPT) $(SJTB)/BodyInterface.java
+
+$(CJTB)/Body.class: $(SJTB)/Body.java $(CJTB)/BodyInterface.class
+	$(JC) $(JOPT) $(SJTB)/Body.java
+
+$(CJTB)/Sphere.class: $(SJTB)/Sphere.java $(CJTB)/Body.class
+	$(JC) $(JOPT) $(SJTB)/Sphere.java
+
+
+
+##### Skies #####
+$(CJTS)/Sky.class: $(SJTS)/Sky.java
+	$(JC) $(JOPT) $(SJTS)/Sky.java
+
+$(CJTS)/Bluesky.class: $(SJTS)/Bluesky.java $(CJTS)/Sky.class
+	$(JC) $(JOPT) $(SJTS)/Bluesky.java
+
+
+
+##### raytrace #####
+$(CJ)/myImage.class: $(SJ)/myImage.java $(CJT)/Color.class
+	$(JC) $(JOPT) $(SJ)/myImage.java 
+
+$(CJ)/myInterface.class: $(SJ)/myInterface.java $(CJT)/Vect.class $(CJT)/Ray.class $(CJT)/Color.class
+	$(JC) $(JOPT) $(SJ)/myInterface.java
+
+$(CJ)/linkedBody.class: $(SJ)/linkedBody.java $(CJTB)/Body.class
+	$(JC) $(JOPT) $(SJ)/linkedBody.java
+
+$(CJ)/World.class: $(SJ)/World.java $(CJ)/linkedBody.class $(CJ)/myInterface.class
+	$(JC) $(JOPT) $(SJ)/World.java
+
+#$(CJ)/Tracer.class: $(SJ)/Tracer.java $(CJ)/myImage.class $(CJ)/World.class $(CJT)/Camera.class
+#	$(JC) $(JOPT) $(SJ)/
+
 
 clean:
 	rm -r classes/*

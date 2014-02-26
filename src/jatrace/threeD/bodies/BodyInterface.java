@@ -1,6 +1,6 @@
-package raytrace.threeD.bodies;
+package jatrace.threeD.bodies;
 
-import raytrace.threeD.*;
+import jatrace.threeD.*;
 
 public interface BodyInterface
 {
