@@ -1,8 +1,6 @@
-package jatrace.threeD.bodies;
+package jatrace;
 
-import jatrace.threeD.*;
-
-public interface BodyInterface
+public interface Body
 {
 	public Color getColor(Vect point);
 	public Vect getNormal(Vect point);

@@ -1,7 +1,4 @@
-package jatrace.threeD.skies;
-
-import jatrace.threeD.Vect;
-import jatrace.threeD.Color;
+package jatrace;
 
 public interface Sky
 {

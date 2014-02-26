@@ -1,21 +1,18 @@
 JC=javac
 JOPT=-d classes -classpath ./src
-TOPT=-d ./classes -classpath ./src:./test
+TOPT=-d classes -classpath ./src:./test
 
 SJ=./src/jatrace
-SJT=$(SJ)/threeD
-SJTB=$(SJT)/bodies
-SJTS=$(SJT)/skies
+SJB=$(SJ)/bodies
+SJS=$(SJ)/skies
 
 CJ=./classes/jatrace
-CJT=$(CJ)/threeD
-CJTB=$(CJT)/bodies
-CJTS=$(CJT)/skies
+CJB=$(CJ)/bodies
+CJS=$(CJ)/skies
 
-CLASSES_CJ=$(CJ)/myImage.class $(CJ)/myInterface.class $(CJ)/linkedBody.class $(CJ)/World.class $(CJ)/Tracer.class
-CLASSES_CJT= $(CJT)/Vect.class $(CJT)/Ray.class $(CJT)/Color.class $(CJT)/Camera.class
-CLASSES_CJTS= $(CJTS)/Sky.class $(CJTS)/Bluesky.class
-CLASSES_CJTB= $(CJTB)/BodyInterface.class $(CJTB)/Body.class $(CJTB)/Sphere.class
+CLASSES_CJ= $(CJ)/Body.class $(CJ)/Camera.class $(CJ)/Color.class $(CJ)/linkedBody.class $(CJ)/myImage.class $(CJ)/myInterface.class $(CJ)/Ray.class $(CJ)/Sky.class $(CJ)/Tracer.class $(CJ)/Vect.class $(CJ)/World.class 
+CLASSES_CJS= $(CJS)/Bluesky.class
+CLASSES_CJB= $(CJB)/BasicBody.class $(CJB)/Sphere.class
 
 TD=./test
 CT=./classes
@@ -24,59 +21,60 @@ TESTCLASSES= $(CT)/testTracer.class
 
 JAR=./raytrace.jar
 
-all: $(CLASSES_CJT) $(CLASSES_CJTB) $(CLASSES_CJTS)  $(CLASSES_CJ)
+all: $(CLASSES_CJ) $(CLASSES_CJB) $(CLASSES_CJS)
 
-##### threeD #####
-$(CJT)/Vect.class: $(SJT)/Vect.java
-	$(JC) $(JOPT) $(SJT)/Vect.java
+##### jatrace #####
 
-$(CJT)/Ray.class: $(SJT)/Ray.java $(CJT)/Vect.class
-	$(JC) $(JOPT) $(SJT)/Ray.java
+$(CJ)/Vect.class: $(SJ)/Vect.java
+	$(JC) $(JOPT) $(SJ)/Vect.java
 
-$(CJT)/Camera.class: $(SJT)/Camera.java $(CJT)/Vect.class
-	$(JC) $(JOPT) $(SJT)/Camera.java
+$(CJ)/Ray.class: $(SJ)/Ray.java $(CJ)/Vect.class
+	$(JC) $(JOPT) $(SJ)/Ray.java
 
-$(CJT)/Color.class: $(SJT)/Color.java
-	$(JC) $(JOPT) $(SJT)/Color.java
+$(CJ)/Color.class: $(SJ)/Color.java
+	$(JC) $(JOPT) $(SJ)/Color.java
+
+$(CJ)/Body.class: $(SJ)/Body.java
+	$(JC) $(JOPT) $(SJ)/Body.java
+
+$(CJ)/Sky.class: $(SJ)/Sky.java
+	$(JC) $(JOPT) $(SJ)/Sky.java
+
+$(CJ)/Camera.class: $(SJ)/Camera.java $(CJ)/Vect.class
+	$(JC) $(JOPT) $(SJ)/Camera.java
+
+$(CJ)/myImage.class: $(SJ)/myImage.java $(CJ)/Color.class
+	$(JC) $(JOPT) $(SJ)/myImage.java 
+
+$(CJ)/myInterface.class: $(SJ)/myInterface.java $(CJ)/Vect.class $(CJ)/Ray.class $(CJ)/Color.class
+	$(JC) $(JOPT) $(SJ)/myInterface.java
+
+$(CJ)/linkedBody.class: $(SJ)/linkedBody.java $(CJ)/Body.class
+	$(JC) $(JOPT) $(SJ)/linkedBody.java
+
+$(CJ)/World.class: $(SJ)/World.java $(CJ)/Sky.class $(CJ)/linkedBody.class $(CJ)/myInterface.class
+	$(JC) $(JOPT) $(SJ)/World.java
+
+$(CJ)/Tracer.class: $(SJ)/Tracer.java $(CJ)/myImage.class $(CJ)/World.class $(CJ)/Camera.class $(CJ)/Color.class
+	$(JC) $(JOPT) $(SJ)/Tracer.java
 
 
 
 ##### bodies #####
-$(CJTB)/BodyInterface.class: $(SJTB)/BodyInterface.java
-	$(JC) $(JOPT) $(SJTB)/BodyInterface.java
+$(CJB)/BasicBody.class: $(SJB)/BasicBody.java $(CJ)/Body.class
+	$(JC) $(JOPT) $(SJB)/Body.java
 
-$(CJTB)/Body.class: $(SJTB)/Body.java $(CJTB)/BodyInterface.class
-	$(JC) $(JOPT) $(SJTB)/Body.java
-
-$(CJTB)/Sphere.class: $(SJTB)/Sphere.java $(CJTB)/Body.class
-	$(JC) $(JOPT) $(SJTB)/Sphere.java
+$(CJB)/Sphere.class: $(SJB)/Sphere.java $(CJB)/BasicBody.class
+	$(JC) $(JOPT) $(SJB)/Sphere.java
 
 
 
 ##### Skies #####
-$(CJTS)/Sky.class: $(SJTS)/Sky.java
-	$(JC) $(JOPT) $(SJTS)/Sky.java
-
-$(CJTS)/Bluesky.class: $(SJTS)/Bluesky.java $(CJTS)/Sky.class
-	$(JC) $(JOPT) $(SJTS)/Bluesky.java
+$(CJS)/Bluesky.class: $(SJS)/Bluesky.java $(CJ)/Sky.class
+	$(JC) $(JOPT) $(SJS)/Bluesky.java
 
 
 
-##### jatrace #####
-$(CJ)/myImage.class: $(SJ)/myImage.java $(CJT)/Color.class
-	$(JC) $(JOPT) $(SJ)/myImage.java 
-
-$(CJ)/myInterface.class: $(SJ)/myInterface.java $(CJT)/Vect.class $(CJT)/Ray.class $(CJT)/Color.class
-	$(JC) $(JOPT) $(SJ)/myInterface.java
-
-$(CJ)/linkedBody.class: $(SJ)/linkedBody.java $(CJTB)/Body.class
-	$(JC) $(JOPT) $(SJ)/linkedBody.java
-
-$(CJ)/World.class: $(SJ)/World.java $(CJ)/linkedBody.class $(CJ)/myInterface.class
-	$(JC) $(JOPT) $(SJ)/World.java
-
-$(CJ)/Tracer.class: $(SJ)/Tracer.java $(CJ)/myImage.class $(CJ)/World.class $(CJT)/Camera.class $(CJT)/Color.class
-	$(JC) $(JOPT) $(SJ)/Tracer.java
 
 test: $(TESTCLASSES)
 

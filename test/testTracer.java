@@ -1,7 +1,6 @@
 import jatrace.*;
-import jatrace.threeD.*;
-import jatrace.threeD.bodies.*;
-import jatrace.threeD.skies.Bluesky;
+import jatrace.bodies.*;
+import jatrace.skies.*;
 
 public class testTracer
 {

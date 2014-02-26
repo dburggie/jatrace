@@ -1,8 +1,5 @@
 package jatrace;
 
-import jatrace.threeD.*;
-import jatrace.threeD.bodies.Body;
-
 final class myInterface
 {
 	public boolean isMatte;

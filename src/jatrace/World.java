@@ -1,12 +1,7 @@
 package jatrace;
 
-import jatrace.threeD.Vect;
-import jatrace.threeD.Ray;
-import jatrace.threeD.Color;
-import jatrace.threeD.bodies.Body;
-import jatrace.threeD.bodies.Sphere;
-import jatrace.threeD.skies.Sky;
-import jatrace.threeD.skies.Bluesky;
+import jatrace.bodies.Sphere;
+import jatrace.skies.Bluesky;
 
 public class World
 {

@@ -1,10 +1,8 @@
-package jatrace.threeD.bodies;
+package jatrace.bodies;
 
-import jatrace.threeD.Ray;
-import jatrace.threeD.Color;
-import jatrace.threeD.Vect;
+import jatrace.*;
 
-public class Sphere extends Body
+public class Sphere extends BasicBody
 {
     protected double radius, RR;
     
@@ -23,7 +21,8 @@ public class Sphere extends Body
     	this.setDefaults();
     	this.setPosition(p);
     	this.setColor(c);
-    	this.setMatte(true);
+    	this.setReflectivity(0.3);
+    	this.setMatte(false);
     	this.setRadius(r);
     }
     

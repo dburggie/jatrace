@@ -1,7 +1,5 @@
 package jatrace;
 
-import jatrace.threeD.bodies.Body;
-
 final class linkedBody
 {
 	private static linkedBody head = null;

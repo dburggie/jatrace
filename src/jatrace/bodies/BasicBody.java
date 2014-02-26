@@ -1,14 +1,12 @@
-package jatrace.threeD.bodies;
+package jatrace.bodies;
 
-import jatrace.threeD.Ray;
-import jatrace.threeD.Color;
-import jatrace.threeD.Vect;
+import jatrace.*;
 
-public class Body implements BodyInterface
+public class BasicBody implements Body
 {
-	public Body() { this.setDefaults(); }
+	public BasicBody() { this.setDefaults(); }
 
-	protected Body setDefaults()
+	protected BasicBody setDefaults()
 	{
 		this.setPosition( new Vect(0.0,0.0,0.0) );
 		this.setOrientation( new Vect(0.0,1.0,0.0) );
@@ -23,20 +21,20 @@ public class Body implements BodyInterface
 	
 	//dealing with position
 	protected Vect position;
-	public Body setPosition(Vect p) { position = p.dup(); return this; }
+	public BasicBody setPosition(Vect p) { position = p.dup(); return this; }
 	
 	//dealing with orientation
 	protected Vect orientation;
-	public Body setOrientation(Vect o) { orientation = o.dup(); return this; }
+	public BasicBody setOrientation(Vect o) { orientation = o.dup(); return this; }
 	
 	// dealing with specularity
 	protected double specularity;
-	public Body setSpecularity(double s) { specularity = s;	return this; }
+	public BasicBody setSpecularity(double s) { specularity = s;	return this; }
 	@Override public double getSpecularity(Vect point) { return specularity; }
 	
 	//dealing with color
 	protected Color color;
-	public Body setColor(Color c) { color = c.dup(); return this; }
+	public BasicBody setColor(Color c) { color = c.dup(); return this; }
 	@Override public Color getColor(Vect point)	{ return color.dup(); }
 	
 	//dealing with normal
@@ -44,17 +42,17 @@ public class Body implements BodyInterface
 	
 	//dealing with reflectivity
 	protected double reflectivity;
-	public Body setReflectivity(double r) { reflectivity = r; return this; }
+	public BasicBody setReflectivity(double r) { reflectivity = r; return this; }
 	@Override public double getReflectivity(Vect point) { return reflectivity; }
 	
 	//dealing with opacity
 	protected double opacity;
-	public Body setOpacity(double o) { opacity = o; return this; }
+	public BasicBody setOpacity(double o) { opacity = o; return this; }
 	@Override public double getOpacity(Vect point) { return opacity; }
 	
 	// dealing with index of refraction
 	protected double index;
-	public Body setIndex(double i) { index = i; return this; }
+	public BasicBody setIndex(double i) { index = i; return this; }
 	@Override public double getIndex(Vect point) { return index; }
 	
 	//dealing with matte vs specular reflection

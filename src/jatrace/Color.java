@@ -1,4 +1,4 @@
-package jatrace.threeD;
+package jatrace;
 
 public class Color
 {

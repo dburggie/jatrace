@@ -1,11 +1,5 @@
 package jatrace;
 
-import jatrace.threeD.Color;
-import jatrace.threeD.Camera;
-import jatrace.threeD.skies.Sky;
-import jatrace.myImage;
-import jatrace.World;
-
 public class Tracer
 {
 	protected World world;

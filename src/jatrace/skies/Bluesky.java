@@ -1,7 +1,6 @@
-package jatrace.threeD.skies;
+package jatrace.skies;
 
-import jatrace.threeD.Vect;
-import jatrace.threeD.Color;
+import jatrace.*;
 
 public class Bluesky implements Sky
 {
