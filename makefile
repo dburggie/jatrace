@@ -11,8 +11,8 @@ CJB=$(CJ)/bodies
 CJS=$(CJ)/skies
 
 CLASSES_CJ= $(CJ)/Body.class $(CJ)/Camera.class $(CJ)/Color.class $(CJ)/linkedBody.class $(CJ)/myImage.class $(CJ)/myInterface.class $(CJ)/Ray.class $(CJ)/Sky.class $(CJ)/Tracer.class $(CJ)/Vect.class $(CJ)/World.class 
-CLASSES_CJS= $(CJS)/Bluesky.class
-CLASSES_CJB= $(CJB)/BasicBody.class $(CJB)/Sphere.class
+CLASSES_CJS= $(CJS)/Bluesky.class $(CJS)/Horizon.class
+CLASSES_CJB= $(CJB)/BasicBody.class $(CJB)/Sphere.class $(CJB)/Plane.class $(CJB)/CheckPlane.class
 
 TD=./test
 CT=./classes
@@ -66,6 +66,12 @@ $(CJB)/BasicBody.class: $(SJB)/BasicBody.java $(CJ)/Body.class
 
 $(CJB)/Sphere.class: $(SJB)/Sphere.java $(CJB)/BasicBody.class
 	$(JC) $(JOPT) $(SJB)/Sphere.java
+	
+$(CJB)/Plane.class: $(SJB)/Plane.java $(CJB)/BasicBody.class
+	$(JC) $(JOPT) $(SJB)/Plane.java
+
+$(CJB)/CheckPlane.class: $(SJB)/CheckPlane.java $(CJB)/Plane.class
+	$(JC) $(JOPT) $(SJB)/CheckPlane.java
 
 
 
@@ -73,7 +79,8 @@ $(CJB)/Sphere.class: $(SJB)/Sphere.java $(CJB)/BasicBody.class
 $(CJS)/Bluesky.class: $(SJS)/Bluesky.java $(CJ)/Sky.class
 	$(JC) $(JOPT) $(SJS)/Bluesky.java
 
-
+$(CJS)/Horizon.class: $(SJS)/Horizon.java $(CJ)/Sky.class
+	$(JC) $(JOPT) $(SJS)/Horizon.java
 
 
 test: $(TESTCLASSES)
