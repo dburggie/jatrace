@@ -16,8 +16,8 @@ CLASSES_CJB= $(CJB)/BasicBody.class $(CJB)/Sphere.class $(CJB)/Plane.class $(CJB
 
 TD=./test
 CT=./classes
-TESTSOURCES= $(TD)/testTracer.java
-TESTCLASSES= $(CT)/testTracer.class
+TESTSOURCES= $(TD)/testTracer.java $(TD)/poster.java
+TESTCLASSES= $(CT)/testTracer.class $(CT)/poster.class
 
 JAR=./raytrace.jar
 
@@ -89,4 +89,10 @@ $(TESTCLASSES): $(TESTSOURCES)
 	$(JC) $(TOPT) $(TESTSOURCES)
 
 clean:
-	rm -r classes/*
+	rm $(CJ)/*.class
+	rm $(CJB)/*.class
+	rm $(CJS)/*.class
+	rm classes/*.class
+
+
+

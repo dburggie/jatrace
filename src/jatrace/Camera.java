@@ -29,6 +29,18 @@ public class Camera
 		initLock = false;
 	}
 	
+	public Camera(Vect origin, Vect focus, double w, double h)
+	{
+		initLock = true;
+		this.setPosition(origin);
+		this.setFocus(focus);
+		this.setOrientation(defaults.orientation);
+		this.setWindow(w,h);
+		this.setPPU(defaults.ppu);
+		delta = false;
+		initLock = false;
+	}
+	
 	public Camera(Vect origin, Vect focus, Vect u, double w, double h, int p)
 	{
 		initLock = true;

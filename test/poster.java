@@ -1,37 +1,10 @@
-/*
-win_w = 3.5
-win_h = 3.0
-ppu = 100
-passes = 2
-filename = 'Poster-{0}x{1}.png'.format(int(win_w * ppu), int(win_h * ppu))
-
-ball = Sphere(Vector(0.0,0.0,0.0), 1.0, Color(0.1,0.1,0.1))
-ball.set_reflectivity(0.6)
-
-floorN = Vector(0.0,1.0,0.0)
-floorP = Vector(0.0,0.0,0.0)
-floorO = Vector(1.0,0.0,0.0)
-
-floor = CheckPlane(floorN, floorP, floorO)
-floor.set_reflectivity(0.4)
-
-bodies = [ball, floor]
-world = World(bodies, skies.Horizon()).set_base_brightness(0.8)
-
-camP = Vector(5.0,1.0,5.0)
-camF = Vector(0.0,1.0,0.0)
-cam = Camera(camP, camF, win_w, win_h)
-
-Tracer(world, cam).draw(passes).write(filename)
-*/
-
 import jatrace.*;
 import jatrace.skies.*;
 import jatrace.bodies.*;
 
 public class poster
 {
-	public static main(String [] args)
+	public static void main(String [] args)
 	{
 		
 		double	win_w = 3.5,
@@ -45,7 +18,7 @@ public class poster
 		
 		String	filename = "Poster-" + pix_w + "x" + pix_h + ".png";
 		
-		Sphere	Ball = new Sphere( new Vect(0.0,0.0,0.0), 1.0, Color(0.1,0.1,0.1));
+		Sphere	Ball = new Sphere( new Vect(0.0,0.0,0.0), 1.0, new Color(0.1,0.1,0.1));
 		Ball.setReflectivity(0.6);
 		
 		Vect	floorN = new Vect(0.0,1.0,0.0),

@@ -8,8 +8,8 @@ public class Plane extends BasicBody
 	@Override public Plane setDefaults()
 	{
 		this.setPosition( new Vect(0.0,0.0,0.0) );
-		this.setOrientation( new Vect(1.0,0.0,0.0) );
 		this.setNormal( new Vect(0.0,1.0,0.0) );
+		this.setOrientation( new Vect(1.0,0.0,0.0) );
 		this.setReflectivity(0.2);
 		this.setColor(new Color(0.3,0.3,0.3));
 		this.setOpacity(1.0);

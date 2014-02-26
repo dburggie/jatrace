@@ -19,7 +19,7 @@ public class CheckPlane extends Plane
 	//dealing with orientation
 	protected Vect oX, oY;
 	@Override
-	public setOrientation(Vect o)
+	public CheckPlane setOrientation(Vect o)
 	{
 		super.setOrientation(o);
 		oX = o.sub(position).norm();
@@ -31,7 +31,7 @@ public class CheckPlane extends Plane
 	
 	//dealing with color
 	protected Color c1, c2;
-	@Override public CheckPlane setColor(Color a, Color b) { c1 = a.dup(); c2 = b.dup(); return this; }
+	public CheckPlane setColor(Color a, Color b) { c1 = a.dup(); c2 = b.dup(); return this; }
 	@Override
 	public Color getColor(Vect point)
 	{
