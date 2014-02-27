@@ -41,14 +41,14 @@ public class Camera
 		initLock = false;
 	}
 	
-	public Camera(Vect origin, Vect focus, Vect u, double w, double h, int p)
+	public Camera(Vect p, Vect f, Vect o, double w, double h, int P)
 	{
 		initLock = true;
-		this.setPosition(origin);
-		this.setFocus(focus);
-		this.setOrientation(u);
+		this.setPosition(p);
+		this.setFocus(f);
+		this.setOrientation(o);
 		this.setWindow(w,h);
-		this.setPPU(p);
+		this.setPPU(P);
 		delta = false;
 		initLock = false;
 	}
@@ -102,7 +102,8 @@ public class Camera
 	public Camera setWindow(double w, double h)
 	{
 		width = w; height = h;
-		corner = focus.dup().trans(up, w / 2.0).trans(right, h / -2.0);
+//		corner = focus.dup().trans(up, w / 2.0).trans(right, h / -2.0);
+		corner = focus.dup().trans(up, h / 2.0).trans(right, w / -2.0);
 		return this;
 	}
 	

@@ -6,11 +6,11 @@ import jatrace.bodies.Plane;
 public class CheckPlane extends Plane
 {
 	
-	public CheckPlane( Vect n, Vect origin, Vect orientation )
+	public CheckPlane( Vect o, Vect n, Vect orientation )
 	{
 		this.setDefaults();
 		this.setNormal(n);
-		this.setPosition(origin);
+		this.setPosition(o);
 		this.setOrientation(orientation);
 		this.setColor( new Color(0.01,0.01,0.01), new Color(0.99,0.99,0.99) );
 	}

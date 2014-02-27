@@ -110,4 +110,15 @@ public class Vect
         
         return this.trans(dx * d, dy * d, dz * d);
     }
+    
+	public String toString()
+	{
+		String s = "x: ";
+		s += x;
+		s += " y: ";
+		s += y;
+		s += " z: ";
+		s += z;
+		return s;
+	}
 }
