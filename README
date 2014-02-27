@@ -1,0 +1,64 @@
+This is a Java package that you can use to easily render 3D images of
+mathematical solids. It is designed to be easily extensible.
+
+The rendering is accomplished relatively simple recursive sampling of the world
+by tracing of rays.
+
+Utilization of this package requires you instantiate the following:
+
+    1) a jatrace.Camera object
+
+    2) a jatrace.World object
+
+    3) any number of objects in jatrace.bodies that implement the jatrace.Body
+        interface
+
+    4) a jatrace.Tracer object
+
+Instantiation of these objects is as follows:
+    
+    jatrace.Camera constructors:
+        Camera(
+            Vect position, 
+            Vect focus, 
+            double width, 
+            double height)
+            
+          creates a Camera object with given position and focal center.
+          Window width and height are as specified. Pixels per unit
+          default to 100 and window orientation is vertical.
+            
+        Camera(
+            Vect position, 
+            Vect focus, 
+            Vect orientation, 
+            double width, 
+            double height, 
+            int ppu)
+          
+          creates a Camera object as the one above but with the specified
+          window orientation and pixels per unit.
+    
+    jatrace.World constructors:
+        World()
+        
+          creates an empty world. You must call the setSky(Sky sky) method
+          and the addBody(Body body) method in order to use this object.
+        
+        World(Body [] bodies, Sky sky)
+        
+          creates a world containing the specified bodies and sky.
+    
+    jatrace.Tracer constructors:
+        Tracer(World world, Camera camera)
+        
+          creates a Tracer object with the given world and camera.
+
+Bodies included in the jatrace.bodies directory are instantiated with
+constructors specific to those objects. Once instantiated, they can be included
+in the world through the jatrace.World.addBody method.
+
+Performing the render is accomplished with the jatrace.Tracer.draw() method.
+
+Write the rendered image to file with the jatrace.Tracer.write(String filename)
+method.
