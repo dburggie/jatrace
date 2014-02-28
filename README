@@ -1,7 +1,7 @@
 This is a Java package that you can use to easily render 3D images of
 mathematical solids. It is designed to be easily extensible.
 
-The rendering is accomplished relatively simple recursive sampling of the world
+The rendering is accomplished with relatively simple recursive sampling of the world
 by tracing of rays.
 
 Utilization of this package requires you instantiate the following:
