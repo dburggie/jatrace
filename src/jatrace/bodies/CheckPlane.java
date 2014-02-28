@@ -31,6 +31,7 @@ public class CheckPlane extends Plane
 	
 	//dealing with color
 	protected Color c1, c2;
+	@Override public CheckPlane setColor(Color c) { c2 = c1; c1 = c.dup(); return this; }
 	public CheckPlane setColor(Color a, Color b) { c1 = a.dup(); c2 = b.dup(); return this; }
 	@Override
 	public Color getColor(Vector point)

@@ -16,8 +16,8 @@ CLASSES_CJB= $(CJB)/BasicBody.class $(CJB)/Sphere.class $(CJB)/Plane.class $(CJB
 
 TD=./test
 CT=./classes
-TESTSOURCES= $(TD)/testTracer.java $(TD)/poster.java $(TD)/windowtest.java
-TESTCLASSES= $(CT)/testTracer.class $(CT)/poster.class $(CT)/windowtest.class
+TESTSOURCES= $(TD)/testTracer.java $(TD)/poster.java $(TD)/windowtest.java $(TD)/room.java
+TESTCLASSES= $(CT)/testTracer.class $(CT)/poster.class $(CT)/windowtest.class $(CT)/room.class
 
 JAR=./raytrace.jar
 
