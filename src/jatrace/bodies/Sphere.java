@@ -9,14 +9,14 @@ public class Sphere extends BasicBody
     public Sphere()
     {
     	this.setDefaults();
-    	this.setPosition(new Vect(0.0,0.0,0.0));
+    	this.setPosition(new Vector(0.0,0.0,0.0));
     	this.setColor(new Color(0.3,0.3,0.3));
     	this.setReflectivity(0.3);
     	this.setMatte(false);
     	this.setRadius(1.0);
     }
     
-    public Sphere(Vect p, double r, Color c)
+    public Sphere(Vector p, double r, Color c)
     {
     	this.setDefaults();
     	this.setPosition(p);
@@ -33,7 +33,7 @@ public class Sphere extends BasicBody
     }
 
     @Override
-    public Vect getNormal(Vect point)
+    public Vector getNormal(Vector point)
     {
         return point.sub(position).norm();
     }
@@ -41,7 +41,7 @@ public class Sphere extends BasicBody
     @Override
     public double intersection(Ray ray)
     {
-        Vect S;
+        Vector S;
         double SD, SS;
         
         S = ray.o().sub(position);

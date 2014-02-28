@@ -2,15 +2,15 @@ package jatrace;
 
 public class Ray
 {
-    protected Vect origin, direction;
+    protected Vector origin, direction;
     
     public Ray()
     {
-        origin = new Vect(0.0,0.0,0.0);
-        direction = new Vect(0.0,1.0,0.0);
+        origin = new Vector(0.0,0.0,0.0);
+        direction = new Vector(0.0,1.0,0.0);
     }
     
-    public Ray(Vect O, Vect D)
+    public Ray(Vector O, Vector D)
     {
         this.setOrigin(O);
         this.setDirection(D);
@@ -21,27 +21,27 @@ public class Ray
         return new Ray(origin, direction);
     }
     
-    public Ray setOrigin(Vect v)
+    public Ray setOrigin(Vector v)
     {
         origin = v.dup();
         return this;
     }
     
-    public Ray setDirection(Vect v)
+    public Ray setDirection(Vector v)
     {
         direction = v.dup().norm();
         return this;
     }
     
-    public Vect o() { return origin.dup(); }
-    public Vect d() { return direction.dup(); }
+    public Vector o() { return origin.dup(); }
+    public Vector d() { return direction.dup(); }
     
-    public Vect follow(double distance)
+    public Vector follow(double distance)
     {
         return origin.dup().trans(direction, distance);
     }
     
-    public Ray reflect(Vect position, Vect normal)
+    public Ray reflect(Vector position, Vector normal)
     {
         origin = position.dup();
         double dot = direction.dot(normal);
@@ -49,7 +49,7 @@ public class Ray
         return this;
     }
     
-    public Ray refract(Vect position, Vect normal, double T_sine)
+    public Ray refract(Vector position, Vector normal, double T_sine)
     {
         // check for total internal reflection
         if (T_sine > 1.0) return this.reflect(position, normal);
@@ -58,7 +58,7 @@ public class Ray
         this.setOrigin(position);
         
         // new direction is between normal and our original direction
-        Vect p = direction.dup().proj(normal).trans(direction, -1.0).scale(1 - T_sine);
+        Vector p = direction.dup().proj(normal).trans(direction, -1.0).scale(1 - T_sine);
         
         // on the off chance we're near zero, don't change the direction
         if (p.len() < 0.0000001) return this;

@@ -1,43 +1,43 @@
 package jatrace;
 
-public class Vect
+public class Vector
 {
     protected double x, y, z;
     
-    public Vect()
+    public Vector()
     {
         x = 0.0; y = 0.0; z = 0.0;
     }
     
-    public Vect( double X, double Y, double Z )
+    public Vector( double X, double Y, double Z )
     {
         x = X; y = Y; z = Z;
     }
     
-    public Vect dup()
+    public Vector dup()
     {
-        return new Vect(x,y,z);
+        return new Vector(x,y,z);
     }
     
-    public Vect copy(Vect v)
+    public Vector copy(Vector v)
     {
         x = v.x; y = v.y; z = v.z;
         return this;
     }
     
-    public Vect setxyz(double X, double Y, double Z)
+    public Vector setxyz(double X, double Y, double Z)
     {
         x = X; y = Y; z = Z;
         return this;
     }
     
-    public Vect trans( Vect v )
+    public Vector trans( Vector v )
     {
         x += v.x; y += v.y; z += v.z;
         return this;
     }
     
-    public Vect trans( Vect v, double s )
+    public Vector trans( Vector v, double s )
     {
         x += s * v.x;
         y += s * v.y;
@@ -45,35 +45,35 @@ public class Vect
         return this;
     }
     
-    public Vect trans( double dx, double dy, double dz )
+    public Vector trans( double dx, double dy, double dz )
     {
         x += dx; y += dy; z += dz;
         return this;
     }
     
-    public double dot(Vect v)
+    public double dot(Vector v)
     {
         return x * v.x + y * v.y + z * v.z;
     }
     
-    public Vect cross(Vect v)
+    public Vector cross(Vector v)
     {
-        return new Vect(
+        return new Vector(
                 y * v.z - z * v.y, 
                 z * v.x - x * v.z,
                 x * v.y - y * v.x 
                 );
     }
     
-    public Vect scale(double s)
+    public Vector scale(double s)
     {
         x *= s; y *= s; z *= s;
         return this;
     }
     
-    public Vect sub(Vect v)
+    public Vector sub(Vector v)
     {
-        return new Vect(x - v.x, y - v.y, z - v.z);
+        return new Vector(x - v.x, y - v.y, z - v.z);
     }
     
     public double len()
@@ -81,25 +81,25 @@ public class Vect
         return Math.sqrt(x * x + y * y + z * z);
     }
     
-    public Vect proj(Vect v)
+    public Vector proj(Vector v)
     {
         double dot = this.dot(v);
         return this.copy(v).scale(dot);
     }
     
-    public Vect norm()
+    public Vector norm()
     {
         double l = this.len();
         if (l < 0.0000001)
         {
-            System.out.println("Tried to normalize a zero Vector.");
+            System.out.println("Tried to normalize a zero Vectoror.");
             return this.setxyz(0.0,1.0,0.0);
         }
         x /= l; y /= l; z /= l;
         return this;
     }
     
-    public Vect delta(double d)
+    public Vector delta(double d)
     {
         double dx,dy,dz;
         do {

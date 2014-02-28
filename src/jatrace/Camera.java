@@ -5,14 +5,14 @@ class defaults
 	public static final int ppu = 100;
 	public static final double width = 1.0;
 	public static final double height = 1.0;
-	public static final Vect position = new Vect(0.0,1.0,10.0);
-	public static final Vect focus = new Vect(0.0,0.0,0.0);
-	public static final Vect orientation = new Vect(0.0,1.0,0.0);
+	public static final Vector position = new Vector(0.0,1.0,10.0);
+	public static final Vector focus = new Vector(0.0,0.0,0.0);
+	public static final Vector orientation = new Vector(0.0,1.0,0.0);
 }
 
 public class Camera
 {
-	protected Vect position, focus, forward, up, right, corner, xstep, ystep;
+	protected Vector position, focus, forward, up, right, corner, xstep, ystep;
 	protected int ppu;
 	protected double width, height, d;
 	protected boolean delta, initLock;
@@ -29,7 +29,7 @@ public class Camera
 		initLock = false;
 	}
 	
-	public Camera(Vect origin, Vect focus, double w, double h)
+	public Camera(Vector origin, Vector focus, double w, double h)
 	{
 		initLock = true;
 		this.setPosition(origin);
@@ -41,7 +41,7 @@ public class Camera
 		initLock = false;
 	}
 	
-	public Camera(Vect p, Vect f, Vect o, double w, double h, int P)
+	public Camera(Vector p, Vector f, Vector o, double w, double h, int P)
 	{
 		initLock = true;
 		this.setPosition(p);
@@ -80,7 +80,7 @@ public class Camera
 		return this;
 	}
 	
-	public Camera setOrientation(Vect Up)
+	public Camera setOrientation(Vector Up)
 	{
 		right = forward.cross(Up).norm();
 		up = right.cross(forward).norm();
@@ -107,7 +107,7 @@ public class Camera
 		return this;
 	}
 	
-	public Camera setFocus(Vect f)
+	public Camera setFocus(Vector f)
 	{
 		forward = f.sub(position).norm();
 		focus = f.dup();
@@ -115,7 +115,7 @@ public class Camera
 		else return this;
 	}
 	
-	public Camera setPosition(Vect p)
+	public Camera setPosition(Vector p)
 	{
 		position = p.dup();
 		if (!initLock)
@@ -128,7 +128,7 @@ public class Camera
 	
 	public Ray getRay(int x, int y)
 	{
-		Vect or, di;
+		Vector or, di;
 		double dx = x + Math.random();
 		double dy = y + Math.random();
 		

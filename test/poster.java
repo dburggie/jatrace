@@ -10,7 +10,7 @@ public class poster
 		double	win_w = 3.5,
 				win_h = 3.0;
 		
-		int 	ppu = 200, 
+		int 	ppu = 1200, 
 				passes = 32,
 				
 				pix_w = (int) (win_w * ppu),
@@ -21,37 +21,37 @@ public class poster
 		double	radius = 0.8, smallr = 1.0 - radius;
 		
 		//setup world and sky
-		World world = new World().setSky(new Horizon( new Vect(1.0,1.0,1.0), new Color(0.01,0.01,0.01) ) );
+		World world = new World().setSky(new Horizon( new Vector(1.0,1.0,1.0), new Color(0.01,0.01,0.01) ) );
 		world.setBaseBrightness(0.4);
 		
 		//setup floor
-		Vect	floorN = new Vect(0.0,1.0,0.0),
-				floorP = new Vect(0.0,0.0,0.0),
-				floorO = new Vect(1.0,0.0,0.0);
+		Vector	floorN = new Vector(0.0,1.0,0.0),
+				floorP = new Vector(0.0,0.0,0.0),
+				floorO = new Vector(1.0,0.0,0.0);
 		CheckPlane Floor = new CheckPlane(floorP, floorN, floorO);
 		Floor.setReflectivity(0.3);
 		world.addBody(Floor);
 		
 		//setup primary sphere
-		Sphere primary = new Sphere( new Vect(0.0,radius,0.0), radius, new Color(0.01,0.01,0.01));
+		Sphere primary = new Sphere( new Vector(0.0,radius,0.0), radius, new Color(0.01,0.01,0.01));
 		primary.setReflectivity(0.8);
 		world.addBody(primary);
 		
 		//setup centers
-		Vect [] centers =
+		Vector [] centers =
 		{
-			new Vect( 1.0,0.0, 0.0).norm().trans(0.0,smallr,0.0),
-			new Vect( 1.0,0.0, 1.0).norm().trans(0.0,smallr,0.0),
-			new Vect( 1.0,0.0,-1.0).norm().trans(0.0,smallr,0.0),
-			new Vect( 0.0,0.0, 1.0).norm().trans(0.0,smallr,0.0),
-			new Vect( 0.0,0.0,-1.0).norm().trans(0.0,smallr,0.0),
-			new Vect(-1.0,0.0, 1.0).norm().trans(0.0,smallr,0.0),
-			new Vect(-1.0,0.0, 0.0).norm().trans(0.0,smallr,0.0),
-			new Vect(-1.0,0.0,-1.0).norm().trans(0.0,smallr,0.0)
+			new Vector( 1.0,0.0, 0.0).norm().trans(0.0,smallr,0.0),
+			new Vector( 1.0,0.0, 1.0).norm().trans(0.0,smallr,0.0),
+			new Vector( 1.0,0.0,-1.0).norm().trans(0.0,smallr,0.0),
+			new Vector( 0.0,0.0, 1.0).norm().trans(0.0,smallr,0.0),
+			new Vector( 0.0,0.0,-1.0).norm().trans(0.0,smallr,0.0),
+			new Vector(-1.0,0.0, 1.0).norm().trans(0.0,smallr,0.0),
+			new Vector(-1.0,0.0, 0.0).norm().trans(0.0,smallr,0.0),
+			new Vector(-1.0,0.0,-1.0).norm().trans(0.0,smallr,0.0)
 		};
 		Sphere s;
 		Color sColor = new Color(0.3,0.1,0.1);
-		for (Vect v : centers)
+		for (Vector v : centers)
 		{
 			s = new Sphere(v, smallr, sColor.dup());
 			s.setReflectivity(0.4);
@@ -59,9 +59,9 @@ public class poster
 		}
 		
 		
-		Vect	camP = new Vect(2.0,0.6,10.0),
-				camF = new Vect(0.0,0.5,0.0),
-				camU = new Vect(0.0,1.0,0.0);
+		Vector	camP = new Vector(2.0,0.6,10.0),
+				camF = new Vector(0.0,0.5,0.0),
+				camU = new Vector(0.0,1.0,0.0);
 		
 		Camera cam = new Camera(camP, camF, camU, win_w, win_h, ppu);
 		Tracer t = new Tracer(world, cam);

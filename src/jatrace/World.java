@@ -7,7 +7,7 @@ public class World
 {
 	protected linkedBody bodies;
 	protected Sky sky;
-	protected Vect lights[];
+	protected Vector lights[];
 	protected myInterface i;
 	protected double baseBrightness;
 	
@@ -84,7 +84,7 @@ public class World
 	
 	public double shade()
 	{
-		Vect poi = i.poi;
+		Vector poi = i.poi;
 		Ray ray;
 		linkedBody lb;
 		Body b;
@@ -96,7 +96,7 @@ public class World
 				brightnessPerLight = 1.0 / numLights;
 		boolean hitSomething;
 		
-		for (Vect L : lights)
+		for (Vector L : lights)
 		{
 			lambertian = L.dot(i.normal);
 			if (lambertian > 0.0)
@@ -133,8 +133,8 @@ public class World
 		lux = Math.max(lux, baseBrightness);
 		
 		double highlight = 0.0;
-		Vect d = ray.reflect(i.poi, i.normal).d();
-		for (Vect L : lights)
+		Vector d = ray.reflect(i.poi, i.normal).d();
+		for (Vector L : lights)
 		{
 			highlight = Math.max(highlight, d.dot(L));
 		}

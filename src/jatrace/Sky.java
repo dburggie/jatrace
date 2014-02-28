@@ -2,6 +2,6 @@ package jatrace;
 
 public interface Sky
 {
-    public Color getColor(Vect direction);
-    public Vect [] getLight();
+    public Color getColor(Vector direction);
+    public Vector [] getLight();
 }

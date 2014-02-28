@@ -6,7 +6,7 @@ import jatrace.bodies.Plane;
 public class CheckPlane extends Plane
 {
 	
-	public CheckPlane( Vect o, Vect n, Vect orientation )
+	public CheckPlane( Vector o, Vector n, Vector orientation )
 	{
 		this.setDefaults();
 		this.setNormal(n);
@@ -17,9 +17,9 @@ public class CheckPlane extends Plane
 	
 	
 	//dealing with orientation
-	protected Vect oX, oY;
+	protected Vector oX, oY;
 	@Override
-	public CheckPlane setOrientation(Vect o)
+	public CheckPlane setOrientation(Vector o)
 	{
 		super.setOrientation(o);
 		oX = o.sub(position).norm();
@@ -33,9 +33,9 @@ public class CheckPlane extends Plane
 	protected Color c1, c2;
 	public CheckPlane setColor(Color a, Color b) { c1 = a.dup(); c2 = b.dup(); return this; }
 	@Override
-	public Color getColor(Vect point)
+	public Color getColor(Vector point)
 	{
-		Vect d = point.sub(position);
+		Vector d = point.sub(position);
 		
 		double	lenx = Math.floor( d.dot(oX) ),
 				leny = Math.floor( d.dot(oY) );

@@ -8,8 +8,8 @@ public class BasicBody implements Body
 
 	protected BasicBody setDefaults()
 	{
-		this.setPosition( new Vect(0.0,0.0,0.0) );
-		this.setOrientation( new Vect(0.0,1.0,0.0) );
+		this.setPosition( new Vector(0.0,0.0,0.0) );
+		this.setOrientation( new Vector(0.0,1.0,0.0) );
 		this.setReflectivity(0.2);
 		this.setColor(new Color(0.3,0.1,0.1));
 		this.setOpacity(1.0);
@@ -20,45 +20,45 @@ public class BasicBody implements Body
 	}
 	
 	//dealing with position
-	protected Vect position;
-	public BasicBody setPosition(Vect p) { position = p.dup(); return this; }
+	protected Vector position;
+	public BasicBody setPosition(Vector p) { position = p.dup(); return this; }
 	
 	//dealing with orientation
-	protected Vect orientation;
-	public BasicBody setOrientation(Vect o) { orientation = o.dup(); return this; }
+	protected Vector orientation;
+	public BasicBody setOrientation(Vector o) { orientation = o.dup(); return this; }
 	
 	// dealing with specularity
 	protected double specularity;
 	public BasicBody setSpecularity(double s) { specularity = s;	return this; }
-	@Override public double getSpecularity(Vect point) { return specularity; }
+	@Override public double getSpecularity(Vector point) { return specularity; }
 	
 	//dealing with color
 	protected Color color;
 	public BasicBody setColor(Color c) { color = c.dup(); return this; }
-	@Override public Color getColor(Vect point)	{ return color.dup(); }
+	@Override public Color getColor(Vector point)	{ return color.dup(); }
 	
 	//dealing with normal
-	@Override public Vect getNormal(Vect point)	{ return orientation.dup(); }
+	@Override public Vector getNormal(Vector point)	{ return orientation.dup(); }
 	
 	//dealing with reflectivity
 	protected double reflectivity;
 	public BasicBody setReflectivity(double r) { reflectivity = r; return this; }
-	@Override public double getReflectivity(Vect point) { return reflectivity; }
+	@Override public double getReflectivity(Vector point) { return reflectivity; }
 	
 	//dealing with opacity
 	protected double opacity;
 	public BasicBody setOpacity(double o) { opacity = o; return this; }
-	@Override public double getOpacity(Vect point) { return opacity; }
+	@Override public double getOpacity(Vector point) { return opacity; }
 	
 	// dealing with index of refraction
 	protected double index;
 	public BasicBody setIndex(double i) { index = i; return this; }
-	@Override public double getIndex(Vect point) { return index; }
+	@Override public double getIndex(Vector point) { return index; }
 	
 	//dealing with matte vs specular reflection
 	private boolean matte;
 	public boolean setMatte(boolean m) { matte = m; return matte; }
-	@Override public boolean isMatte(Vect point) { return matte; }
+	@Override public boolean isMatte(Vector point) { return matte; }
 	
 	//intersections
 	@Override public double intersection(Ray ray) { return -1.0; }

@@ -2,13 +2,13 @@ package jatrace;
 
 public interface Body
 {
-	public Color getColor(Vect point);
-	public Vect getNormal(Vect point);
-	public double getReflectivity(Vect point);
-	public double getOpacity(Vect point);
-	public double getIndex(Vect point);
-	public double getSpecularity(Vect point);
-	public boolean isMatte(Vect point);
+	public Color getColor(Vector point);
+	public Vector getNormal(Vector point);
+	public double getReflectivity(Vector point);
+	public double getOpacity(Vector point);
+	public double getIndex(Vector point);
+	public double getSpecularity(Vector point);
+	public boolean isMatte(Vector point);
 	public double intersection(Ray ray);
 	
 	

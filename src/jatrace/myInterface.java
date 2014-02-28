@@ -4,7 +4,7 @@ final class myInterface
 {
 	public boolean isMatte;
 	public double exp, distance, reflectivity;
-	public Vect poi, normal;
+	public Vector poi, normal;
 	public Body body;
 	public Color color;
 	
@@ -20,7 +20,7 @@ final class myInterface
 		reflectivity = 0.0;
 	}
 	
-	public myInterface(double d, Vect p, Vect n, Body b, Color c)
+	public myInterface(double d, Vector p, Vector n, Body b, Color c)
 	{
 		distance = d;
 		poi = p;

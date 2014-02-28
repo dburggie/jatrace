@@ -10,7 +10,7 @@ CJ=./classes/jatrace
 CJB=$(CJ)/bodies
 CJS=$(CJ)/skies
 
-CLASSES_CJ= $(CJ)/Body.class $(CJ)/Camera.class $(CJ)/Color.class $(CJ)/linkedBody.class $(CJ)/myImage.class $(CJ)/myInterface.class $(CJ)/Ray.class $(CJ)/Sky.class $(CJ)/Tracer.class $(CJ)/Vect.class $(CJ)/World.class 
+CLASSES_CJ= $(CJ)/Body.class $(CJ)/Camera.class $(CJ)/Color.class $(CJ)/linkedBody.class $(CJ)/myImage.class $(CJ)/myInterface.class $(CJ)/Ray.class $(CJ)/Sky.class $(CJ)/Tracer.class $(CJ)/Vector.class $(CJ)/World.class 
 CLASSES_CJS= $(CJS)/Bluesky.class $(CJS)/Horizon.class
 CLASSES_CJB= $(CJB)/BasicBody.class $(CJB)/Sphere.class $(CJB)/Plane.class $(CJB)/CheckPlane.class
 
@@ -25,10 +25,10 @@ all: $(CLASSES_CJ) $(CLASSES_CJB) $(CLASSES_CJS)
 
 ##### jatrace #####
 
-$(CJ)/Vect.class: $(SJ)/Vect.java
-	$(JC) $(JOPT) $(SJ)/Vect.java
+$(CJ)/Vector.class: $(SJ)/Vector.java
+	$(JC) $(JOPT) $(SJ)/Vector.java
 
-$(CJ)/Ray.class: $(SJ)/Ray.java $(CJ)/Vect.class
+$(CJ)/Ray.class: $(SJ)/Ray.java $(CJ)/Vector.class
 	$(JC) $(JOPT) $(SJ)/Ray.java
 
 $(CJ)/Color.class: $(SJ)/Color.java
@@ -40,13 +40,13 @@ $(CJ)/Body.class: $(SJ)/Body.java
 $(CJ)/Sky.class: $(SJ)/Sky.java
 	$(JC) $(JOPT) $(SJ)/Sky.java
 
-$(CJ)/Camera.class: $(SJ)/Camera.java $(CJ)/Vect.class
+$(CJ)/Camera.class: $(SJ)/Camera.java $(CJ)/Vector.class
 	$(JC) $(JOPT) $(SJ)/Camera.java
 
 $(CJ)/myImage.class: $(SJ)/myImage.java $(CJ)/Color.class
 	$(JC) $(JOPT) $(SJ)/myImage.java 
 
-$(CJ)/myInterface.class: $(SJ)/myInterface.java $(CJ)/Vect.class $(CJ)/Ray.class $(CJ)/Color.class
+$(CJ)/myInterface.class: $(SJ)/myInterface.java $(CJ)/Vector.class $(CJ)/Ray.class $(CJ)/Color.class
 	$(JC) $(JOPT) $(SJ)/myInterface.java
 
 $(CJ)/linkedBody.class: $(SJ)/linkedBody.java $(CJ)/Body.class
