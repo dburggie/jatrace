@@ -11,13 +11,13 @@ CJB=$(CJ)/bodies
 CJS=$(CJ)/skies
 
 CLASSES_CJ= $(CJ)/Body.class $(CJ)/Camera.class $(CJ)/Color.class $(CJ)/linkedBody.class $(CJ)/myImage.class $(CJ)/myInterface.class $(CJ)/Ray.class $(CJ)/Sky.class $(CJ)/Tracer.class $(CJ)/Vector.class $(CJ)/World.class 
-CLASSES_CJS= $(CJS)/Bluesky.class $(CJS)/Horizon.class
+CLASSES_CJS= $(CJS)/Bluesky.class $(CJS)/Horizon.class $(CJS)/White.class
 CLASSES_CJB= $(CJB)/BasicBody.class $(CJB)/Sphere.class $(CJB)/Plane.class $(CJB)/CheckPlane.class
 
 TD=./test
 CT=./classes
-TESTSOURCES= $(TD)/testTracer.java $(TD)/poster.java $(TD)/windowtest.java $(TD)/room.java
-TESTCLASSES= $(CT)/testTracer.class $(CT)/poster.class $(CT)/windowtest.class $(CT)/room.class
+TESTSOURCES= $(TD)/testTracer.java $(TD)/poster.java $(TD)/windowtest.java $(TD)/room.java $(TD)/construct.java
+TESTCLASSES= $(CT)/testTracer.class $(CT)/poster.class $(CT)/windowtest.class $(CT)/room.class $(CT)/construct.class
 
 JAR=./raytrace.jar
 
@@ -82,6 +82,8 @@ $(CJS)/Bluesky.class: $(SJS)/Bluesky.java $(CJ)/Sky.class
 $(CJS)/Horizon.class: $(SJS)/Horizon.java $(CJ)/Sky.class
 	$(JC) $(JOPT) $(SJS)/Horizon.java
 
+$(CJS)/White.class: $(SJS)/White.java
+	$(JC) $(JOPT) $(SJS)/White.java
 
 test: $(TESTCLASSES)
 

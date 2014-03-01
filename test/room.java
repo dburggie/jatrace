@@ -17,7 +17,7 @@ public class room
 		
 		String filename = "Room-of-Mirrors-" + pix_w + "x" + pix_h + ".png";
 		
-		Sphere ball = new Sphere(new Vector(0.0,0.0,0.0), 1.0, new Color(0.2,0.1,0.1) );
+		Sphere ball = new Sphere(new Vector(0.0,0.2,0.0), 1.0, new Color(0.2,0.1,0.1) );
 		ball.setReflectivity(0.6);
 		
 		CheckPlane floor = new CheckPlane(
@@ -30,10 +30,10 @@ public class room
 		
 		Color wColor = new Color(0.1,0.1,0.1);
 		Plane [] walls = {
-		      new Plane( new Vector(0.0,0.0,6.0), new Vector(0.0,0.0,-1.0), wColor.dup() ),
-		      new Plane( new Vector(0.0,0.0,-6.0), new Vector(0.0,0.0,1.0), wColor.dup() ),
-		      new Plane( new Vector(6.0,0.0,0.0), new Vector(-1.0,0.0,0.0), wColor.dup() ),
-		      new Plane( new Vector(-6.0,0.0,0.0), new Vector(1.0,0.0,0.0), wColor.dup() ),
+		      new Plane( new Vector(0.0,0.0,5.45), new Vector(0.0,0.0,-1.0), wColor.dup() ),
+		      new Plane( new Vector(0.0,0.0,-5.45), new Vector(0.0,0.0,1.0), wColor.dup() ),
+		      new Plane( new Vector(5.45,0.0,0.0), new Vector(-1.0,0.0,0.0), wColor.dup() ),
+		      new Plane( new Vector(-5.45,0.0,0.0), new Vector(1.0,0.0,0.0), wColor.dup() ),
 		      new Plane( new Vector(0.0,6.0,0.0), new Vector(0.0,-1.0,0.0), wColor.dup() )
 		};
 		

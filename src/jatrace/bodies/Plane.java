@@ -1,7 +1,6 @@
 package jatrace.bodies;
 
 import jatrace.*;
-import jatrace.bodies.Plane;
 
 public class Plane extends BasicBody
 {
