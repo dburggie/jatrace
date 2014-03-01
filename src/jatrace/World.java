@@ -3,6 +3,9 @@ package jatrace;
 import jatrace.bodies.Sphere;
 import jatrace.skies.Bluesky;
 
+/** This class maintains a list of Body objects and provides methods for
+ *  sampling the color of the world along a ray (for the purpose of 3D
+ *  rendering). */
 public class World
 {
 	protected linkedBody bodies;
@@ -11,21 +14,32 @@ public class World
 	protected myInterface i;
 	protected double baseBrightness;
 	
-	public World()
+	private void init()
 	{
 		i = new myInterface();
-		baseBrightness = 0.2;
+		baseBrightness = 0.4;
+		bodies = linkedBody.top();
+	}
+	
+	public World()
+	{
+		this.init();
+	}
+	
+	public World(linkedBody b, Sky s)
+	{
+		this.init();
+		this.setSky(s);
 	}
 	
 	public World(Body b[], Sky s)
 	{
+		this.init();
 		for ( Body x : b )
 		{
 			this.addBody(x);
 		}
 		this.setSky(s);
-		i = new myInterface();
-		baseBrightness = 0.2;
 	}
 	
 	public World addBody(Body b)
@@ -53,7 +67,7 @@ public class World
 		return this;
 	}
 	
-	public myInterface trace(Ray ray, Body lastHit)
+	public void trace(Ray ray, Body lastHit)
 	{
 		i.reset();
 		linkedBody lb = linkedBody.top();
@@ -73,16 +87,14 @@ public class World
 			}
 			lb = lb.next();
 		}
-		
-		return i.registerHit(ray);
 	}
 	
-	public myInterface trace(Ray ray)
+	public void trace(Ray ray)
 	{
-		return this.trace(ray, null);
+		this.trace(ray, null);
 	}
 	
-	public double shade()
+	private double shade()
 	{
 		Vector poi = i.poi;
 		Ray ray;

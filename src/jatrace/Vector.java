@@ -74,7 +74,7 @@ public class Vector
 	 *  perpendicular to both with magnitude equal to |v| x |w| x sin(D) where D
 	 *  is the angle between them. Thus, parallel vectors produce a zero cross
 	 *  product. */
-	public static vector cross(Vector v, Vector w)
+	public static Vector cross(Vector v, Vector w)
 	{
 		return new Vector(
 			v.y * w.z - v.z * w.y,

@@ -98,7 +98,7 @@ public class Color
 	public static double makeSafe(double sample)
 	{
 		if (sample > 1.0) { return 1.0; }
-		if (sample < 0.0) { return 0.0 }
+		if (sample < 0.0) { return 0.0; }
 		return sample;
 	}
 	

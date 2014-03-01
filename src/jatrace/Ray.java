@@ -15,7 +15,7 @@ public class Ray
 	}
 	
 	/** Instantiates ray with origin O and direction d. */
-	public Ray(Vector d, Vector d)
+	public Ray(Vector o, Vector d)
 	{
 		this.setOrigin(o);
 		this.setDirection(d);

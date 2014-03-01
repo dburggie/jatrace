@@ -12,10 +12,10 @@ public class BasicBody implements Body
 		this.setOrientation( new Vector(0.0,1.0,0.0) );
 		this.setReflectivity(0.2);
 		this.setColor(new Color(0.3,0.1,0.1));
-		this.setOpacity(1.0);
-		this.setIndex(3.0);
 		this.setSpecularity(10.0);
 		this.setMatte(false);
+/*		this.setOpacity(1.0);
+		this.setIndex(3.0); */
 		return this;
 	}
 	
@@ -45,6 +45,15 @@ public class BasicBody implements Body
 	public BasicBody setReflectivity(double r) { reflectivity = r; return this; }
 	@Override public double getReflectivity(Vector point) { return reflectivity; }
 	
+	//dealing with matte vs specular reflection
+	private boolean matte;
+	public boolean setMatte(boolean m) { matte = m; return matte; }
+	@Override public boolean isMatte(Vector point) { return matte; }
+	
+	//intersections
+	@Override public double intersection(Ray ray) { return -1.0; }
+	
+	/*
 	//dealing with opacity
 	protected double opacity;
 	public BasicBody setOpacity(double o) { opacity = o; return this; }
@@ -54,12 +63,5 @@ public class BasicBody implements Body
 	protected double index;
 	public BasicBody setIndex(double i) { index = i; return this; }
 	@Override public double getIndex(Vector point) { return index; }
-	
-	//dealing with matte vs specular reflection
-	private boolean matte;
-	public boolean setMatte(boolean m) { matte = m; return matte; }
-	@Override public boolean isMatte(Vector point) { return matte; }
-	
-	//intersections
-	@Override public double intersection(Ray ray) { return -1.0; }
+	*/
 }

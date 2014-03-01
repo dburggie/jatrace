@@ -6,7 +6,7 @@ package jatrace;
 final class linkedBody
 {
 	private static linkedBody firstLink = null;
-	private static maxID = 0;
+	private static int maxID = 0;
 
 	private linkedBody nextLink;
 	private Body body;
@@ -27,7 +27,7 @@ final class linkedBody
 		if (id < 0 || id > maxID) { return null; }
 		
 		linkedBody topBody = top();
-		linkedBody currentBody = topBody;
+		linkedBody body = topBody;
 		
 		while (body == null)
 		{
@@ -38,6 +38,7 @@ final class linkedBody
 			}
 			
 			body = body.next();
+			if (body == topBody()) { return null;}
 			
 		}
 		
