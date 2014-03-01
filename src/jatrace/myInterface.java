@@ -1,5 +1,7 @@
 package jatrace;
 
+/** A package that encapsulates the intersection of a ray with a surface (e.g.
+ *  surface color, surface orientation, surface type, reflectivity, etc). */
 final class myInterface
 {
 	public boolean isMatte;
@@ -8,6 +10,7 @@ final class myInterface
 	public Body body;
 	public Color color;
 	
+	/** Default constructor describes "no interface of ray and surface". */
 	public myInterface()
 	{
 		distance = -1.0;
@@ -20,6 +23,8 @@ final class myInterface
 		reflectivity = 0.0;
 	}
 	
+	/** Constructor describes an interface with a surface b at point p, with
+	 *  normal n, and c. */
 	public myInterface(double d, Vector p, Vector n, Body b, Color c)
 	{
 		distance = d;
@@ -41,11 +46,13 @@ final class myInterface
 		}
 	}
 	
+	/** Creates an interface that exactly copies the calling object. */
 	public myInterface dup()
 	{
 		return new myInterface(distance, poi, normal, body, color);
 	}
 	
+	/** Resets interface description of "no surface-ray interface". */
 	public myInterface reset()
 	{
 		distance = -1.0;
@@ -59,6 +66,8 @@ final class myInterface
 		return this;
 	}
 	
+	/** Changes description to the given Body if it's closer. Useful in during
+	 *  ray tracing process in World class. */
 	public myInterface hit(Body b, double d)
 	{
 		if (body == null)
@@ -74,6 +83,8 @@ final class myInterface
 		return this;
 	}
 	
+	/** Calculates all the interface parameters of the given ray and the
+	 *  closest body passed to hit() method since last interface reset. */
 	public myInterface registerHit(Ray r)
 	{
 		if (body != null && distance > 0.0)
