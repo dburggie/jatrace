@@ -38,7 +38,7 @@ final class linkedBody
 			}
 			
 			body = body.next();
-			if (body == topBody()) { return null;}
+			if (body == topBody) { return null;}
 			
 		}
 		

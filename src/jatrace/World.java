@@ -18,7 +18,6 @@ public class World
 	{
 		i = new myInterface();
 		baseBrightness = 0.4;
-		bodies = linkedBody.top();
 	}
 	
 	public World()
@@ -26,12 +25,15 @@ public class World
 		this.init();
 	}
 	
+	/** Initializes object with a linked list of Body objects and a Sky. */
 	public World(linkedBody b, Sky s)
 	{
 		this.init();
+		bodies = b;
 		this.setSky(s);
 	}
 	
+	/** Initializes object with array of bodies and a Sky. */
 	public World(Body b[], Sky s)
 	{
 		this.init();
@@ -42,24 +44,30 @@ public class World
 		this.setSky(s);
 	}
 	
+	/** Adds a body to the world. */
 	public World addBody(Body b)
 	{
 		bodies = new linkedBody(b);
 		return this;
 	}
 	
+	/** Changes the world's sky to the given. */
 	public World setSky(Sky s)
 	{
 		sky = s;
 		return this;
 	}
 	
+	/** Returns an array of vectors towards light sources in the sky. */
 	public World getLights()
 	{
 		lights = sky.getLight();
 		return this;
 	}
 	
+	/** Sets the minimum brightness at which objects are rendered. Brightness is
+	 *  otherwise a function of how much illumination a point is getting from
+	 *  the sky's light sources. */
 	public World setBaseBrightness(double b)
 	{
 		assert (b >= 0.0 && b <= 1.0) : "Set base brightness out of bounds";
@@ -67,7 +75,9 @@ public class World
 		return this;
 	}
 	
-	public void trace(Ray ray, Body lastHit)
+	/** Sets closest intersection of ray with bodies in the world into the
+	 *  world's interface member. */
+	private void trace(Ray ray, Body lastHit)
 	{
 		i.reset();
 		linkedBody lb = linkedBody.top();
@@ -89,11 +99,13 @@ public class World
 		}
 	}
 	
-	public void trace(Ray ray)
+	/** Finds the closest intersection of the ray with bodies in the world. */
+	protected void trace(Ray ray)
 	{
 		this.trace(ray, null);
 	}
 	
+	/** Finds the illumination a point is receiving. */
 	private double shade()
 	{
 		Vector poi = i.poi;
@@ -139,8 +151,8 @@ public class World
 		return Math.min(1.0, brightness);
 	}
 	
-	
-	public Color highlight(double lux, Ray ray)
+	/** creates a specular highlight for matte surfaces. */
+	protected Color highlight(double lux, Ray ray)
 	{
 		lux = Math.max(lux, baseBrightness);
 		
@@ -155,6 +167,8 @@ public class World
 		return i.color.dim(lux).gamma(1 - highlight);
 	}
 	
+	/** Samples the world along a ray, tracking what body we're reflecting off
+	 *  of for numerical stability reasons. */
 	public Color sample(Ray ray, int depth, Body lastHit)
 	{
 		
@@ -199,12 +213,14 @@ public class World
 		}
 	}
 	
-	
+	/** Samples the world along an array, allowing for the given reflection
+	 *  depth. */
 	public Color sample(Ray ray, int depth)
 	{
 		return this.sample(ray, depth, null);
 	}
 	
+	/** Returns the Color (pre multiplied by brightness) along a ray. */
 	public Color sample(Ray ray)
 	{
 		return this.sample(ray, 8, null);
