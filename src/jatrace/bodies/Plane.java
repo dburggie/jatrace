@@ -11,10 +11,10 @@ public class Plane extends BasicBody
 		this.setOrientation( new Vector(1.0,0.0,0.0) );
 		this.setReflectivity(0.2);
 		this.setColor(new Color(0.3,0.3,0.3));
-		this.setOpacity(1.0);
-		this.setIndex(3.0);
 		this.setSpecularity(10.0);
 		this.setMatte(false);
+/*		this.setOpacity(1.0);
+		this.setIndex(3.0); */
 		return this;
 	}
 	
