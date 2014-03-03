@@ -2,22 +2,27 @@ package jatrace.skies;
 
 import jatrace.*;
 
+/** A basic implementation of the Sky interface with a blue sky and a single 
+ *  bright sun. */
 public class Bluesky implements Sky
 {
     protected Vector sun;
     protected final Color color = new Color(0.3,0.3,0.9999);
     
     //constructors
+	/** Default constructor has its sun in the positive y direction. */
     public Bluesky()
     {
         sun = new Vector(0.0,1.0,0.0);
     }
     
+	/** This constructor builds a sky with the sun in the given direction. */
     public Bluesky(Vector direction)
     {
         sun = direction.dup();
     }
     
+	/** Gets the color of the sky in the given direction. */
     @Override
     public Color getColor(Vector direction)
     {
@@ -25,6 +30,7 @@ public class Bluesky implements Sky
         return color.dup().gamma(1 - exp);
     }
     
+	/** Returns references to the light sources within the sky. */
     @Override
     public Vector [] getLight()
     {
