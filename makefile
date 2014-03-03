@@ -1,3 +1,4 @@
+##### Notice: This makefile has been deprecated in the jatrace project #####
 JC=javac
 JOPT=-d classes -classpath ./src
 TOPT=-d classes -classpath ./src:./test

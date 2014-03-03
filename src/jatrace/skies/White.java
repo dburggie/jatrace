@@ -19,7 +19,7 @@ public class White implements Sky
 	public Color getColor(Vector direction)
 	{
 		//double gamma = Math.pow(1 - direction.dot(sun), 99.0);
-		return color.dup()//.gamma(gamma);
+		return color.dup()/*.gamma(gamma)*/;
 	}
 	
 	/** Gets references to light vectors. */
