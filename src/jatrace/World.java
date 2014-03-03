@@ -97,6 +97,8 @@ public class World
 			}
 			lb = lb.next();
 		}
+		
+		i.registerHit(ray);
 	}
 	
 	/** Finds the closest intersection of the ray with bodies in the world. */

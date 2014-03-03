@@ -5,6 +5,7 @@
 	
 	<!-- Global Properties -->
 	<property name="src" location="src"/>
+	<property name="test" location="test"/>
 	<property name="build" location="build" />
 	<property name="docs" location="docs" />
 	<property name="dist" location="dist" />
@@ -16,10 +17,13 @@
 		<tstamp/>
 		<mkdir dir="${build}"/>
 	</target>
-	
 	<target name="compile" depends="init"
 			description="compile source files">
 		<javac srcdir="${src}" destdir="${build}"/>
+	</target>
+	<target name="test" depends="compile"
+			description="make tests">
+		<javac srcdir="${test}" destdir="${build}"/>
 	</target>
 	<target name="doc"
 			description="generates documentation with javadocs">

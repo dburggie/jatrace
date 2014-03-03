@@ -11,7 +11,7 @@ public class room
 		
 		int	ppu = 320, 
 		    passes = 32,
-		    depth = 8,
+		    depth = 16,
 		    pix_w = (int) (win_w * ppu),
 		    pix_h = (int) (win_h * ppu);
 		
@@ -49,7 +49,8 @@ public class room
 		Camera cam = new Camera( new Vector(5.0,2.5,5.0), new Vector(0.0,1.0,0.0), win_w, win_h);
 		cam.setPPU(ppu);
 		
-		new Tracer(world, cam).draw(passes).write(filename);
+		Tracer t = new Tracer(world, cam);
+		t.setSampleDepth(depth).draw(passes).write(filename);
 		
 	}
 }

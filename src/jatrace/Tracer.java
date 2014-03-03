@@ -10,6 +10,7 @@ public class Tracer
 	protected Camera camera;
 	protected myImage image;
 	protected int ppu, width, height;
+	private int depth = 8;
 	
 	/** Initializes new Tracer object to given world and camera. Modification
 	 *  of the World and Camera objects after Tracer instantiation can be done
@@ -31,6 +32,11 @@ public class Tracer
 		this.image = null;
 	}
 	
+	/** Sets how many reflections are calculated recursively per sample. */
+	public Tracer setSampleDepth(int depth)
+	{
+		this.depth = depth; return this;
+	}
 	
 	/** Calling object will trace within a default world. */
 	public Tracer setWorld()
@@ -91,7 +97,7 @@ public class Tracer
 				c.setRGBA(0.0,0.0,0.0,0.0);
 				
 				for (int p = 0; p < passes; p++) {
-					c = c.add(world.sample(camera.getRay(x,y)));
+					c = c.add( world.sample(camera.getRay(x,y), depth) );
 				}// END PIXEL SAMPLING
 				
 				c.dim(passDim);
