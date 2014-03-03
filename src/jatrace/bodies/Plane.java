@@ -2,8 +2,13 @@ package jatrace.bodies;
 
 import jatrace.*;
 
+/** Describes a mathematical plane, a surface that is infinitely wide with
+ *  universal orientation. */
 public class Plane extends BasicBody
 {
+	
+	/** Sets all the default parameters of a plane. These are: Position 
+	 *  (0.0,0.0,0.0); Normal (0.0,1.0,0.0); Reflectivity 0.2; Color gray; */	
 	@Override public Plane setDefaults()
 	{
 		this.setPosition( new Vector(0.0,0.0,0.0) );
@@ -18,6 +23,7 @@ public class Plane extends BasicBody
 		return this;
 	}
 	
+	/** Instantiates a plane with given positin, normal, and color. */	
 	public Plane(Vector p, Vector n, Color c)
 	{
 		this.setDefaults();
@@ -26,22 +32,27 @@ public class Plane extends BasicBody
 		this.setColor(c);
 	}
 	
+	/** Instantiates a default plane (gray, at origin, pointing up). */	
 	public Plane()
 	{
 		this.setDefaults();
 	}
 	
 	protected Vector normal;
+	/** Sets surface orientation by the vector normal to the plane. */	
 	public Plane setNormal(Vector n)
 	{
 		normal = n.dup().norm();
 		return this;
 	}
+	
+	/** Gets the surface normal at the given point. */	
 	@Override public Vector getNormal(Vector point)
 	{
 		return normal.dup();
 	}
 	
+	/** Gets distance along ray to intersection with plane. */	
 	@Override
 	public double intersection(Ray ray)
 	{
@@ -60,7 +71,8 @@ public class Plane extends BasicBody
     		return -1.0;
     	}
     	
-    	// return ratio of magnitudes (distance between plane and ray) / (speed ray approaches plane)
+    	// return ratio of magnitudes: 
+    	//(distance between plane and ray) / (speed ray approaches plane)
     	return projS / projD;
     	
 	}

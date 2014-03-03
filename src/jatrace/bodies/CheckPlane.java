@@ -3,9 +3,15 @@ package jatrace.bodies;
 import jatrace.*;
 import jatrace.bodies.Plane;
 
+/** This class extends the Plane class with a checkered, two color surface
+ *  texture. */
 public class CheckPlane extends Plane
 {
 	
+	/** Creates a new object with given origin and surface normal. The
+	 *  orientation parameter is used to determine both the layout of the
+	 *  surface checkers and their size (for unit checkers, orientation should
+	 *  be a point on the plane 1 unit from the origin). */
 	public CheckPlane( Vector o, Vector n, Vector orientation )
 	{
 		this.setDefaults();
@@ -18,6 +24,8 @@ public class CheckPlane extends Plane
 	
 	//dealing with orientation
 	protected Vector oX, oY;
+	/** Sets object's checker orientation. The distance this point is from the
+	 *  origin determines how big the checkers will be. */
 	@Override
 	public CheckPlane setOrientation(Vector o)
 	{
@@ -31,8 +39,22 @@ public class CheckPlane extends Plane
 	
 	//dealing with color
 	protected Color c1, c2;
-	@Override public CheckPlane setColor(Color c) { c2 = c1; c1 = c.dup(); return this; }
-	public CheckPlane setColor(Color a, Color b) { c1 = a.dup(); c2 = b.dup(); return this; }
+	
+	/** Since this object is two-colored, this function with one color parameter
+	 *  treats the colors as a queue, popping the first color and pushing the
+	 *  parameter onto the end of the queue. */
+	@Override public CheckPlane setColor(Color c) 
+	{
+		c2 = c1; c1 = c.dup(); return this;
+	}
+	
+	/** Sets both colors of the surface. */
+	public CheckPlane setColor(Color a, Color b) 
+	{
+		c1 = a.dup(); c2 = b.dup(); return this;
+	}
+	
+	/** Gets color of surface at the given point. */
 	@Override
 	public Color getColor(Vector point)
 	{
