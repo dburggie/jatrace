@@ -8,14 +8,18 @@ public class MyButton extends JButton
 {
 	//stuff
 	
-	public static enum Type { NULL };
-	
 	private String text = "";
-	public Type type = Type.NULL;
 	
-	int width, height, parentWidth = 0, parentHeight = 0;
+	int width, height;
 	int xpos, ypos;
 	
+	public MyButton(String message)
+	{
+		super(message);
+		text = message;
+		this.setLocation(0,0);
+		this.setSize(1,1);
+	}
 	
 	public MyButton(int x, int y, int w, int h, String message)
 	{
@@ -23,7 +27,6 @@ public class MyButton extends JButton
 		text = message;
 		this.setLocation(x,y);
 		this.setSize(w,h);
-		type = Type.NULL;
 	}
 	
 	public MyButton(int w, int h, String message)
@@ -32,12 +35,6 @@ public class MyButton extends JButton
 		text = message;
 		this.setLocation(0,0);
 		this.setSize(w,h);
-		type = Type.NULL;
-	}
-	
-	public void setType(Type t)
-	{
-		type = t;
 	}
 	
 	@Override
@@ -60,17 +57,6 @@ public class MyButton extends JButton
 	{
 		super.setSize(w,h);
 		width = w; height = h;
-	}
-	
-	public void setParent(MyPanel p)
-	{
-		parentWidth = p.getWidth();
-		parentHeight = p.getHeight();
-	}
-	
-	public void click()
-	{
-		if (type == Type.NULL) this.setText("CLICKED");
 	}
 	
 	public int getXposition() { return xpos; }

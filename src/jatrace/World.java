@@ -8,7 +8,7 @@ import jatrace.skies.Bluesky;
  *  rendering). */
 public class World
 {
-	protected linkedBody bodies;
+	protected LinkedBody bodies;
 	protected Sky sky;
 	protected Vector lights[];
 	protected myInterface i;
@@ -26,7 +26,7 @@ public class World
 	}
 	
 	/** Initializes object with a linked list of Body objects and a Sky. */
-	public World(linkedBody b, Sky s)
+	public World(LinkedBody b, Sky s)
 	{
 		this.init();
 		bodies = b;
@@ -47,7 +47,7 @@ public class World
 	/** Adds a body to the world. */
 	public World addBody(Body b)
 	{
-		bodies = new linkedBody(b);
+		bodies = new LinkedBody(b);
 		return this;
 	}
 	
@@ -80,7 +80,7 @@ public class World
 	private void trace(Ray ray, Body lastHit)
 	{
 		i.reset();
-		linkedBody lb = linkedBody.top();
+		LinkedBody lb = LinkedBody.top();
 		Body b;
 		double distance;
 		
@@ -112,7 +112,7 @@ public class World
 	{
 		Vector poi = i.poi;
 		Ray ray;
-		linkedBody lb;
+		LinkedBody lb;
 		Body b;
 		
 		int numLights = lights.length;
@@ -129,7 +129,7 @@ public class World
 			{
 				hitSomething = false;
 				ray = new Ray(i.poi, L);
-				lb = linkedBody.top();
+				lb = LinkedBody.top();
 				while (lb != null)
 				{
 					b = lb.b();

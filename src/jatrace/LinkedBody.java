@@ -3,31 +3,31 @@ package jatrace;
 /** This class provides a means to keep track of a collection of objects with
  *  the Body interface through a linked list. Each link will have a unique ID
  *  integer that can be used to find and or remove it from the collection. */
-final class linkedBody
+public class LinkedBody
 {
-	private static linkedBody firstLink = null;
+	private static LinkedBody firstLink = null;
 	private static int maxID = 0;
 
-	private linkedBody nextLink;
+	private LinkedBody nextLink;
 	private Body body;
 	private boolean inserted;
 	private int myID;
 	
 	
 	/** Fetches the first object in the linked list. */
-	public static linkedBody top()
+	public static LinkedBody top()
 	{
 		return firstLink;
 	}
 	
 	/** Fetches the object with the specified id number. Returns null if there
 	 *  is no object of that id in the list. */
-	public static linkedBody getByID(int id)
+	public static LinkedBody getByID(int id)
 	{
 		if (id < 0 || id > maxID) { return null; }
 		
-		linkedBody topBody = top();
-		linkedBody body = topBody;
+		LinkedBody topBody = top();
+		LinkedBody body = topBody;
 		
 		while (body == null)
 		{
@@ -47,9 +47,9 @@ final class linkedBody
 	
 	/** Removes and fetches the object specified by id. Returns null if no
 	 *  object of that id is in the list. */
-	public static linkedBody removeByID(int id)
+	public static LinkedBody removeByID(int id)
 	{
-		linkedBody link = firstLink;
+		LinkedBody link = firstLink;
 		
 		// check for bounding and edge cases
 		if (link == null || id < 0 || id > maxID) return null;
@@ -79,7 +79,7 @@ final class linkedBody
 	
 	/** Instantiates a new link containing the specified Body interface and
 	 *  inserts it into the list. */
-	public linkedBody(Body b)
+	public LinkedBody(Body b)
 	{
 		body = b;
 		inserted = false;
@@ -94,12 +94,12 @@ final class linkedBody
 	
 	/** Fetches the next link down from caller. A null reference will be
 	 *  returned if the caller is the tail object. */
-	public linkedBody next()
+	public LinkedBody next()
 	{
 		return nextLink;
 	}
 	
-	/** Inserts a new linkedBody object into the list only if it is not already
+	/** Inserts a new LinkedBody object into the list only if it is not already
 	 *  in the list. */
 	public void insert()
 	{
