@@ -74,11 +74,18 @@ public class BodyButton extends JButton implements ActionListener, BodyPasser
 	
 	
 	private BodyPasser nextBodyPasser = null, prevBodyPasser = null;
+	private BodyButton nextBodyButton = null;
+	
+	public BodyButton getNext() { return nextBodyButton; }
 	
 	@Override 
 	public void setNextBodyPasser(BodyPasser p)
 	{
 		nextBodyPasser = p;
+		if (p instanceof BodyButton)
+		{
+			nextBodyButton = (BodyButton) p;
+		}
 	}
 	
 	@Override 
