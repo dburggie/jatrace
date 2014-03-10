@@ -9,97 +9,84 @@ import javax.swing.*;
 public class BodyPanel extends JPanel implements ActionListener
 {
 	
-	private BodyButton bodysource;
-	private int bodyCount = 0;
+	private BodyButton head, tail;
 	
-	private JScrollPane buttonscrollpane;
-	private JPanel buttonspanel;
-	private JButton addbutton;
+	private JScrollPane scroller;
+	private ScrollableButtonPanel buttons;
+	private JButton adder;
 
 	
 	public BodyPanel()
 	{
+
 		super(new BorderLayout());
 		setPreferredSize( new Dimension(200,400) );
-		setMaximumSize( new Dimension(200,0) );
 		
-		setupButton();
-		setupButtonsPanel();
+		//create the body adder
+		adder = new JButton("New Body");
+		adder.setPreferredSize( new Dimension(200,50) );
+		adder.addActionListener(this);
+		add(adder, BorderLayout.PAGE_END);
 		
-		bodyCount = 0;
+		//initialize buttons in the Scroll Pane
+		head = tail = new BodyButton();
+		buttons = new ScrollableButtonPanel(head);
+		
+		//create the scroller
+		/*
+		scroller = new JScrollPane(
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		*/
+		scroller = new JScrollPane(buttons);
+		scroller.setBorder( BorderFactory.createEmptyBorder(0,0,5,0) );
+		add(scroller, BorderLayout.CENTER);
+		
+		updateScroller();
+		
 	}
 	
-	private void setupButton()
+	private void updateScroller()
 	{
-		addbutton = new JButton("New Body");
-		addbutton.setMinimumSize(new Dimension(200,50));
-		addbutton.setMaximumSize(new Dimension(200,50));
-		addbutton.addActionListener(this);
-		add(addbutton, BorderLayout.PAGE_END);
-	}
-	
-	private void setupButtonsPanel()
-	{
-		buttonspanel = new JPanel();
-		buttonspanel.setLayout(null);
-		
-		addNewBodyButton();
-		
-		JScrollPane p = new JScrollPane(buttonspanel);
-		p.setPreferredSize( new Dimension(200,345) );
-		p.setMaximumSize( new Dimension(200,0) );
-		p.setMinimumSize( new Dimension(200,0) );
-		buttonscrollpane = p;
-		
-		add(buttonscrollpane, BorderLayout.CENTER);
+		scroller.revalidate();
 	}
 	
 	private void addNewBodyButton()
 	{
-		
+		System.out.println("Adding a new Body Button!");
 		BodyButton b = new BodyButton();
-		b.setLocation(0,55 * bodyCount);
-		bodysource.insertBefore(b);
-		bodysource = b;
 		
-		bodyCount += 1;
-		buttonspanel.setSize(180,55 * bodyCount - 5);
-		buttonspanel.add(b);
-		
-	}
-	
-	private void updateButtonsPanel()
-	{
-		JPanel bp = new JPanel();
-		bp.setLayout(null);
-		bp.setSize(180, 55 * bodyCount - 5);
-		BodyButton b = bodysource;
-		
-		for (int count = 0; b != null; count += 1)
+		if (tail != null)
 		{
-			b.setLocation(0,55 * count);
-			bp.add(b);
-			b = b.getNext();
+			tail.insertAfter(b);
+			tail = b;
 		}
 		
-		buttonscrollpane.remove(buttonspanel);
-		buttonspanel = bp;
-		buttonscrollpane.add(buttonspanel);
-		buttonscrollpane.revalidate();
+		else
+		{
+			head = tail = b;
+		}
 		
+		buttons.add(b);
+		updateScroller();
+	}
+	
+	private void updateButtons()
+	{
+		buttons = new ScrollableButtonPanel(head);
+		updateScroller();
 	}
 	
 	public void removeButton(BodyButton b)
 	{
-		BodyButton temp = bodysource;
+		BodyButton temp = head;
 		
 		while (temp != null)
 		{
 			if ( b == temp )
 			{
 				temp.remove();
-				bodyCount -= 1;
-				updateButtonsPanel();
+				updateButtons();
 				break;
 			}
 			temp = temp.getNext();
@@ -110,7 +97,7 @@ public class BodyPanel extends JPanel implements ActionListener
 	{
 		Object s = e.getSource();
 		
-		if (s == addbutton)
+		if (s == adder)
 		{
 			addNewBodyButton();
 		}
