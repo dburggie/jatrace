@@ -7,14 +7,14 @@ import javax.swing.*;
 public class ScrollableButtonPanel extends JPanel implements Scrollable
 {
 	
-	private static Dimension preferredSize = new Dimension(0,0);
+	private static Dimension preferredSize = new Dimension(200,0);
 	
 	BodyButton head = null;
 	
 	
 	public ScrollableButtonPanel(BodyButton b)
 	{
-		super( new GridLayout(1,0) );
+		super( new GridLayout(0,1,5,0) );
 		head = b;
 		while (b != null)
 		{
@@ -25,12 +25,12 @@ public class ScrollableButtonPanel extends JPanel implements Scrollable
 	
 	public void add(BodyButton b)
 	{
-		super.add(Box.createRigidArea( new Dimension(0,25) ) );
+		//super.add(Box.createRigidArea( new Dimension(0,25) ) );
 		super.add(b);
 	}
 	
 	@Override
-	public boolean getScrollableTracksViewportHeight() { return true; }
+	public boolean getScrollableTracksViewportHeight() { return false; }
 	@Override
 	public boolean getScrollableTracksViewportWidth() { return true; }
 	@Override
@@ -42,6 +42,8 @@ public class ScrollableButtonPanel extends JPanel implements Scrollable
 	public int getScrollableBlockIncrement(Rectangle visibleRect, 
 			int orientation, int direction)
 	{
+		return 30;
+		/*
 		int step = 5;
 		
 		if (orientation == SwingConstants.VERTICAL)
@@ -59,13 +61,15 @@ public class ScrollableButtonPanel extends JPanel implements Scrollable
 			step = 50;
 		
 		return step;
+		*/
 	}
 	
 	@Override
 	public int getScrollableUnitIncrement(Rectangle visibleRect,
 			int orientation, int direction)
 	{
-		
+		return 30;
+		/*
 		int step = 5;
 		
 		if (orientation == SwingConstants.VERTICAL)
@@ -83,6 +87,6 @@ public class ScrollableButtonPanel extends JPanel implements Scrollable
 			step = 25;
 		
 		return step;
-		
+		*/
 	}
 }

@@ -16,6 +16,7 @@ public class BodyButton extends JButton implements ActionListener, BodyPasser
 	public BodyButton()
 	{
 		super();
+		setPreferredSize(new Dimension(0,25));
 		body = null;
 		bb = new BodyBuilder(this);
 		setText( "Empty Body" );
