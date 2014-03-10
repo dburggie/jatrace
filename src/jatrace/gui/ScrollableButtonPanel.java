@@ -14,7 +14,7 @@ public class ScrollableButtonPanel extends JPanel implements Scrollable
 	
 	public ScrollableButtonPanel(BodyButton b)
 	{
-		super( new GridLayout(0,1,5,0) );
+		super( new GridLayout(0,1,0,5) );
 		head = b;
 		while (b != null)
 		{
