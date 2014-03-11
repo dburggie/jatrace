@@ -12,7 +12,8 @@ public class DoubleBuilder extends JPanel implements FocusListener
 	
 	public DoubleBuilder(String name, double value)
 	{
-		super(new GridLayout(1,2));
+		//super(new GridLayout(1,2));
+		super();
 		setPreferredSize(new Dimension(0,25));
 		
 		label = new JLabel(name, JLabel.CENTER);
