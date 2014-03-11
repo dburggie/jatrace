@@ -7,7 +7,7 @@ import javax.swing.*;
 public class BooleanBuilder extends JPanel implements ItemListener
 {
 	
-	private JLabel label;
+	//private JLabel label;
 	private JCheckBox checkbox;
 	private boolean selected;
 	
@@ -16,7 +16,7 @@ public class BooleanBuilder extends JPanel implements ItemListener
 		//super(new GridLayout(1,2));
 		super(new BorderLayout());
 		
-		setPreferredSize( new Dimension(25,0) );
+		setPreferredSize( new Dimension(0,25) );
 		
 		//label = new JLabel(descriptor, JLabel.CENTER);
 		//add(label);
@@ -40,7 +40,8 @@ public class BooleanBuilder extends JPanel implements ItemListener
 	
 	public void setText(String t)
 	{
-		label.setText(t);
+		//label.setText(t);
+		checkbox.setText(t);
 	}
 	
 	@Override
