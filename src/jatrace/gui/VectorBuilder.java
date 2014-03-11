@@ -4,10 +4,63 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class VectorBuilder extends JPanel implements FocusListener
+public class VectorBuilder extends JPanel// implements FocusListener
 {
 	
-	private JTextField xField, yField, zField;
+	//private JTextField xField, yField, zField;
+	private DoubleBuilder xField, yField, zField;
+	private jatrace.Vector vector;
+	
+	JLabel label = null;
+	JPanel lowerpanel = null;
+	
+	public jatrace.Vector build()
+	{
+		
+		double x,y,z;
+		
+		//get X value
+		try
+		{
+			x = xField.getValue();
+		}
+		
+		catch (NumberFormatException e)
+		{
+			System.out.println("couldn't read input");
+			xField.requestFocus();
+			return null;
+		}
+		
+		//get Y value
+		try
+		{
+			y = yField.getValue();
+		}
+		
+		catch (NumberFormatException e)
+		{
+			System.out.println("couldn't read input");
+			yField.requestFocus();
+			return null;
+		}
+		
+		//get Z value
+		try
+		{
+			z = zField.getValue();
+		}
+		
+		catch (NumberFormatException e)
+		{
+			System.out.println("couldn't read input");
+			zField.requestFocus();
+			return null;
+		}
+		
+		return vector.setxyz(x,y,z);
+		
+	}
 	
 	public VectorBuilder(String vectorName)
 	{
@@ -22,115 +75,38 @@ public class VectorBuilder extends JPanel implements FocusListener
 		label.setPreferredSize(new Dimension(0,25));
 		add(label);
 		
-		xField = new JTextField(5);
-		xField.addFocusListener(this);
+		vector = new jatrace.Vector(0.0,0.0,0.0);
 		
-		yField = new JTextField(5);
-		yField.addFocusListener(this);
-		
-		zField = new JTextField(5);
-		zField.addFocusListener(this);
-		
-		add(buildFullInputArea());
+		buildFromVector(vector);
 		
 		setOpaque(true);
 	}
 	
-	/** builds all three input areas */
-	private JPanel buildFullInputArea()
+	private void buildFromVector(jatrace.Vector v)
 	{
-		
-		JPanel panel = new JPanel(new GridLayout(1,3,5,0));
-		
-		panel.add( buildSingleTextArea("x:",xField) );
-		panel.add( buildSingleTextArea("y:",yField) );
-		panel.add( buildSingleTextArea("z:",zField) );
-		
-		return panel;
-		
-	}
-	
-	/** Builds a single input area from a string and a textfield */
-	private JPanel buildSingleTextArea(String s, JTextField f)
-	{
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(new JLabel(s, JLabel.CENTER), BorderLayout.LINE_START);
-		panel.add(f, BorderLayout.CENTER);
-		
-		return panel;
-	}
-	
-	public jatrace.Vector build()
-	{
-		
-		double x,y,z;
-		String input;
-		
-		//parse xField
-		input = xField.getText();
-		try {
-			x = toDouble(input);
-		
-		} catch (NumberFormatException e) {
-			System.out.println("couldn't decode "+ input);
-			xField.requestFocus();
-			return null;
-		}
-		
-		//parse yField
-		try {
-			y = toDouble( yField.getText() );
-		
-		} catch (NumberFormatException e) {
-			System.out.println("couldn't decode "+ input);
-			yField.requestFocus();
-			return null;
-		}
-		
-		//parse zField
-		try {
-			z = toDouble( zField.getText() );
-		
-		} catch (NumberFormatException e) {
-			System.out.println("couldn't decode "+ input);
-			zField.requestFocus();
-			return null;
-		}
-		
-		return new jatrace.Vector(x,y,z);
-		
-	}
-	
-	private static double toDouble(String s) throws NumberFormatException
-	{
-		
-		double d = 0.0;
-		try {
-			d = Double.parseDouble(s);
-		}
-		
-		catch (NumberFormatException e)
+		if (lowerpanel != null)
 		{
-			String l = "couldn't decode " + s + " as double, attempting as int";
-			System.out.println(l);
-			d = (double) Integer.decode(s);
+			remove(lowerpanel);
 		}
 		
-		return d;
+		lowerpanel = new JPanel(new GridLayout(1,3));
+
+		xField = new DoubleBuilder("x:",v.getX());
+		lowerpanel.add(xField);
+
+		yField = new DoubleBuilder("y:",v.getY());
+		lowerpanel.add(yField);
+		
+		zField = new DoubleBuilder("z:",v.getZ());
+		lowerpanel.add(zField);
+		
+		add(lowerpanel);
+		
 	}
 	
-	// Focus Listener Interface Below
-	
-	public void focusGained(FocusEvent e)
+	public void setText(String t)
 	{
-		Component c = e.getComponent();
-		if (c instanceof JTextField)
-		{
-			((JTextField)c).selectAll();
-		}
+		label.setText(t);
 	}
-	
-	public void focusLost(FocusEvent e) { }
-	
 	
 }
