@@ -6,7 +6,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class BodyBuilder extends JFrame implements ActionListener
+public class BodyBuilder
+		extends JFrame
+		implements ActionListener, FocusListener
 {
 	
 	private BodyPasser parent = null;
@@ -40,24 +42,26 @@ public class BodyBuilder extends JFrame implements ActionListener
 	private void setupBodyNamer()
 	{
 		
-		//set up the button title text input area
+		//setup label maker title
 		bodyNamer = new JPanel(new BorderLayout());
-		JLabel l = new JLabel("Body Name");
+		JLabel l = new JLabel("Body Label",JLabel.CENTER);
 		l.setPreferredSize(new Dimension(100,25));
-		bodyNamer.add(l, BorderLayout.LINE_START);
+		bodyNamer.add(l, BorderLayout.PAGE_START);
 		
-		JPanel p = new JPanel(new BorderLayout());
-		bodyNamer.add(p, BorderLayout.CENTER);
 		
-		textButton.setPreferredSize(new Dimension(100,25));
-		textButton.addActionListener(this);
-		p.add(textButton, BorderLayout.LINE_END);
-		
+		//setup up text input field
 		String t = parent.getText();
 		textInput = new JTextField(20);
 		textInput.setText(t);
 		textInput.setPreferredSize(new Dimension(0,25));
-		p.add(textInput, BorderLayout.CENTER);
+		textInput.addActionListener(this);
+		textInput.addFocusListener(this);
+		bodyNamer.add(textInput, BorderLayout.CENTER);
+		
+		//setup text input button
+		textButton.setPreferredSize(new Dimension(100,25));
+		textButton.addActionListener(this);
+		bodyNamer.add(textButton, BorderLayout.LINE_END);
 		
 	}
 	
@@ -65,7 +69,7 @@ public class BodyBuilder extends JFrame implements ActionListener
 	{
 		Object s = e.getSource();
 		
-		if (s == textButton)
+		if (s == textInput || s == textButton)
 		{
 			String t = textInput.getText();
 			parent.setText(t);
@@ -73,5 +77,17 @@ public class BodyBuilder extends JFrame implements ActionListener
 		
 		//System.out.println("we're supposed to build a body now");
 	}
+	
+	//Focus listener stuff below
+	public void focusGained(FocusEvent e)
+	{
+		Component c = e.getComponent();
+		if (c instanceof JTextField)
+		{
+			((JTextField)c).selectAll();
+		}
+	}
+	
+	public void focusLost(FocusEvent e) { }
 	
 }
