@@ -8,7 +8,10 @@ import javax.swing.*;
 
 public interface BodyPasser
 {
-	public void setBody(String t, Body b);
+	public void setText(String t);
+	public String getText();
+	
+	public void setBody(Body b);
 	public Body getBody();
 	
 	public void setPrevBodyPasser(BodyPasser p);

@@ -6,7 +6,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class BodyButton extends JButton implements ActionListener, BodyPasser
+public class BodyButton extends JButton 
+		implements ActionListener, BodyPasser, WindowListener
 {
 	private Body body;
 	private String text;
@@ -18,18 +19,20 @@ public class BodyButton extends JButton implements ActionListener, BodyPasser
 		super();
 		setPreferredSize(new Dimension(0,25));
 		body = null;
-		bb = new BodyBuilder(this);
+		
 		setText( "Empty Body" );
 		addActionListener(this);
+		
+		bb = new BodyBuilder(this);
+		bb.addWindowListener(this);
 	}
 	 
 	@Override
 	public Body getBody() { return body; }
 	 
 	@Override
-	public void setBody(String t, Body b)
+	public void setBody(Body b)
 	{
-		setText(t);
 		body = b;
 		builderLocked = false;
 		update();
@@ -37,8 +40,8 @@ public class BodyButton extends JButton implements ActionListener, BodyPasser
 	 
 	public void actionPerformed(ActionEvent e)
 	{
-		Object s = e.getSource();
-		if (s == this)
+		
+		if (e.getSource() == this)
 		{
 			if (!builderLocked)
 			{
@@ -71,6 +74,8 @@ public class BodyButton extends JButton implements ActionListener, BodyPasser
 	{
 		super.setText(name); text = name;
 	}
+	
+	@Override public String getText() { return text; }
 	
 	
 	
@@ -166,4 +171,39 @@ public class BodyButton extends JButton implements ActionListener, BodyPasser
 			nextBodyPasser = null;
 		}
 	}
+	
+	
+	
+	//Window listener interface
+	@Override
+	public void windowActivated(WindowEvent e) { }
+	
+	public void windowClosed(WindowEvent e)
+	{
+		//when window has been closed by calling dispose
+		if (e.getSource() == bb)
+		{
+			//remove this button
+			remove();
+		}
+	}
+	
+	@Override
+	public void windowClosing(WindowEvent e)
+	{
+		//hide the window instead
+		if (e.getSource() == bb)
+		{
+			builderLocked = false;
+			update();
+		}
+	}
+	
+	//satisfy WindowListener interface with the below.
+	@Override public void windowDeactivated(WindowEvent e) { }
+	@Override public void windowDeiconified(WindowEvent e) { }
+	@Override public void windowIconified(WindowEvent e) { }
+	@Override public void windowOpened(WindowEvent e) { }
+	
+	
 }
