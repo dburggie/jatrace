@@ -114,4 +114,8 @@ public class Color
 		blue= Math.pow( makeSafe(blue),e );
 		return this;
 	}
+	
+	public double getRed()   { return red;   }
+	public double getGreen() { return green; }
+	public double getBlue()  { return blue;  }
 }

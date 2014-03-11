@@ -23,7 +23,10 @@ public class DoubleBuilder extends JPanel implements FocusListener
 		add(field);
 	}
 	
-	public double getValue() throws NumberFormatException
+	public double getValue() { return getValue(1.0); }
+	
+	public double getValue(double divideByIfInt)
+			throws NumberFormatException
 	{
 		
 		String input = field.getText();
@@ -38,7 +41,7 @@ public class DoubleBuilder extends JPanel implements FocusListener
 			String l;
 			l = "couldn't decode " + input + " as double, attempting as int";
 			System.out.println(l);
-			d = (double) Integer.decode(input);
+			d = Integer.decode(input) / divideByIfInt;
 		}
 		
 		return d;
