@@ -12,8 +12,7 @@ public class BodyBuilder
 {
 	
 	private BodyPasser parent = null;
-	private JPanel body;
-	private JPanel bodyNamer;
+	private JPanel body, bodyNamer, buildpanel;
 	
 	private JTextField textInput;
 	private JButton textButton = new JButton("set name");
@@ -31,11 +30,28 @@ public class BodyBuilder
 		body = new JPanel(new BorderLayout());
 		body.setPreferredSize(new Dimension(500,200));
 		
+		//set up body namer panel
 		setupBodyNamer();
 		body.add(bodyNamer, BorderLayout.PAGE_START);
 		
+		//set up body builder panel
+		setupBodyBuildPanel();
+		body.add(buildpanel, BorderLayout.CENTER);
+		
 		getContentPane().add(body);
 		pack();
+		
+	}
+	
+	/** As of now, this method is a stub. */
+	private void setupBodyBuildPanel()
+	{
+		buildpanel = new JPanel(new GridLayout(0,1,0,5));
+		
+		buildpanel.add( new BooleanBuilder("I'm a boolean builder", false) );
+		buildpanel.add( new ColorBuilder("I'm a color builder") );
+		buildpanel.add( new VectorBuilder("I'm a vector builder") );
+		
 		
 	}
 	
@@ -65,6 +81,7 @@ public class BodyBuilder
 		
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		Object s = e.getSource();
@@ -79,7 +96,8 @@ public class BodyBuilder
 	}
 	
 	//Focus listener stuff below
-	public void focusGained(FocusEvent e)
+	@Override public void focusLost(FocusEvent e) { }
+	@Override public void focusGained(FocusEvent e)
 	{
 		Component c = e.getComponent();
 		if (c instanceof JTextField)
@@ -88,6 +106,6 @@ public class BodyBuilder
 		}
 	}
 	
-	public void focusLost(FocusEvent e) { }
+	
 	
 }
