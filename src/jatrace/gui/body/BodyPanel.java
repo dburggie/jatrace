@@ -1,6 +1,7 @@
-package jatrace.gui;
+package jatrace.gui.body;
 
 import jatrace.*;
+import jatrace.gui.*;
 
 import java.awt.*;
 import java.awt.event.*;
