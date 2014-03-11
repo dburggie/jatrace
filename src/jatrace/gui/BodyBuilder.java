@@ -43,7 +43,10 @@ public class BodyBuilder
 		
 	}
 	
-	/** As of now, this method is a stub. */
+	/** As of now, this method is a stub. Eventually, this will implement a body
+	 *  featuring a card layout, each card containing a custom scrollable panel
+	 *  containing the object builders needed to build a body. The card layout
+	 *  will be controlled by a combobox, probably. */
 	private void setupBodyBuildPanel()
 	{
 		buildpanel = new JPanel(new GridLayout(0,1,0,5));
