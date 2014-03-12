@@ -2,6 +2,7 @@ package jatrace.gui.body;
 
 import jatrace.*;
 import jatrace.gui.*;
+import jatrace.gui.builders.*;
 
 import java.awt.*;
 import java.awt.event.*;
