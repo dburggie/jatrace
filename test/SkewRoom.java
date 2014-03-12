@@ -8,9 +8,9 @@ public class SkewRoom
 	public static void main(String [] args)
 	{
 		
-		double win_w = 4.0, win_h = 2.5;
+		double win_w = 6.4, win_h = 4.0;
 		
-		int	ppu = 100, 
+		int	ppu = 50, 
 		    passes = 4,
 		    depth = 8;
 		
@@ -68,7 +68,7 @@ public class SkewRoom
 		world.addBody(floor).addBody(ball);//.addBody(ceiling);
 		world.setBaseBrightness(0.9);
 		
-		Camera cam = new Camera( new Vector(5.0,4.0,10.0), new Vector(0.0,1.0,0.0), win_w, win_h);
+		Camera cam = new Camera( new Vector(5.0,3.5,10.0), new Vector(0.0,1.0,0.0), win_w, win_h);
 		cam.setPPU(ppu);
 		
 		Tracer t = new Tracer(world, cam);
