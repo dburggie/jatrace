@@ -1,4 +1,5 @@
 import jatrace.gui.*;
+import jatrace.gui.body.*;
 
 import javax.swing.*;
 
