@@ -49,17 +49,15 @@ public class Color
 		return this;
 	}
 	
-	/** Returns an integer array so the rgba values will fit into bytes. Note:
-	 *  currently the alpha channel is unsupported as it was causing many
-	 *  rendering issues. */
+	/** Returns an integer array so the rgba values will fit into bytes.  */
 	public int [] p()
 	{
 		int [] i = new int [4];
-		i[0] = Math.min(255, (int) (256 * red));
-		i[1] = Math.min(255, (int) (256 * green));
-		i[2] = Math.min(255, (int) (256 * blue));
-		i[3] = 255;
-		//i[3] = Math.min(255, (int) (256 * alpha));
+		i[0] = Math.max(0, Math.min(255, (int) (256 * red  ) ) );
+		i[1] = Math.max(0, Math.min(255, (int) (256 * green) ) );
+		i[2] = Math.max(0, Math.min(255, (int) (256 * blue ) ) );
+		i[3] = Math.max(0, Math.min(255, (int) (256 * alpha) ) );
+		//i[3] = 255;
 		return i;
 	}
 	
@@ -90,7 +88,7 @@ public class Color
 	 *  supported for edge cases. Be cautious. */
 	public Color dim(double s)
 	{
-		red *= s; green *= s; blue *= s; alpha *= s; return this;
+		red *= s; green *= s; blue *= s; return this;
 	}
 	
 	/** If given sample is subminimally or supermaximally saturated, returns
