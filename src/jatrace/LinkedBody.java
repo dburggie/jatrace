@@ -5,85 +5,18 @@ package jatrace;
  *  integer that can be used to find and or remove it from the collection. */
 public class LinkedBody
 {
-	private static LinkedBody firstLink = null;
-	private static int maxID = 0;
 
 	private LinkedBody nextLink;
+	private LinkedBody prevLink;
 	private Body body;
-	private boolean inserted;
-	private int myID;
 	
 	
-	/** Fetches the first object in the linked list. */
-	public static LinkedBody top()
-	{
-		return firstLink;
-	}
-	
-	/** Fetches the object with the specified id number. Returns null if there
-	 *  is no object of that id in the list. */
-	public static LinkedBody getByID(int id)
-	{
-		if (id < 0 || id > maxID) { return null; }
-		
-		LinkedBody topBody = top();
-		LinkedBody body = topBody;
-		
-		while (body == null)
-		{
-			
-			if (body.myID == id)
-			{
-				return body;
-			}
-			
-			body = body.next();
-			if (body == topBody) { return null;}
-			
-		}
-		
-		return null;
-	}
-	
-	/** Removes and fetches the object specified by id. Returns null if no
-	 *  object of that id is in the list. */
-	public static LinkedBody removeByID(int id)
-	{
-		LinkedBody link = firstLink;
-		
-		// check for bounding and edge cases
-		if (link == null || id < 0 || id > maxID) return null;
-		if (link.myID == id)
-		{
-			link.inserted = false;
-			firstLink = null;
-			return link;
-			
-		}
-		
-		if (link.nextLink == null) { return null; }
-		
-		// find body with the id we want
-		while (link.nextLink.myID != id)
-		{
-			
-			link = link.nextLink;
-			if (link.nextLink == null) { return null; }
-			
-		} 
-		
-		link.nextLink.inserted = false;
-		link.nextLink = link.nextLink.nextLink;
-		return link.nextLink;
-	}
-	
-	/** Instantiates a new link containing the specified Body interface and
-	 *  inserts it into the list. */
+	/** Instantiates a new link containing the specified Body interface. */
 	public LinkedBody(Body b)
 	{
 		body = b;
-		inserted = false;
-		this.insert();
+		nextLink = null;
+		prevLink = null;
 	}
 	
 	/** Fetches a reference to the Body object this link wraps. */
@@ -99,18 +32,57 @@ public class LinkedBody
 		return nextLink;
 	}
 	
-	/** Inserts a new LinkedBody object into the list only if it is not already
-	 *  in the list. */
-	public void insert()
+	/** Removes object from its linked list and inserts it before the argument.
+	 *  This function safely handles null references. */
+	public void insertBefore(LinkedBody lb)
 	{
-		if (!inserted)
+		//clear this objects ends
+		remove();
+		
+		if (lb != null)
 		{
-			maxID += 1;
-			myID = maxID;
-			nextLink = firstLink;
-			firstLink = this;
-			inserted = true;
+			prevLink = lb.prevLink;
+			lb.prevLink = this;
+			nextLink = lb;
+			if (prevLink != null)
+			{
+				prevLink.nextLink = this;
+			}
 		}
+	}
+	
+	/** Removes object from its linked list and inserts it after the argument.
+	 *  This function safely handles null references. */
+	public void insertAfter(LinkedBody lb)
+	{
+		remove();
+		
+		if (lb != null)
+		{
+			nextLink = lb.nextLink;
+			lb.nextLink = this;
+			prevLink = lb;
+			if (nextLink != null)
+			{
+				nextLink.prevLink = this;
+			}
+		}
+	}
+	
+	/** Removes object from linked list, linking the ends together. */
+	public void remove()
+	{
+		if (prevLink != null)
+		{
+			prevLink.nextLink = nextLink;
+		}
+		
+		if (nextLink != null)
+		{
+			nextLink.prevLink = null;
+		}
+		
+		nextLink = null; prevLink = null;
 	}
 
 

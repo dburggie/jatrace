@@ -47,7 +47,9 @@ public class World
 	/** Adds a body to the world. */
 	public World addBody(Body b)
 	{
-		bodies = new LinkedBody(b);
+		LinkedBody lb = new LinkedBody(b);
+		lb.insertBefore(bodies);
+		bodies = lb;
 		return this;
 	}
 	
@@ -80,7 +82,7 @@ public class World
 	private void trace(Ray ray, Body lastHit)
 	{
 		i.reset();
-		LinkedBody lb = LinkedBody.top();
+		LinkedBody lb = bodies;
 		Body b;
 		double distance;
 		
@@ -129,7 +131,7 @@ public class World
 			{
 				hitSomething = false;
 				ray = new Ray(i.poi, L);
-				lb = LinkedBody.top();
+				lb = bodies;
 				while (lb != null)
 				{
 					b = lb.b();
