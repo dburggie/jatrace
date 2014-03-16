@@ -47,7 +47,7 @@ public class SkewRoom
 		floor.setReflectivity(0.0);
 		
 		
-		Color wColor = new Color(0.1,0.1,0.1);
+		Color wColor = new Color(0.01,0.01,0.01);
 		OneWayPlane [] walls = {
 		      new OneWayPlane( new Vector(0.0,0.0, 6.0), new Vector(1.0,0.0,-3.0),  wColor.dup() ),
 		      new OneWayPlane( new Vector(0.0,0.0,-6.0), new Vector(-1.0,0.0,3.0),  wColor.dup() ),
@@ -68,7 +68,7 @@ public class SkewRoom
 		world.addBody(floor).addBody(ball);//.addBody(ceiling);
 		world.setBaseBrightness(0.9);
 		
-		Camera cam = new Camera( new Vector(5.0,3.5,10.0), new Vector(0.0,1.0,0.0), win_w, win_h);
+		Camera cam = new Camera( new Vector(5.0,2.5,10.0), new Vector(0.0,1.0,0.0), win_w, win_h);
 		cam.setPPU(ppu);
 		
 		Tracer t = new Tracer(world, cam);

@@ -14,7 +14,7 @@ public class BodyPanel extends JPanel implements ActionListener
 	private BodyButton head, tail;
 	
 	private JScrollPane scroller;
-	private ScrollableButtonPanel buttons;
+	private ButtonPanel buttons;
 	private JButton adder;
 
 	
@@ -32,7 +32,7 @@ public class BodyPanel extends JPanel implements ActionListener
 		
 		//initialize buttons in the Scroll Pane
 		head = tail = new BodyButton();
-		buttons = new ScrollableButtonPanel(head);
+		buttons = new ButtonPanel(head);
 		
 		//create the scroller
 		/*
@@ -75,7 +75,7 @@ public class BodyPanel extends JPanel implements ActionListener
 	
 	private void updateButtons()
 	{
-		buttons = new ScrollableButtonPanel(head);
+		buttons = new ButtonPanel(head);
 		updateScroller();
 	}
 	

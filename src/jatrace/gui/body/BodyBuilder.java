@@ -13,6 +13,12 @@ public class BodyBuilder
 		implements ActionListener, FocusListener
 {
 	
+	private final String [] bodyNames = { "Sphere" };
+	
+	private JComboBox combobox;
+	private JPanel activePanel;
+	private SphereBuilder sphereBuilder;
+	
 	private BodyPasser parent = null;
 	private JPanel body, bodyNamer, buildpanel;
 	
@@ -29,34 +35,63 @@ public class BodyBuilder
 		//register which bodypasser this frame points to
 		parent = p;
 		
-		body = new JPanel(new BorderLayout());
-		body.setPreferredSize(new Dimension(500,200));
+		body = new JPanel();
+		body.setLayout( new BoxLayout(body, BoxLayout.Y_AXIS) );
+		body.setPreferredSize(new Dimension(400,600));
 		
 		//set up body namer panel
 		setupBodyNamer();
-		body.add(bodyNamer, BorderLayout.PAGE_START);
+		body.add(bodyNamer);
 		
 		//set up body builder panel
-		setupBodyBuildPanel();
-		body.add(buildpanel, BorderLayout.CENTER);
+		setupBuildPanels();
+		
+		//setup combobox
+		combobox = new JComboBox(bodyNames);
+		combobox.setSelectedIndex(0);
+		combobox.addActionListener(this);
+		body.add(combobox, BorderLayout.CENTER);
+		
+		//set active panel
+		updateActivePanel();
 		
 		getContentPane().add(body);
 		pack();
 		
 	}
 	
+	private void updateActivePanel()
+	{
+		int index = combobox.getSelectedIndex();
+		String type = bodyNames[index];
+		
+		if ( type.equals("Sphere") )
+		{
+			updateByPanel(sphereBuilder);
+		}
+	}
+	
+	private void updateByPanel(JPanel p)
+	{
+		if (activePanel != null)
+		{
+			body.remove(activePanel);
+		}
+		activePanel = p;
+		body.add(activePanel, BorderLayout.PAGE_END);
+		body.revalidate();
+		revalidate();
+	}
+	
+	
 	/** As of now, this method is a stub. Eventually, this will implement a body
 	 *  featuring a card layout, each card containing a custom scrollable panel
 	 *  containing the object builders needed to build a body. The card layout
 	 *  will be controlled by a combobox, probably. */
-	private void setupBodyBuildPanel()
+	private void setupBuildPanels()
 	{
-		buildpanel = new JPanel(new GridLayout(0,1,0,5));
-		
-		buildpanel.add( new BooleanBuilder("I'm a boolean builder", false) );
-		buildpanel.add( new ColorBuilder("I'm a color builder") );
-		buildpanel.add( new VectorBuilder("I'm a vector builder") );
-		
+
+		sphereBuilder = new SphereBuilder();
 		
 	}
 	
@@ -95,6 +130,11 @@ public class BodyBuilder
 		{
 			String t = textInput.getText();
 			parent.setText(t);
+		}
+		
+		else if (s == combobox)
+		{
+			updateActivePanel();
 		}
 		
 		//System.out.println("we're supposed to build a body now");

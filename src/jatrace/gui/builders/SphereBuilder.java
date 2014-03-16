@@ -9,17 +9,20 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class SphereBuilder extends JPanel
+public class SphereBuilder extends ScrollableGridPanel implements ActionListener
 {
 	VectorBuilder position;
 	DoubleBuilder radius;
 	ColorBuilder color;
+	JButton expand;
+	boolean expanded;
+	DoubleBuilder reflectivity;
+	DoubleBuilder specularity;
+	BooleanBuilder matte;
 	
 	public SphereBuilder()
 	{
 		super();
-		
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		radius = new DoubleBuilder("Radius:",0.0);
 		add(radius);
@@ -29,6 +32,16 @@ public class SphereBuilder extends JPanel
 		
 		color = new ColorBuilder("Color:");
 		add(color);
+		
+		expand = new JButton("Advanced Options");
+		expand.setPreferredSize(new Dimension(0,25));
+		add(expand);
+		expanded = false;
+		
+		reflectivity = new DoubleBuilder("Reflectivity:",0.3);
+		specularity = new DoubleBuilder("Specularity:",10.0);
+		matte = new BooleanBuilder("Matte:", false);
+		
 		
 		setOpaque(true);
 	}
@@ -41,6 +54,31 @@ public class SphereBuilder extends JPanel
 		jatrace.Color c = color.build();
 		
 		return new Sphere(v,r,c);
+		
+	}
+	
+	private void showAdvancedOptions()
+	{
+		
+		if (!expanded)
+		{
+			remove(expand);
+			add(reflectivity);
+			add(specularity);
+			add(matte);
+			revalidate();
+			expanded = true;
+		}
+		
+	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		
+		if (!expanded && e.getSource() == expand)
+		{
+			showAdvancedOptions();
+		}
 		
 	}
 }
