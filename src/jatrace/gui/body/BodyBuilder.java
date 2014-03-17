@@ -116,6 +116,7 @@ public class BodyBuilder
 		textInput = new JTextField(20);
 		textInput.setText(t);
 		textInput.setPreferredSize(new Dimension(0,25));
+		textInput.setBorder(BorderFactory.createEmptyBorder(0,5,0,5) );
 		textInput.addActionListener(this);
 		textInput.addFocusListener(this);
 		bodyNamer.add(textInput, BorderLayout.CENTER);
