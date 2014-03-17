@@ -20,7 +20,7 @@ public class BodyBuilder
 	private SphereBuilder sphereBuilder;
 	
 	private BodyPasser parent = null;
-	private JPanel body, bodyNamer, buildpanel;
+	private JPanel body, header, bodyNamer, buildpanel;
 	
 	private JTextField textInput;
 	private JButton textButton = new JButton("set name");
@@ -36,21 +36,26 @@ public class BodyBuilder
 		parent = p;
 		
 		body = new JPanel();
-		body.setLayout( new BoxLayout(body, BoxLayout.Y_AXIS) );
+		body.setLayout( new BorderLayout() );
 		body.setPreferredSize(new Dimension(400,600));
+		
+		
+		
+		header = new JPanel(new GridLayout(0,1,0,5));
+		header.setPreferredSize( new Dimension(0,55) );
+		body.add(header, BorderLayout.PAGE_START);
 		
 		//set up body namer panel
 		setupBodyNamer();
-		body.add(bodyNamer);
-		
-		//set up body builder panel
-		setupBuildPanels();
 		
 		//setup combobox
 		combobox = new JComboBox(bodyNames);
 		combobox.setSelectedIndex(0);
 		combobox.addActionListener(this);
-		body.add(combobox, BorderLayout.CENTER);
+		header.add(combobox);
+		
+		//set up body builder panel
+		setupBuildPanels();
 		
 		//set active panel
 		updateActivePanel();
@@ -78,7 +83,7 @@ public class BodyBuilder
 			body.remove(activePanel);
 		}
 		activePanel = p;
-		body.add(activePanel, BorderLayout.PAGE_END);
+		body.add(activePanel, BorderLayout.CENTER);
 		body.revalidate();
 		revalidate();
 	}
@@ -100,9 +105,10 @@ public class BodyBuilder
 		
 		//setup label maker title
 		bodyNamer = new JPanel(new BorderLayout());
+		bodyNamer.setPreferredSize( new Dimension(200,25) );
 		JLabel l = new JLabel("Body Label",JLabel.CENTER);
 		l.setPreferredSize(new Dimension(100,25));
-		bodyNamer.add(l, BorderLayout.PAGE_START);
+		bodyNamer.add(l, BorderLayout.LINE_START);
 		
 		
 		//setup up text input field
@@ -118,6 +124,8 @@ public class BodyBuilder
 		textButton.setPreferredSize(new Dimension(100,25));
 		textButton.addActionListener(this);
 		bodyNamer.add(textButton, BorderLayout.LINE_END);
+		
+		header.add(bodyNamer);
 		
 	}
 	

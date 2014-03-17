@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class SphereBuilder extends ScrollableGridPanel implements ActionListener
+public class SphereBuilder extends ScrollableGridPanel
 {
 	VectorBuilder position;
 	DoubleBuilder radius;
@@ -33,15 +33,14 @@ public class SphereBuilder extends ScrollableGridPanel implements ActionListener
 		color = new ColorBuilder("Color:");
 		add(color);
 		
-		expand = new JButton("Advanced Options");
-		expand.setPreferredSize(new Dimension(0,25));
-		add(expand);
-		expanded = false;
-		
 		reflectivity = new DoubleBuilder("Reflectivity:",0.3);
-		specularity = new DoubleBuilder("Specularity:",10.0);
-		matte = new BooleanBuilder("Matte:", false);
+		add(reflectivity);
 		
+		specularity = new DoubleBuilder("Specularity:",10.0);
+		add(specularity);
+		
+		matte = new BooleanBuilder("Matte:", false);
+		add(matte);
 		
 		setOpaque(true);
 	}
