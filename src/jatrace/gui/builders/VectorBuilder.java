@@ -65,6 +65,8 @@ public class VectorBuilder extends JPanel// implements FocusListener
 	{
 		super(new GridLayout(1,3,5,0) );
 		
+		setPreferredSize( new Dimension(0,25) );
+		
 		vector = new jatrace.Vector(0.0,0.0,0.0);
 		
 		buildFromVector(vector);

@@ -64,6 +64,8 @@ public class ColorBuilder extends JPanel
 	{
 		super( new GridLayout(1,3,5,0) );
 		
+		setPreferredSize( new Dimension(0,25) );
+		
 		color = new jatrace.Color();
 		
 		buildFromColor(color);
