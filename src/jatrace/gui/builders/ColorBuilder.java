@@ -12,9 +12,6 @@ public class ColorBuilder extends JPanel
 	private DoubleBuilder redField, greenField, blueField;
 	private jatrace.Color color;
 	
-	JLabel label = null;
-	JPanel lowerpanel = null;
-	
 	public jatrace.Color build()
 	{
 		
@@ -63,18 +60,9 @@ public class ColorBuilder extends JPanel
 		
 	}
 	
-	public ColorBuilder(String colorName)
+	public ColorBuilder()
 	{
-		super(new GridLayout(2,1,0,2));
-		
-		if (colorName == null || colorName.equals(""))
-		{
-			colorName = "Color";
-		}
-		
-		JLabel label = new JLabel(colorName, JLabel.CENTER);
-		label.setPreferredSize(new Dimension(0,25));
-		add(label);
+		super( new GridLayout(1,3,5,0) );
 		
 		color = new jatrace.Color();
 		
@@ -85,29 +73,25 @@ public class ColorBuilder extends JPanel
 	
 	private void buildFromColor(jatrace.Color v)
 	{
-		if (lowerpanel != null)
-		{
-			remove(lowerpanel);
-		}
 		
-		lowerpanel = new JPanel(new GridLayout(1,3));
-
+		if (blueField != null) remove(blueField);
+		if (greenField != null) remove(greenField);
+		if (redField != null) remove(redField);
+		
 		redField = new DoubleBuilder("r:",v.getRed());
-		lowerpanel.add(redField);
+		redField.setLocation(0,0);
+		add(redField);
 
 		greenField = new DoubleBuilder("g:",v.getGreen());
-		lowerpanel.add(greenField);
+		greenField.setLocation(1,0);
+		add(greenField);
 		
 		blueField = new DoubleBuilder("b:",v.getBlue());
-		lowerpanel.add(blueField);
+		blueField.setLocation(2,0);
+		add(blueField);
 		
-		add(lowerpanel);
+		revalidate();
 		
-	}
-	
-	public void setText(String t)
-	{
-		label.setText(t);
 	}
 	
 }

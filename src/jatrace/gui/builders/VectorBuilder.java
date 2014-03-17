@@ -13,9 +13,6 @@ public class VectorBuilder extends JPanel// implements FocusListener
 	private DoubleBuilder xField, yField, zField;
 	private jatrace.Vector vector;
 	
-	JLabel label = null;
-	JPanel lowerpanel = null;
-	
 	public jatrace.Vector build()
 	{
 		
@@ -64,18 +61,9 @@ public class VectorBuilder extends JPanel// implements FocusListener
 		
 	}
 	
-	public VectorBuilder(String vectorName)
+	public VectorBuilder()
 	{
-		super(new GridLayout(2,1,0,2));
-		
-		if (vectorName == null || vectorName.equals(""))
-		{
-			vectorName = "Vector";
-		}
-		
-		JLabel label = new JLabel(vectorName, JLabel.CENTER);
-		label.setPreferredSize(new Dimension(0,25));
-		add(label);
+		super(new GridLayout(1,3,5,0) );
 		
 		vector = new jatrace.Vector(0.0,0.0,0.0);
 		
@@ -86,29 +74,25 @@ public class VectorBuilder extends JPanel// implements FocusListener
 	
 	private void buildFromVector(jatrace.Vector v)
 	{
-		if (lowerpanel != null)
-		{
-			remove(lowerpanel);
-		}
 		
-		lowerpanel = new JPanel(new GridLayout(1,3));
-
+		if (zField != null) remove(zField);
+		if (yField != null) remove(yField);
+		if (xField != null) remove(xField);
+		
 		xField = new DoubleBuilder("x:",v.getX());
-		lowerpanel.add(xField);
+		xField.setLocation(0,0);
+		add(xField);
 
 		yField = new DoubleBuilder("y:",v.getY());
-		lowerpanel.add(yField);
+		yField.setLocation(1,0);
+		add(yField);
 		
 		zField = new DoubleBuilder("z:",v.getZ());
-		lowerpanel.add(zField);
+		zField.setLocation(2,0);
+		add(zField);
 		
-		add(lowerpanel);
+		revalidate();
 		
-	}
-	
-	public void setText(String t)
-	{
-		label.setText(t);
 	}
 	
 }

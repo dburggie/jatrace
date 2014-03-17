@@ -20,17 +20,23 @@ public class SphereBuilder extends ScrollableGridPanel
 	DoubleBuilder specularity;
 	BooleanBuilder matte;
 	
+	Sphere sphere;
+	
 	public SphereBuilder()
 	{
 		super();
 		
+		sphere = new Sphere();
+		
 		radius = new DoubleBuilder("Radius:",0.0);
 		add(radius);
 		
-		position = new VectorBuilder("Center:");
+		addLabel("Center:");
+		position = new VectorBuilder();
 		add(position);
 		
-		color = new ColorBuilder("Color:");
+		addLabel("Color:");
+		color = new ColorBuilder();
 		add(color);
 		
 		reflectivity = new DoubleBuilder("Reflectivity:",0.3);
@@ -45,39 +51,44 @@ public class SphereBuilder extends ScrollableGridPanel
 		setOpaque(true);
 	}
 	
+	private void addLabel(String text)
+	{
+		
+		JLabel label = new JLabel(text, JLabel.CENTER);
+		label.setPreferredSize( new Dimension(0,25) );
+		add(label);
+		
+	}
+	
 	public Sphere build()
 	{
 		
+		
+		double rad = 0.0;
+		double ref = 0.0;
+		double spc = 0.0;
+		
 		jatrace.Vector v = position.build();
-		double r = radius.getValue();
 		jatrace.Color c = color.build();
 		
-		return new Sphere(v,r,c);
-		
-	}
-	
-	private void showAdvancedOptions()
-	{
-		
-		if (!expanded)
-		{
-			remove(expand);
-			add(reflectivity);
-			add(specularity);
-			add(matte);
-			revalidate();
-			expanded = true;
+		try {
+			rad = radius.getValue();
+			ref = reflectivity.getValue();
+			spc = specularity.getValue();
 		}
 		
-	}
-	
-	public void actionPerformed(ActionEvent e)
-	{
-		
-		if (!expanded && e.getSource() == expand)
+		catch (NumberFormatException e)
 		{
-			showAdvancedOptions();
+			return null;
 		}
+		
+		sphere.setPosition(v);
+		sphere.setColor(c);
+		sphere.setRadius(rad);
+		sphere.setReflectivity(ref);
+		sphere.setSpecularity(spc);
+		
+		return sphere;
 		
 	}
 }
