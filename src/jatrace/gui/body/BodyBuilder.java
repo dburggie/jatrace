@@ -13,11 +13,12 @@ public class BodyBuilder
 		implements ActionListener, FocusListener
 {
 	
-	private final String [] bodyNames = { "Sphere" };
+	private final String [] bodyNames = { "Sphere", "Plane" };
 	
 	private JComboBox combobox;
 	private JPanel activePanel;
 	private SphereBuilder sphereBuilder;
+	private PlaneBuilder planeBuilder;
 	
 	private BodyPasser parent = null;
 	private JPanel body, header, bodyNamer, buildpanel;
@@ -74,6 +75,11 @@ public class BodyBuilder
 		{
 			updateByPanel(sphereBuilder);
 		}
+		
+		if (type.equals("Plane"))
+		{
+			updateByPanel(planeBuilder);
+		}
 	}
 	
 	private void updateByPanel(JPanel p)
@@ -97,6 +103,7 @@ public class BodyBuilder
 	{
 
 		sphereBuilder = new SphereBuilder();
+		planeBuilder = new PlaneBuilder();
 		
 	}
 	

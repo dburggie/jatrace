@@ -74,7 +74,7 @@ public class VectorBuilder extends JPanel// implements FocusListener
 		setOpaque(true);
 	}
 	
-	private void buildFromVector(jatrace.Vector v)
+	protected void buildFromVector(jatrace.Vector v)
 	{
 		
 		if (zField != null) remove(zField);

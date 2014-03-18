@@ -3,39 +3,41 @@ package jatrace.gui.builders;
 
 import jatrace.*;
 import jatrace.gui.*;
-import jatrace.bodies.Sphere;
+import jatrace.bodies.Plane;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class SphereBuilder extends ScrollableGridPanel
+public class PlaneBuilder extends ScrollableGridPanel
 {
+	
 	VectorBuilder position;
-	DoubleBuilder radius;
+	VectorBuilder normal;
 	ColorBuilder color;
 	DoubleBuilder reflectivity;
 	DoubleBuilder specularity;
 	BooleanBuilder matte;
 	
-	Sphere sphere;
+	Plane plane;
 	
-	public SphereBuilder()
+	public PlaneBuilder()
 	{
 		super();
 		
-		sphere = new Sphere();
+		plane = new Plane();
 		
-		radius = new DoubleBuilder("Radius:",0.0);
-		add(radius);
-		
-		addLabel("Center:");
+		addLabel("Position:");
 		position = new VectorBuilder();
 		add(position);
 		
+		addLabel("Normal:");
+		normal = new VectorBuilder();
+		normal.buildFromVector(new jatrace.Vector(0.0,1.0,0.0));
+		add(normal);
+		
 		addLabel("Color:");
 		color = new ColorBuilder();
-		add(color);
 		
 		reflectivity = new DoubleBuilder("Reflectivity:",0.3);
 		add(reflectivity);
@@ -47,30 +49,24 @@ public class SphereBuilder extends ScrollableGridPanel
 		add(matte);
 		
 		setOpaque(true);
-	}
-	
-	private void addLabel(String text)
-	{
-		
-		JLabel label = new JLabel(text, JLabel.CENTER);
-		label.setPreferredSize( new Dimension(0,25) );
-		add(label);
 		
 	}
 	
-	public Sphere build()
+	public Plane build()
 	{
 		
-		jatrace.Vector v = position.build();
-		if (v == null) return null;
+		jatrace.Vector p = position.build();
+		if (p == null) return null;
+		
+		jatrace.Vector n = normal.build();
+		if (n == null) return null;
 		
 		jatrace.Color c = color.build();
 		if (c == null) return null;
 		
-		double rad, ref, spc;
+		double ref, spc;
 		
 		try {
-			rad = radius.getValue();
 			ref = reflectivity.getValue();
 			spc = specularity.getValue();
 		}
@@ -82,14 +78,25 @@ public class SphereBuilder extends ScrollableGridPanel
 		
 		boolean m = matte.getTrueFalse();
 		
-		sphere.setPosition(v);
-		sphere.setColor(c);
-		sphere.setRadius(rad);
-		sphere.setReflectivity(ref);
-		sphere.setSpecularity(spc);
-		sphere.setMatte(m);
+		plane.setPosition(p);
+		plane.setNormal(n);
+		plane.setColor(c);
+		plane.setReflectivity(ref);
+		plane.setSpecularity(spc);
+		plane.setMatte(m);
 		
-		return sphere;
+		return plane;
 		
 	}
+	
+	private void addLabel(String text)
+	{
+		
+		JLabel label = new JLabel(text, JLabel.CENTER);
+		label.setPreferredSize( new Dimension(0,25) );
+		add(label);
+		
+	}
+	
+	
 }
