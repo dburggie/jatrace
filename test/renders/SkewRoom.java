@@ -1,3 +1,5 @@
+package renders;
+
 import jatrace.*;
 import jatrace.skies.*;
 import jatrace.bodies.*;
@@ -11,7 +13,7 @@ public class SkewRoom
 		double win_w = 6.4, win_h = 4.0;
 		
 		int	ppu = 50, 
-		    passes = 4,
+		    passes = 8,
 		    depth = 8;
 		
 		if (args.length > 0)
@@ -70,6 +72,7 @@ public class SkewRoom
 		
 		Camera cam = new Camera( new Vector(5.0,2.5,10.0), new Vector(0.0,1.0,0.0), win_w, win_h);
 		cam.setPPU(ppu);
+		cam.setDelta(0.05);
 		
 		Tracer t = new Tracer(world, cam);
 		t.setSampleDepth(depth).draw(passes).write(filename);
