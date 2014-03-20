@@ -73,7 +73,7 @@ public class ColorBuilder extends JPanel
 		setOpaque(true);
 	}
 	
-	private void buildFromColor(jatrace.Color v)
+	protected void buildFromColor(jatrace.Color v)
 	{
 		
 		if (blueField != null) remove(blueField);
