@@ -38,6 +38,7 @@ public class PlaneBuilder extends ScrollableGridPanel
 		
 		addLabel("Color:");
 		color = new ColorBuilder();
+		add(color);
 		
 		reflectivity = new DoubleBuilder("Reflectivity:",0.3);
 		add(reflectivity);
