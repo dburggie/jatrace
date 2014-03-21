@@ -109,7 +109,7 @@ public class Camera
 	public Camera setDelta(double D)
 	{
 		//reset if close enough to zero
-		if (d < 0.0000001)
+		if (D < 0.0000001)
 		{
 			return this.resetDelta();
 		}
