@@ -1,5 +1,7 @@
-renders/
+docs/
+build/
 classes/
 todo
 *.class
+*.png
 

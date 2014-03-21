@@ -160,4 +160,9 @@ public class Vector
 		s += z;
 		return s;
 	}
+	
+	public double getX() { return x; }
+	public double getY() { return y; }
+	public double getZ() { return z; }
+	
 }
