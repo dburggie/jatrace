@@ -36,9 +36,12 @@ public class CheckPlane extends Plane
 	public void setOrientation(Vector o)
 	{
 		super.setOrientation(o);
-		oX = o.sub(position).norm();
-		oY = normal.cross(oX).norm();
-		oX = oY.cross(normal).norm();
+		if (position != null && normal != null)
+		{
+			oX = o.sub(position).norm();
+			oY = normal.cross(oX).norm();
+			oX = oY.cross(normal).norm();
+		}
 	}
 	
 	

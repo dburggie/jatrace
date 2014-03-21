@@ -17,7 +17,7 @@ public class Plane extends Body
 		setPosition(p);
 		setNormal(n);
 		setColor(c);
-		setOrientation( new Vector(1.0,0.0,0.0) );
+		//setOrientation( new Vector(1.0,0.0,0.0) );
 		setReflectivity(0.2);
 		position = getPosition();
 	}
@@ -27,11 +27,11 @@ public class Plane extends Body
 	public Plane()
 	{
 		super();
+		position = getPosition();
 		setNormal( new Vector(0.0,1.0,0.0) );
-		setOrientation( new Vector(1.0,0.0,0.0) );
+		//setOrientation( new Vector(1.0,0.0,0.0) );
 		setReflectivity(0.2);
 		setColor(new Color(0.3,0.3,0.3));
-		position = getPosition();
 	}
 	
 	protected Vector normal;

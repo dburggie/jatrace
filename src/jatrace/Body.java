@@ -92,12 +92,12 @@ public abstract class Body
 	 *  origin, a specularity of 20.0 and a vertical orientation. */
 	public Body()
 	{
-		setMatte(false);
-		setColor(new Color(0.9,0.9,0.9));
-		setReflectivity(0.3);
-		setSpecularity(20.0);
-		setOrientation(new Vector(0.0,1.0,0.0));
-		setPosition(new Vector(0.0,0.0,0.0));
+		this.setMatte(false);
+		this.setColor(new Color(0.9,0.9,0.9));
+		this.setReflectivity(0.3);
+		this.setSpecularity(20.0);
+		this.setPosition(new Vector(0.0,0.0,0.0));
+		this.setOrientation(new Vector(0.0,1.0,0.0));
 	}
 	
 	
