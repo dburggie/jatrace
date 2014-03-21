@@ -12,13 +12,19 @@ public class CheckPlane extends Plane
 	 *  orientation parameter is used to determine both the layout of the
 	 *  surface checkers and their size (for unit checkers, orientation should
 	 *  be a point on the plane 1 unit from the origin). */
-	public CheckPlane( Vector o, Vector n, Vector orientation )
+	public CheckPlane( Vector p, Vector n, Vector o )
 	{
-		this.setDefaults();
-		this.setNormal(n);
-		this.setPosition(o);
-		this.setOrientation(orientation);
-		this.setColor( new Color(0.01,0.01,0.01), new Color(0.99,0.99,0.99) );
+		super();
+		setPosition(p);
+		setNormal(n);
+		setOrientation(o);
+		setColor( new Color(0.01,0.01,0.01), new Color(0.99,0.99,0.99) );
+	}
+	
+	public CheckPlane()
+	{
+		super();
+		setColor( new Color(0.01,0.01,0.01), new Color(0.99,0.99,0.99) );
 	}
 	
 	
@@ -27,13 +33,12 @@ public class CheckPlane extends Plane
 	/** Sets object's checker orientation. The distance this point is from the
 	 *  origin determines how big the checkers will be. */
 	@Override
-	public CheckPlane setOrientation(Vector o)
+	public void setOrientation(Vector o)
 	{
 		super.setOrientation(o);
 		oX = o.sub(position).norm();
 		oY = normal.cross(oX).norm();
 		oX = oY.cross(normal).norm();
-		return this;
 	}
 	
 	
@@ -43,15 +48,15 @@ public class CheckPlane extends Plane
 	/** Since this object is two-colored, this function with one color parameter
 	 *  treats the colors as a queue, popping the first color and pushing the
 	 *  parameter onto the end of the queue. */
-	@Override public CheckPlane setColor(Color c) 
+	@Override public void setColor(Color c) 
 	{
-		c2 = c1; c1 = c.dup(); return this;
+		c2 = c1; c1 = c.dup();
 	}
 	
 	/** Sets both colors of the surface. */
-	public CheckPlane setColor(Color a, Color b) 
+	public void setColor(Color a, Color b) 
 	{
-		c1 = a.dup(); c2 = b.dup(); return this;
+		c1 = a.dup(); c2 = b.dup();
 	}
 	
 	/** Gets color of surface at the given point. */

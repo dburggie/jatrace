@@ -4,46 +4,41 @@ import jatrace.*;
 
 /** Describes a mathematical plane, a surface that is infinitely wide with
  *  universal orientation. */
-public class Plane extends BasicBody
+public class Plane extends Body
 {
+	
+	protected Vector position;
+	
+	/** Instantiates a plane with given positin, normal, and color. Default
+	 *  reflectivity is 20%. */	
+	public Plane(Vector p, Vector n, Color c)
+	{
+		super();
+		setPosition(p);
+		setNormal(n);
+		setColor(c);
+		setOrientation( new Vector(1.0,0.0,0.0) );
+		setReflectivity(0.2);
+		position = getPosition();
+	}
 	
 	/** Sets all the default parameters of a plane. These are: Position 
 	 *  (0.0,0.0,0.0); Normal (0.0,1.0,0.0); Reflectivity 0.2; Color gray; */	
-	@Override public Plane setDefaults()
-	{
-		this.setPosition( new Vector(0.0,0.0,0.0) );
-		this.setNormal( new Vector(0.0,1.0,0.0) );
-		this.setOrientation( new Vector(1.0,0.0,0.0) );
-		this.setReflectivity(0.2);
-		this.setColor(new Color(0.3,0.3,0.3));
-		this.setSpecularity(10.0);
-		this.setMatte(false);
-/*		this.setOpacity(1.0);
-		this.setIndex(3.0); */
-		return this;
-	}
-	
-	/** Instantiates a plane with given positin, normal, and color. */	
-	public Plane(Vector p, Vector n, Color c)
-	{
-		this.setDefaults();
-		this.setPosition(p);
-		this.setNormal(n);
-		this.setColor(c);
-	}
-	
-	/** Instantiates a default plane (gray, at origin, pointing up). */	
 	public Plane()
 	{
-		this.setDefaults();
+		super();
+		setNormal( new Vector(0.0,1.0,0.0) );
+		setOrientation( new Vector(1.0,0.0,0.0) );
+		setReflectivity(0.2);
+		setColor(new Color(0.3,0.3,0.3));
+		position = getPosition();
 	}
 	
 	protected Vector normal;
 	/** Sets surface orientation by the vector normal to the plane. */	
-	public Plane setNormal(Vector n)
+	public void setNormal(Vector n)
 	{
 		normal = n.dup().norm();
-		return this;
 	}
 	
 	/** Gets the surface normal at the given point. */	

@@ -3,34 +3,32 @@ package jatrace.bodies;
 import jatrace.*;
 
 /** A Body interface implementing class describing a mathematical sphere. */	
-public class Sphere extends BasicBody
+public class Sphere extends Body
 {
 	
 	protected double radius, RR;
+	protected Vector position;
 	
 	/** Default constructor: center (0.0,0.0,0.0); radius 1; Color gray; */	
 	public Sphere()
 	{
-		this.setDefaults();
-		this.setPosition(new Vector(0.0,0.0,0.0));
-		this.setColor(new Color(0.3,0.3,0.3));
-		this.setReflectivity(0.3);
-		this.setMatte(false);
-		this.setRadius(1.0);
+		super();
+		setColor(new Color(0.3,0.3,0.3));
+		setRadius(1.0);
+		position = getPosition();
 	}
 	
 	/** Sphere constructor with given center, radius, and color. */	
 	public Sphere(Vector p, double r, Color c)
 	{
-		this.setDefaults();
-		this.setPosition(p);
-		this.setColor(c);
-		this.setReflectivity(0.3);
-		this.setMatte(false);
-		this.setRadius(r);
+		super();
+		setPosition(p);
+		setColor(c);
+		setRadius(r);
+		position = getPosition();
 	}
 	
-	/**  */	
+	/** Sets radius of sphere. */	
 	public Sphere setRadius(double r)
 	{
 		radius = r; RR = r * r;
