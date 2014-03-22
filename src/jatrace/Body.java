@@ -23,7 +23,7 @@ public abstract class Body
 	private Color color;
 	/** Gets color of object at a given point. Default behavior is uniform
 	 *  coloring. */
-	public Color getColor(Vector point) { return color; }
+	public Color getColor(Vector point) { return color.dup(); }
 	/** Sets color. Override for different than default behavior. */
 	public void setColor(Color c) { color = c.dup(); }
 	
@@ -32,7 +32,7 @@ public abstract class Body
 	private Vector position;
 	/** Gets position of body. What relation this vector has with the body is up
 	 *  to the implementation of the intersection method. */
-	public Vector getPosition() { return position; }
+	public Vector getPosition() { return position.dup(); }
 	/** Setsposition of body. What relation this vector has with the body is up
 	 *  to the implementation of the intersection method. */
 	public void setPosition(Vector p) { position = p; }

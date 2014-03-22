@@ -10,12 +10,25 @@ public class poster
 	{
 		
 		double	win_w = 3.5,
-				win_h = 3.0;
+				win_h = 3.0,
+				delta = 0.0;
 		
 		int 	ppu = 1200, 
-				passes = 32,
-				
-				pix_w = (int) (win_w * ppu),
+				passes = 32;
+		
+		try {
+			if (args.length <= 0 || args.length > 3) { throw new Exception (); }
+			if (args.length > 0) { delta = Double.parseDouble(args[0]); }
+			if (args.length > 1) { ppu = Integer.decode(args[1]); }
+			if (args.length > 2) { passes = Integer.decode(args[2]); }
+		}
+		
+		catch (Exception e) {
+			win_w = 3.5; win_h = 3.0; delta = 0.0;
+			ppu = 100; passes = 8;
+		}
+			
+		int		pix_w = (int) (win_w * ppu),
 				pix_h = (int) (win_h * ppu);
 		
 		String	filename = "Poster-" + pix_w + "x" + pix_h + ".png";
@@ -66,6 +79,7 @@ public class poster
 				camU = new Vector(0.0,1.0,0.0);
 		
 		Camera cam = new Camera(camP, camF, camU, win_w, win_h, ppu);
+		cam.setDelta(delta);
 		Tracer t = new Tracer(world, cam);
 		
 		t.draw(passes).write(filename);
