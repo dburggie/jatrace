@@ -19,7 +19,7 @@ public class BodyBuilder
 	private JPanel activePanel;
 	private SphereBuilder sphereBuilder;
 	private PlaneBuilder planeBuilder;
-        private CheckPlaneBuilder checkPlaneBuilder;
+private CheckPlaneBuilder checkPlaneBuilder;
 	
 	private BodyPasser parent = null;
 	private JPanel body, header, bodyNamer, buildpanel;
@@ -72,6 +72,8 @@ public class BodyBuilder
 		int index = combobox.getSelectedIndex();
 		String type = bodyNames[index];
 		
+		System.out.println("Selected " + type + " in combobox.");
+		
 		if ( type.equals("Sphere") )
 		{
 			updateByPanel(sphereBuilder);
@@ -81,22 +83,25 @@ public class BodyBuilder
 		{
 			updateByPanel(planeBuilder);
 		}
-                
-                if (type.equals("CheckPlane"))
-                {
-                    updateByPanel(checkPlaneBuilder);
-                }
+		
+		if (type.equals("CheckPlane"))
+		{
+			updateByPanel(checkPlaneBuilder);
+		}
 	}
 	
 	private void updateByPanel(JPanel p)
 	{
 		if (activePanel != null)
 		{
+			System.out.println("Removing the active panel.");
 			body.remove(activePanel);
+			body.repaint();
 		}
 		activePanel = p;
+		System.out.println("Adding a new panel.");
 		body.add(activePanel, BorderLayout.CENTER);
-		body.revalidate();
+		body.repaint();
 		revalidate();
 	}
 	
@@ -110,7 +115,7 @@ public class BodyBuilder
 
 		sphereBuilder = new SphereBuilder();
 		planeBuilder = new PlaneBuilder();
-                checkPlaneBuilder = new CheckPlaneBuilder();
+		checkPlaneBuilder = new CheckPlaneBuilder();
 		
 	}
 	
