@@ -20,7 +20,7 @@ public abstract class Body
 	
 	// ##### You needn't override these methods #####
 	
-	private Color color;
+	protected Color color;
 	/** Gets color of object at a given point. Default behavior is uniform
 	 *  coloring. */
 	public Color getColor(Vector point) { return color.dup(); }
@@ -29,7 +29,7 @@ public abstract class Body
 	
 	
 	
-	private Vector position;
+	protected Vector position;
 	/** Gets position of body. What relation this vector has with the body is up
 	 *  to the implementation of the intersection method. */
 	public Vector getPosition() { return position.dup(); }
@@ -39,17 +39,17 @@ public abstract class Body
 	
 	
 	
-	private Vector orientation;
+	protected Vector orientation;
 	/** Sets the orientation of the body. Many bodies will only need the default
 	 *  of a single orientation vector (like a plane), but if more are needed,
 	 *  override this and the setOrientation methods. */
-	private Vector getOrientation() { return orientation; }
+	public Vector getOrientation() { return orientation.dup(); }
 	/** See documentation for getOrientation. */
 	public void setOrientation(Vector o) { orientation = o.dup().norm(); }
 	
 	
 	
-	private double reflectivity;
+	protected double reflectivity;
 	/** Returns base amount of light reflected from surface at a point. 
 	 *  Must return a value between 0 and 1. */
 	public double getReflectivity(Vector point) { return reflectivity; }
@@ -59,7 +59,7 @@ public abstract class Body
 	
 	
 	
-	private double specularity;
+	protected double specularity;
 	/** For matte surfaces, returns a gamma exponent for creating specular
 	 *  highlights. A value of 0.0 will always return white, a value of 1.0
 	 *  will not highlight the surface at all. Weird Stuff (tm) might happen
@@ -78,7 +78,7 @@ public abstract class Body
 	
 	
 	
-	private boolean matte;
+	protected boolean matte;
 	/** Returns a simple boolean value: Is this surface matte at this point? */
 	public boolean isMatte(Vector point) { return matte; }
 	/** Default implementation: sets whether body is matte all over or not.

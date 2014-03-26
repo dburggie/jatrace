@@ -3,6 +3,7 @@ package jatrace;
 /** Provides methods useful for doing Vector-Math within 3-Space. */
 public class Vector
 {
+	
 	protected double x, y, z;
 	
 	/** Default Vector is the origin: [0.0, 0.0, 0.0] */
@@ -160,6 +161,10 @@ public class Vector
 		s += z;
 		return s;
 	}
+	
+	/** Returns a new Vector object that is in the opposite direction. */
+	public final Vector minus() { return dup().scale(-1.0); }
+	
 	
 	public double getX() { return x; }
 	public double getY() { return y; }
