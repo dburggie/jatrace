@@ -92,6 +92,11 @@ public class Tracer
 		for (int y = 0; y < height; y++) 
 		{
 			
+			if ( y % 100 == 0 )
+			{
+				System.out.println("line " + y + " of " + height + "done");
+			}
+			
 			for (int x = 0; x < width; x++)
 			{
 				c.setRGBA(0.0,0.0,0.0,0.0);
@@ -105,10 +110,6 @@ public class Tracer
 				
 			}// END OF SCANLINE
 			
-			if ( y % 100 == 0 )
-			{
-				System.out.println("line " + y + " of " + height + "done");
-			}
 			// get time info
 			// print line execution time
 			

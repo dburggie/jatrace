@@ -8,13 +8,24 @@ public class TruncatedSphere extends Sphere
 	protected Plane plusCap, minusCap;
 	protected double cosine = 1.0;
 	private Vector capUp, capDown;
-	private boolean initLocked = true;
+	
+	private boolean initLocked()
+	{
+		if (unlocked) return false;
+		else return true;
+	}
+	
+	private boolean unlocked = false;
+	private void unlock()
+	{
+		unlocked = true;
+	}	
 	
 	public TruncatedSphere(Vector p, double r, Color c)
 	{
 		super(p,r,c);
 		
-		initLocked = false;
+		unlock();
 		
 		setOrientation(new Vector(0.0,1.0,0.0));
 		setCosine(0.7);
@@ -131,59 +142,6 @@ public class TruncatedSphere extends Sphere
 		//If we get here, we're on a very weird edge case and it's safe to miss
 		return -1.0;
 		
-		/*
-    def intersection(self, ray):
-        """Returns distance from ray to closest intersection with sphere."""
-        
-        S = ray.o - self.center
-        SD = S.dot( ray.d )
-        SS = S.dot(S)
-        
-        # no hit if sphere is really far away
-        if SS > bounds.too_far ** 2:
-            return -1.0
-        
-        radical = SD ** 2 + self.R - SS
-        # negative radical implies no solutions
-        if radical < 0.0:
-            return -1.0
-        
-        radical **= 0.5
-        hits = [-1 * SD - radical,  -1 * SD + radical]
-        if hits[0] < bounds.too_close:
-            if hits[1] < bounds.too_small:
-                return -1.0
-        
-        pp = self._pp.intersection(ray)
-        pn = self._pn.intersection(ray)
-        
-        if pp < pn:
-            hitp = [pp,pn]
-        else:
-            hitp = [pn,pp]
-        
-        # if two plane hits before sphere hits, we miss
-        if hitp[1] < hits[0]:
-            return -1.0
-        
-        # if two sphere hits before plane hits, we miss
-        if hits[1] < hitp[0]:
-            return -1.0
-        
-        # if the second thing hit is forward, that's our distance
-        hit = max(hits[0],hitp[0])
-        if hit > 0:
-            return hit
-        # otherwise it's the third hit (if positive)
-        hit = min(hits[1],hitp[1])
-        if hit > 0:
-            return hit
-        # otherwise, we didn't hit anything
-        else:
-            return -1.0
-        */
-		
-		
 		
 		
 	}
@@ -193,7 +151,10 @@ public class TruncatedSphere extends Sphere
 	{
 		super.setOrientation(o);
 		
-		if (!initLocked) { resetCaps(); }
+		if ( initLocked() ) return;
+		else resetCaps();
+		
+		//if (!initLocked) { resetCaps(); }
 		
 	}
 	
@@ -208,22 +169,26 @@ public class TruncatedSphere extends Sphere
 	
 	private void resetCaps()
 	{
+		if ( initLocked() )
+		{
+			System.out.println("Exiting resetCaps() because of lock.");
+			return;
+		}
+		
 		capUp = position.dup();
-		capUp.trans( orientation.dup().scale(cosine * radius) );
+		capUp.trans( orientation, cosine * radius );
 		
 		capDown = position.dup();
-		capDown.trans( orientation.dup().scale(-1.0 * cosine * radius) );
+		capDown.trans( orientation, -1.0 * cosine * radius );
 		
 		if (plusCap == null)
 		{
 			plusCap = new Plane();
-			plusCap.setColor(color);
 		}
 		
 		if (minusCap == null)
 		{
 			minusCap = new Plane();
-			minusCap.setColor(color);
 		}
 		
 		plusCap.setPosition(capUp);
