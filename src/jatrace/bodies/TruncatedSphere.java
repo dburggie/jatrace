@@ -65,19 +65,17 @@ public class TruncatedSphere extends Sphere
 	public double intersection(Ray ray)
 	{
 		
-		Vector S;
-		double SD, SS;
-		
+		Vector S;		
 		S = ray.o().sub(position);
 		
 		//get distance to sphere center
-		SS = S.dot(S);
+		double SS = S.dot(S);
 		
 		//just don't bother if it's too far away
 		if (SS > 1000000.0) return -1.0;
 		
 		//measure angle between ray direction and to sphere center
-		SD = S.dot(ray.d());
+		double SD = S.dot(ray.d());
 		
 		//intersections are at the solutions to a quadratic equation
 		
@@ -95,13 +93,16 @@ public class TruncatedSphere extends Sphere
 		if (sphereHits[1] < 0.0) { return -1.0; }
 		
 		//get the intersections with the planes
-		double [] planeHits;
+		double [] planeHits = new double[2];
 		double hit1 = plusCap.intersection(ray);
 		double hit2 = minusCap.intersection(ray);
 		
+		planeHits[0] = Math.min(hit1,hit2);
+		planeHits[1] = Math.max(hit1,hit2);
+		
 		//order the planeHits
-		if (hit1 < hit2) { planeHits = new double[] { hit1, hit2 }; }
-		else { planeHits = new double[] {hit2, hit1}; }
+		//if (hit1 < hit2) { planeHits = new double[] { hit1, hit2 }; }
+		//else { planeHits = new double[] {hit2, hit1}; }
 		
 		//miss if both sphere hits are before the plane hits (or vice versa)
 		if (planeHits[1] < sphereHits[0] || sphereHits[1] < planeHits[0])
@@ -114,6 +115,21 @@ public class TruncatedSphere extends Sphere
 		 * Thus, after discounting the lowest hit, our proper intersection is
 		 * the first positive of the other type.
 		 */
+		
+		double distance = Math.max(planeHits[0],sphereHits[0]);
+		if (distance < 0.0)
+		{
+			distance = Math.min(planeHits[1],sphereHits[1]);
+			
+			if (distance < 0.0)
+			{
+				return -1.0;
+			}
+		}
+		
+		return distance;
+		
+		/*
 		if (planeHits[0] < sphereHits[0])
 		{
 			if (sphereHits[0] > 0.0)
@@ -142,7 +158,7 @@ public class TruncatedSphere extends Sphere
 		//If we get here, we're on a very weird edge case and it's safe to miss
 		return -1.0;
 		
-		
+		*/
 		
 	}
 	

@@ -54,13 +54,14 @@ public class Plane extends Body
 		
 		// check if ray direction is parallel to plane
     	double projD = normal.dot(ray.d());
-    	if (Math.abs(projD) < 0.0001)
+    	if (Math.abs(projD) < 0.000001)
     	{
     		return -1.0;
     	}
     	
     	// make sure ray is going towards plane
     	double projS = position.sub(ray.o()).dot(normal);
+    	/*
     	if (projD * projS < 0.0)
     	{
     		return -1.0;
@@ -68,6 +69,7 @@ public class Plane extends Body
     	
     	// return ratio of magnitudes: 
     	//(distance between plane and ray) / (speed ray approaches plane)
+    	*/
     	return projS / projD;
     	
 	}

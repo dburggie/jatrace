@@ -4,81 +4,100 @@ import jatrace.*;
 import jatrace.bodies.*;
 import jatrace.skies.*;
 
-public class Trunk
+public class Trunk extends World
 {
 	
-	protected CheckPlane floor;
-	protected Sphere sphere;
-	//protected TruncatedSphere plate;
+	public Camera camera;
+	public CheckPlane plane;
 	
-	protected double delta;
-	protected int ppu;
-	protected int passes;
-	
-	
-	public Trunk(double d, int pixels, int rays)
+	public Trunk(double delta, int ppu)
 	{
-		delta = d; ppu = pixels; passes = rays;
+		super();
 		
-		//plate = new TruncatedSphere(
-		//			new Vector(5.0,1.0,0.0), 
-		//			1.0, 
-		//			new Color(0.7,0.2,0.5) 
-		//		);
-		//plate.setCosine(0.1);
-		//plate.setOrientation(new Vector(-1.0,0.0,0.0) );
-		//plate.setReflectivity(0.7);
+		plane = new CheckPlane();
+		addBody(plane);
 		
-		sphere = new Sphere(new Vector(-5.0,1.0,0.0), 1.0, new Color(0.1,0.1,0.6) );
+		Vector 
+			cam_p = new Vector(0.0,1.0,10.0),
+			cam_f = new Vector(0.0,1.0,0.0),
+			cam_u = new Vector(0.0,1.0,0.0);
 		
-		floor = new CheckPlane( new Vector(0.0,0.0,0.0), new Vector(0.0,1.0,0.0), new Vector(1.0,0.0,0.0) );
+		camera = new Camera(cam_p,cam_f,cam_u,4.0,4.0,ppu);
 		
+		Sky sky = new Bluesky();
+		setSky(sky);
 		
 	}
 	
-	public void render()
+	public void render(int passes)
 	{
 		
-		Camera cam = new Camera( new Vector(0.0,20.0,0.0), new Vector(5.0,1.0,0.0), 4.0,4.0);
-		cam.setPPU(ppu);
-		cam.setDelta(delta);
-		
-		World world = new World();
-		world.setSky(new Bluesky(new Vector(-0.2,10.0,1.0)) );
-		world.addBody(floor);
-		world.addBody(sphere);
-		//world.addBody(plate);
-		
-		Tracer tracer = new Tracer(world, cam);
+		Tracer tracer = new Tracer(this, camera);
 		tracer.draw(passes).write("TrunkRender.png");
 		
 	}
 	
-	
-	/** Acceptible command line arguments are field of view (double), pixels per
-	 *  unit (int), and rays per pixel (int). */
 	public static void main(String [] args)
 	{
 		
+		double delta = 0.0;
+		int ppu = 100;
+		int passes = 8;
 		
-		double d = 0.0;
-		int pixels = 100, rays = 8;
-		
-		try {
-			if (args.length <= 0 || args.length > 3) { throw new Exception (); }
-			if (args.length > 0) { d = Double.parseDouble(args[0]); }
-			if (args.length > 1) { pixels = Integer.decode(args[1]); }
-			if (args.length > 2) { rays = Integer.decode(args[2]); }
+		try
+		{
+			
+			//get delta
+			if (args.length > 0)
+			{
+				delta = Double.parseDouble(args[0]);
+			}
+			
+			//get pixels per unit
+			if (args.length > 1)
+			{
+				ppu = Integer.decode(args[1]);
+			}
+			
+			//get number of passes per pixel
+			if (args.length > 2)
+			{
+				passes = Integer.decode(args[2]);
+			}
+			
 		}
 		
-		catch (Exception e) {
-			d = 0.0;
-			pixels = 100; rays = 8;
+		catch (Exception e)
+		{
+			System.out.println("Error parsing arguments; using defaults.");
+			delta = 0.0;
+			ppu = 100;
+			passes = 8;
 		}
 		
-		Trunk trunk = new Trunk(d, pixels, rays);
+		System.out.println("     Focus setting: " + delta  );
+		System.out.println("    Pixels setting: " + ppu    );
+		System.out.println("    passes setting: " + passes );
 		
-		trunk.render();
+		Trunk trunk = new Trunk(delta, ppu);
+		
+		Vector ballp = new Vector(0.0,1.0,0.0);
+		double ballr = 1.0;
+		Color  ballc = new Color(0.7,0.1,0.4);
+		Vector ballo = new Vector(1.0,1.0,1.0);
+		
+		
+		//Sphere ball = new Sphere(ballp,ballr,ballc);
+		TruncatedSphere ball = new TruncatedSphere(ballp,ballr,ballc);
+		ball.setOrientation(ballo);
+		ball.setCosine(0.7);
+		trunk.addBody(ball);
+		
+		
+		Sphere tiny = new Sphere(ballp,0.2,new Color(0.9,0.9,0.9));
+		trunk.addBody(tiny);
+		
+		trunk.render(passes);
 		
 	}
 	
