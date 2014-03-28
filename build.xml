@@ -17,14 +17,22 @@
 		<tstamp/>
 		<mkdir dir="${build}"/>
 	</target>
+	
 	<target name="compile" depends="init"
 			description="compile source files">
 		<javac srcdir="${src}" destdir="${build}"/>
 	</target>
+	
 	<target name="test" depends="compile"
 			description="make tests">
 		<javac srcdir="${test}" destdir="${build}"/>
+		<copy todir="${build}">
+			<fileset dir="${test}">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
 	</target>
+	
 	<target name="doc"
 			description="generates documentation with javadocs">
 		<mkdir dir="${docs}"/>
