@@ -8,26 +8,70 @@ import javax.imageio.ImageIO;
  *  javax.imageio libraries. */
 public class myImage
 {
-	protected final static int ct = BufferedImage.TYPE_4BYTE_ABGR;
+	protected final static int colorType = BufferedImage.TYPE_4BYTE_ABGR;
 	
-	protected BufferedImage bi;
-	protected WritableRaster wr;
+	protected BufferedImage image;
+	protected WritableRaster raster;
 	protected int width, height;
 	
 	/** Instantiates a new image with a buffer w pixels wide and h pixels tall. */
 	public myImage(int w, int h)
 	{
+		
+		image = new BufferedImage(w,h,colorType);
 		width = w; height = h;
-		bi = new BufferedImage(w,h,ct);
-		wr = bi.getRaster();
+		raster = image.getRaster();
+		
+	}
+	
+	private myImage(BufferedImage bi)
+	{
+		this( bi.getWidth(), bi.getHeight() );
+		Color color = new Color();
+		
+		//Copy buffered image into our writable raster
+		for (int x = 0; x < width; x++)
+		{
+			for (int y = 0; y < height; y++)
+			{
+				color.copyABGR(bi.getRGB(x,y));
+				this.setPixel(x,y,color);
+			}
+		}
+		
+		System.out.println("Load complete.");
 	}
 	
 	/** Sets pixel (x,y) to specified color. These coordinates follow the
 	 *  standard of (0,0) being the top-left of the image. */
 	public myImage setPixel(int x, int y, Color c)
 	{
-		wr.setPixel(x,y,c.p());
+		raster.setPixel(x,y,c.p());
 		return this;
+	}
+	
+	/** Gets a Color object at the specified coordinates */
+	public Color getPixel(int x, int y)
+	{
+		return new Color().copyABGR( image.getRGB(x,y) ) ;
+	}
+	
+	public static myImage read(String filename)
+	{
+		
+		try {
+			System.out.print("Loading resource '" + filename + "' ");
+			File inputFile = new File(filename);
+			myImage image = new myImage(ImageIO.read(inputFile));
+			return image;
+		} catch (IOException ioe) {
+			String err = "Failed to read input file " + filename;
+			System.out.println(err);
+			System.exit(1);
+		}
+		System.out.println("something bad happened while reading an image");
+		return null;
+		
 	}
 	
 	/** Writes image buffer to given filename. Note: calls System.exit(1) on
@@ -36,7 +80,7 @@ public class myImage
 	{
 		try {
 			File of = new File(filename);
-			ImageIO.write(bi, "png", of);
+			ImageIO.write(image, "png", of);
 		} catch (IOException e) {
 			String err = "failed to open or write to file ";
 			err += filename;

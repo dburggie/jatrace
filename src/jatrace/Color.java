@@ -93,7 +93,7 @@ public class Color
 	
 	/** If given sample is subminimally or supermaximally saturated, returns
 	 *  the true minimum or maximum sample values. */
-	public static double makeSafe(double sample)
+	private static double makeSafe(double sample)
 	{
 		if (sample > 1.0) { return 1.0; }
 		if (sample < 0.0) { return 0.0; }
@@ -110,6 +110,18 @@ public class Color
 		red = Math.pow( makeSafe(red), e );
 		green = Math.pow( makeSafe(green), e );
 		blue= Math.pow( makeSafe(blue),e );
+		return this;
+	}
+	
+	public Color copyABGR(int abgr)
+	{
+		double alpha = (abgr % 256) / 256.0;
+		abgr /= 256;
+		double blue = (abgr % 256) / 256.0;
+		abgr /= 256;
+		double green = (abgr % 256) / 256.0;
+		abgr /= 256;
+		double red = (abgr % 256) / 256.0;
 		return this;
 	}
 	
