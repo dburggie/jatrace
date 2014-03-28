@@ -56,6 +56,9 @@ public class myImage
 		return new Color().copyABGR( image.getRGB(x,y) ) ;
 	}
 	
+	public int getWidth() { return width; }
+	public int getHeight() { return height; }
+	
 	public static myImage read(String filename)
 	{
 		
