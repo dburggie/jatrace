@@ -150,15 +150,20 @@ public class Vector
 		return this.trans(dx * d, dy * d, dz * d);
 	}
 	
+	
+	private static double round(double d)
+	{
+		return Math.round(1000 * d) / 1000.0;
+	}
 	/** Returns the vector as a String in the form "x: _ y: _ z: _". */
 	public String toString()
 	{
 		String s = "x: ";
-		s += x;
+		s += round(x);
 		s += " y: ";
-		s += y;
+		s += round(y);
 		s += " z: ";
-		s += z;
+		s += round(z);
 		return s;
 	}
 	

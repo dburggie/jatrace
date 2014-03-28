@@ -88,9 +88,7 @@ public class Trunk extends World
 		
 		
 		//Sphere ball = new Sphere(ballp,ballr,ballc);
-		TruncatedSphere ball = new TruncatedSphere(ballp,ballr,ballc);
-		ball.setOrientation(ballo);
-		ball.setCosine(0.7);
+		TruncatedSphere ball = new TruncatedSphere(ballp,ballo,ballr,ballc);
 		trunk.addBody(ball);
 		
 		

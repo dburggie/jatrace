@@ -21,13 +21,13 @@ public class TruncatedSphere extends Sphere
 		unlocked = true;
 	}	
 	
-	public TruncatedSphere(Vector p, double r, Color c)
+	public TruncatedSphere(Vector p, Vector o, double r, Color c)
 	{
 		super(p,r,c);
 		
 		unlock();
 		
-		setOrientation(new Vector(0.0,1.0,0.0));
+		setOrientation(o);
 		setCosine(0.7);
 	}
 	
@@ -193,9 +193,11 @@ public class TruncatedSphere extends Sphere
 		
 		capUp = position.dup();
 		capUp.trans( orientation, cosine * radius );
+		System.out.println("Setting North cap to " + capUp.toString() );
 		
 		capDown = position.dup();
 		capDown.trans( orientation, -1.0 * cosine * radius );
+		System.out.println("Setting South cap to " + capDown.toString() );
 		
 		if (plusCap == null)
 		{
