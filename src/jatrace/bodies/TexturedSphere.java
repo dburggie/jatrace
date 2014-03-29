@@ -16,8 +16,6 @@ public class TexturedSphere extends Sphere
 	
 	private void init()
 	{
-		hitcount = 0;
-		misscount = 0;
 		setCoordinates(new Vector(0.0,1.0,0.0), new Vector(1.0,0.0,0.0));
 		setMatte(false);
 		setReflectivity(0.01);
