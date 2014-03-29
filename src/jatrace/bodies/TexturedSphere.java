@@ -12,7 +12,7 @@ public class TexturedSphere extends Sphere
 	private double halfWidth;
 	private int fullHeight;
 	
-	private Vector north, west, east;
+	private Vector xAxis, yAxis, zAxis;
 	
 	private void init()
 	{
@@ -72,21 +72,21 @@ public class TexturedSphere extends Sphere
 	 *  @param meridian a vector on the sphere's prime meridian */
 	public void setCoordinates(Vector pole, Vector meridian)
 	{
+		zAxis = meridian.cross(pole);
 		
-		east = pole.cross(meridian);
-		if (east.len() < 0.000001)
+		if (zAxis.len() < 0.000001)
 		{
 			System.out.println("You fed parallel vectors to a TexturedSphere.");
-			north.setxyz(0.0,1.0,0.0);
-			west.setxyz(0.0,0.0,1.0);
-			east = north.cross(west);
+			xAxis = new Vector(1.0,0.0,0.0);
+			yAxis = new Vector(0.0,1.0,0.0);
+			zAxis = new Vector(0.0,0.0,1.0);
 		}
 		
 		else
 		{
-			east.norm();
-			west = east.cross(pole).norm();
-			north = west.cross(east).norm();
+			zAxis.norm();
+			xAxis = pole.cross(zAxis).norm();
+			yAxis = zAxis.cross(xAxis).norm();
 		}
 		
 	}
@@ -99,22 +99,27 @@ public class TexturedSphere extends Sphere
 		
 		/* We need to find the xpart, the y part of the point. */
 		
-		Vector v = point.sub(position).norm();
+		Vector v = point.sub(position).scale(1 / radius);
 		
-		double south = Math.acos(north.dot(v)) / pi;
-		double eastwest = Math.acos(west.dot(v)) / pi;
+		double xDistance = v.dot(xAxis), zDistance = v.dot(zAxis);
+		
+		Vector projection = xAxis.dup().scale( xDistance );
+		projection.trans(zAxis, zDistance).norm();
+		
+		double south = Math.acos( yAxis.dot(v) ) / pi;
+		double eastwest = Math.acos( xAxis.dot(projection) ) / pi;
 		
 		//x and y are coordinates on the texture
 		int x, y;
 		
 		//check if point is east or west of meridian
-		if ( east.dot(v) > 0.0 )
+		if ( zDistance > 0.0 )
 		{
-			x = (int) ( halfWidth + halfWidth * eastwest );
+			x = (int) ( halfWidth - halfWidth * eastwest );
 		}
 		else
 		{
-			x = (int) ( halfWidth - halfWidth * eastwest );
+			x = (int) ( halfWidth + halfWidth * eastwest );
 		}
 		
 		y = (int) ( fullHeight * south );
