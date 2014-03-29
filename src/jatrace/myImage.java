@@ -34,8 +34,8 @@ public class myImage
 		{
 			for (int y = 0; y < height; y++)
 			{
-				color.copyABGR(bi.getRGB(x,y));
-				this.setPixel(x,y,color);
+				color.copyARGB(bi.getRGB(x,y));
+				raster.setPixel(x,y,color.p());
 			}
 		}
 		
@@ -53,7 +53,8 @@ public class myImage
 	/** Gets a Color object at the specified coordinates */
 	public Color getPixel(int x, int y)
 	{
-		return new Color().copyABGR( image.getRGB(x,y) ) ;
+		return Color.fromARGB( image.getRGB(x,y) );
+		//return new Color().copyARGB( image.getRGB(x,y) ) ;
 	}
 	
 	public int getWidth() { return width; }

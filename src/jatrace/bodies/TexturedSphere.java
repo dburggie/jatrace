@@ -14,26 +14,32 @@ public class TexturedSphere extends Sphere
 	
 	private Vector north, west, east;
 	
-	
+	private void init()
+	{
+		hitcount = 0;
+		misscount = 0;
+		setCoordinates(new Vector(0.0,1.0,0.0), new Vector(1.0,0.0,0.0));
+		setMatte(false);
+		setReflectivity(0.01);
+		setSpecularity(20.0);
+		textureLoaded = false;
+	}
 	
 	/** Default sphere with no texture. Will not clip with rays until a valid
 	 *  texture file has been loaded. */
 	public TexturedSphere()
 	{
 		super();
-		setCoordinates(new Vector(0.0,1.0,0.0), new Vector(1.0,0.0,0.0));
-		setMatte(true);
-		setSpecularity(100.0);
-		textureLoaded = false;
+		init();
 	}
 	
 	/** Initializes new sphere with given position and radius, loading the
 	 *  texture at the given path. */
-	public TexturedSphere(Vector position, double radius, String texturePath)
+	public TexturedSphere(Vector pos, double rad, String texturePath)
 	{
 		
-		this(); setPosition(position); setRadius(radius);
-		
+		super(pos,rad,new Color(0.3,0.1,0.1));
+		init();
 		load(texturePath);
 		
 	}
@@ -70,6 +76,7 @@ public class TexturedSphere extends Sphere
 		east = pole.cross(meridian);
 		if (east.len() < 0.000001)
 		{
+			System.out.println("You fed parallel vectors to a TexturedSphere.");
 			north.setxyz(0.0,1.0,0.0);
 			west.setxyz(0.0,0.0,1.0);
 			east = north.cross(west);
@@ -84,14 +91,18 @@ public class TexturedSphere extends Sphere
 		
 	}
 	
+	private final static String bounds = "acos is returning out of bounds";
+	
 	@Override
 	public Color getColor(Vector point)
 	{
-		Vector v = point.dup().scale(1/radius);
+		
+		/* We need to find the xpart, the y part of the point. */
+		
+		Vector v = point.sub(position).norm();
 		
 		double south = Math.acos(north.dot(v)) / pi;
 		double eastwest = Math.acos(west.dot(v)) / pi;
-		boolean isEast = (east.dot(v) > 0.0) ? true : false;
 		
 		//x and y are coordinates on the texture
 		int x, y;
@@ -110,6 +121,13 @@ public class TexturedSphere extends Sphere
 		
 		return texture.getPixel(x,y);
 		
+	}
+	
+	int hitcount, misscount;
+	public void displayNumHits()
+	{
+		System.out.println("Hit by " + hitcount + " rays.");
+		System.out.println("Missed by " + misscount + " rays.");
 	}
 	
 	@Override

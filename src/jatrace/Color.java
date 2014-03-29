@@ -13,6 +13,14 @@ public class Color
 		red = 0.0; green = 0.0; blue = 0.0; alpha = 1.0;
 	}
 	
+	public Color(int r, int g, int b, int a)
+	{
+		red = r / 256.0;
+		green = g / 256.0;
+		blue = b / 256.0;
+		alpha = a / 256.0;
+	}
+	
 	/** Initialize Color object to given rgb values. */
 	public Color(double r, double g, double b)
 	{
@@ -61,6 +69,28 @@ public class Color
 		return i;
 	}
 	
+	public String toString()
+	{
+		int [] smp = p();
+		return "" + smp[0] + ":" + smp[1] + ":" + smp[2] + ":" + smp[3];
+	}
+	
+	public boolean equals(Color c)
+	{
+		int [] a = p();
+		int [] b = c.p();
+		
+		for (int i = 0; i < 4; i++)
+		{
+			if (a[i]  != b[i])
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	/** Sets rgb values to desired parameters. Note that values below 0.0 and
 	 *  above 1.0, though technically safe, could be a source of bugs. These
 	 *  values would correspond to over and under saturated colors. */
@@ -74,6 +104,15 @@ public class Color
 	public Color setRGBA( double r, double g, double b, double a)
 	{
 		red = r; green = g; blue = b; alpha = a;
+		return this;
+	}
+	
+	public Color setRGBA( int r, int g, int b, int a)
+	{
+		red = r / 256.0;
+		green = g / 256.0;
+		blue = b / 256.0;
+		alpha = a / 256.0;
 		return this;
 	}
 	
@@ -113,19 +152,41 @@ public class Color
 		return this;
 	}
 	
-	public Color copyABGR(int abgr)
-	{
-		double alpha = (abgr % 256) / 256.0;
-		abgr /= 256;
-		double blue = (abgr % 256) / 256.0;
-		abgr /= 256;
-		double green = (abgr % 256) / 256.0;
-		abgr /= 256;
-		double red = (abgr % 256) / 256.0;
-		return this;
-	}
-	
 	public double getRed()   { return red;   }
 	public double getGreen() { return green; }
 	public double getBlue()  { return blue;  }
+	
+	// ########## Below are all ARGB color model methods ##########
+	
+	public int toARGB()
+	{
+		int [] samples = p();
+		int argb = 0x00;
+		argb |= (0x0ff & samples[2]);
+		argb |= (0x0ff & samples[1]) << 8;
+		argb |= (0x0ff & samples[0]) << 16;
+		argb |= (0x0ff & samples[3]) << 24;
+		return argb;
+	}
+	
+	public Color copyARGB(int argb)
+	{
+		int r,g,b,a;
+		b = (0x0ff & ( argb >>>  0 ));
+		g = (0x0ff & ( argb >>>  8 ));
+		r = (0x0ff & ( argb >>> 16 ));
+		a = (0x0ff & ( argb >>> 24 ));
+		setRGBA(r,g,b,a);
+		return this;
+	}
+	
+	public static Color fromARGB(int argb)
+	{
+		int r,g,b,a;
+		b = (0x0ff & ( argb >>>  0 ));
+		g = (0x0ff & ( argb >>>  8 ));
+		r = (0x0ff & ( argb >>> 16 ));
+		a = (0x0ff & ( argb >>> 24 ));
+		return new Color(r,g,b,a);
+	}
 }

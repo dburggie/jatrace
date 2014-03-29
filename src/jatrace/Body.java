@@ -35,7 +35,7 @@ public abstract class Body
 	public Vector getPosition() { return position.dup(); }
 	/** Setsposition of body. What relation this vector has with the body is up
 	 *  to the implementation of the intersection method. */
-	public void setPosition(Vector p) { position = p; }
+	public void setPosition(Vector p) { position = p.dup(); }
 	
 	
 	

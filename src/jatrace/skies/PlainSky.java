@@ -11,7 +11,7 @@ public class PlainSky implements Sky
 	
 	public PlainSky(Vector sunDirection, Color skyColor)
 	{
-		sun = sunDirection.dup();
+		sun = sunDirection.dup().norm();
 		color = skyColor.dup();
 		delta = 0.0;
 	}
@@ -47,7 +47,7 @@ public class PlainSky implements Sky
 		
 		else
 		{
-			array[0] = sun.dup().delta(delta);
+			array[0] = sun.dup().delta(delta).norm();
 		}
 		
 		return array;
