@@ -5,9 +5,9 @@ import jatrace.*;
 /** A sphere that has been truncated and is thus more-or-less barrel-shaped. */
 public class TruncatedSphere extends Sphere
 {
-	protected Plane plusCap, minusCap;
+	protected Plane topCap, bottomCap;
 	protected double cosine = 1.0;
-	private Vector capUp, capDown;
+	private Vector topPosition, bottomPosition;
 	
 	private boolean initLocked()
 	{
@@ -65,8 +65,29 @@ public class TruncatedSphere extends Sphere
 	public double intersection(Ray ray)
 	{
 		
-		Vector S;		
-		S = ray.o().sub(position);
+		Vector rayOrigin = ray.o(), rayDirection = ray.d();
+		
+		//get distance to planes along ray
+		double topDistance = topPosition.sub(rayOrigin).dot(orientation),
+			bottomDistance = bottomPosition.sub(rayOrigin).dot(orientation),
+			raySpeed = orientation.dot(rayDirection);
+		topDistance /= raySpeed;
+		bottomDistance /= raySpeed;
+		
+		//order the plane hits
+		double [] planeHits = new double[2];
+		planeHits[0] = Math.min(topDistance,bottomDistance);
+		planeHits[1] = Math.max(topDistance,bottomDistance);
+		
+		// no hits if ray goes away from both planes
+		if (planeHits[1] < 0.0)
+		{
+			return -1.0;
+		}
+		
+		//now distance to both sphere hits
+		Vector S;
+		S = rayOrigin.sub(position);
 		
 		//get distance to sphere center
 		double SS = S.dot(S);
@@ -74,8 +95,9 @@ public class TruncatedSphere extends Sphere
 		//just don't bother if it's too far away
 		if (SS > 1000000.0) return -1.0;
 		
+		
 		//measure angle between ray direction and to sphere center
-		double SD = S.dot(ray.d());
+		double SD = S.dot(rayDirection);
 		
 		//intersections are at the solutions to a quadratic equation
 		
@@ -91,18 +113,6 @@ public class TruncatedSphere extends Sphere
 		double [] sphereHits = new double[] { -1 * SD - radical, -1 * SD + radical };
 		//if the farther one is negative, we miss totally
 		if (sphereHits[1] < 0.0) { return -1.0; }
-		
-		//get the intersections with the planes
-		double [] planeHits = new double[2];
-		double hit1 = plusCap.intersection(ray);
-		double hit2 = minusCap.intersection(ray);
-		
-		planeHits[0] = Math.min(hit1,hit2);
-		planeHits[1] = Math.max(hit1,hit2);
-		
-		//order the planeHits
-		//if (hit1 < hit2) { planeHits = new double[] { hit1, hit2 }; }
-		//else { planeHits = new double[] {hit2, hit1}; }
 		
 		//miss if both sphere hits are before the plane hits (or vice versa)
 		if (planeHits[1] < sphereHits[0] || sphereHits[1] < planeHits[0])
@@ -191,29 +201,29 @@ public class TruncatedSphere extends Sphere
 			return;
 		}
 		
-		capUp = position.dup();
-		capUp.trans( orientation, cosine * radius );
-		System.out.println("Setting North cap to " + capUp.toString() );
+		topPosition = position.dup();
+		topPosition.trans( orientation, cosine * radius );
+		//System.out.println("Setting North cap to " + topPosition.toString() );
 		
-		capDown = position.dup();
-		capDown.trans( orientation, -1.0 * cosine * radius );
-		System.out.println("Setting South cap to " + capDown.toString() );
+		bottomPosition = position.dup();
+		bottomPosition.trans( orientation, -1.0 * cosine * radius );
+		//System.out.println("Setting South cap to " + bottomPosition.toString() );
 		
-		if (plusCap == null)
+		if (topCap == null)
 		{
-			plusCap = new Plane();
+			topCap = new Plane();
 		}
 		
-		if (minusCap == null)
+		if (bottomCap == null)
 		{
-			minusCap = new Plane();
+			bottomCap = new Plane();
 		}
 		
-		plusCap.setPosition(capUp);
-		plusCap.setNormal(orientation);
+		topCap.setPosition(topPosition);
+		topCap.setNormal(orientation);
 		
-		minusCap.setPosition(capDown);
-		minusCap.setNormal(orientation.minus());
+		bottomCap.setPosition(bottomPosition);
+		bottomCap.setNormal(orientation.minus());
 	}
 	
 }
