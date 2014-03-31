@@ -23,6 +23,16 @@ public class Ellipsoid extends Body
 		
 	}
 	
+	/** Default ellipsoid is degenerate sphere case. */
+	public Ellipsoid()
+	{
+		this(
+			new Vector(0.0,0.0,0.0),
+			new Vector(0.0,1.0,0.0),
+			new Vector(1.0,0.0,0.0)
+		);
+	}
+	
 	
 	/** Initializes Ellipsoid to given position and axes. */
 	public Ellipsoid(Vector position, Vector up, Vector meridian)
