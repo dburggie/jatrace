@@ -19,7 +19,7 @@ public class Bluesky implements Sky
 	/** This constructor builds a sky with the sun in the given direction. */
     public Bluesky(Vector direction)
     {
-        sun = direction.dup();
+        sun = direction.dup().norm();
     }
     
 	/** Gets the color of the sky in the given direction. */
