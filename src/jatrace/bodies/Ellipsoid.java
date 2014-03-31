@@ -7,12 +7,13 @@ public class Ellipsoid extends Body
 	
 	private Vector xAxis, yAxis, zAxis;
 	private double xLength, yLength, zLength;
+	private double xGrad, yGrad, zGrad;
 	
 	
 	/** Transforms vector to new vector space such that this spheroid is a 
 	 *  unit ball aligned to the space's primary axes.
 	 *  @param v vector to be transformed */
-	private Vector reAxis(Vector v)
+	private Vector unitize(Vector v)
 	{
 		
 		return v.setxyz(
@@ -21,6 +22,15 @@ public class Ellipsoid extends Body
 				zAxis.dot(v) / zLength
 			);
 		
+	}
+	
+	private Vector gradient(Vector v)
+	{
+		return v.setxyz(
+				xAxis.dot(v) * xGrad,
+				yAxis.dot(v) * yGrad,
+				zAxis.dot(v) * zGrad
+			);
 	}
 	
 	/** Default ellipsoid is degenerate sphere case. */
@@ -58,13 +68,18 @@ public class Ellipsoid extends Body
 	 *  given. */
 	public void setAxisLengths(double x, double y, double z)
 	{
-		xLength = x; yLength = y; zLength = z;
+		xLength = x;
+		yLength = y;
+		zLength = z;
+		xGrad = 2.0 / (x * x);
+		yGrad = 2.0 / (y * y);
+		zGrad = 2.0 / (z * z);
 	}
 	
 	@Override
 	public Vector getNormal(Vector point)
 	{
-		return point.sub(position).norm();
+		return gradient(point.sub(position)).norm();
 	}
 	
 	@Override
@@ -75,8 +90,8 @@ public class Ellipsoid extends Body
 		//  1. transform ray into vector space with spheroid a unit sphere at 0
 		//  2. find intersection with this unit sphere
 		
-		Vector rayOrigin = reAxis( ray.o().trans(position, -1.0) ),
-				rayDirection = reAxis(ray.d());
+		Vector rayOrigin = unitize( ray.o().trans(position, -1.0) ),
+				rayDirection = unitize(ray.d());
 		
 		double DS = rayDirection.dot(rayOrigin),
 				DD = rayDirection.dot(rayDirection),
@@ -85,7 +100,7 @@ public class Ellipsoid extends Body
 		//intersections are at solutions to quadratic equation
 		
 		//get term under radical
-		double radical = DS + DD - DD * SS;
+		double radical = (DS * DS) - DD * ( SS - 1.0);
 		
 		//no solutions if negative
 		if (radical < 0.0)
