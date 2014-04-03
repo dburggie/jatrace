@@ -2,11 +2,22 @@ package jatrace.bodies;
 
 import jatrace.*;
 
-public class CheckEllipse extends Plane
+public class CheckEllipse extends CheckPlane
 {
+	
+	public CheckEllipse(Vector p, Vector n, Vector o)
+	{
+		super(p,n,o);
+	}
+	
+	public CheckEllipse()
+	{
+		super();
+	}
 	
 	private Vector xAxis = new Vector(1.0,0.0,0.0); 
 	private Vector yAxis = new Vector(0.0,1.0,0.0);
+	
 	public final void setAxes(Vector xDir, Vector yDir)
 	{
 		
@@ -40,11 +51,13 @@ public class CheckEllipse extends Plane
 		Vector p = ray.follow(distance);
 		p.trans(position, -1.0);
 		
-		double xd = p.dot(xAxis);
-		if (xd > xLength) return -1.0;
-		
+		double xd = p.dot(xAxis);		
 		double yd = p.dot(yAxis);
-		if (yd > yLength) return -1.0;
+		
+		double distanceInPlane = xd * xd / xLength / xLength;
+		distanceInPlane += yd * yd / yLength / yLength;
+		
+		if (distanceInPlane > 1.0) return -1.0;
 		
 		return distance;
 		

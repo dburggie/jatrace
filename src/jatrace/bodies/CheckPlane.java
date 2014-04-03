@@ -14,9 +14,7 @@ public class CheckPlane extends Plane
 	 *  be a point on the plane 1 unit from the origin). */
 	public CheckPlane( Vector p, Vector n, Vector o )
 	{
-		super();
-		setPosition(p);
-		setNormal(n);
+		super(p,n,new Color());
 		setOrientation(o);
 		setColor( new Color(0.01,0.01,0.01), new Color(0.99,0.99,0.99) );
 	}
