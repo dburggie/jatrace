@@ -27,6 +27,8 @@ public class CheckEllipse extends CheckPlane
 		yAxis = yDir.dup().norm();
 		setNormal(xAxis.cross(yAxis));
 		axesSet = true;
+		
+		setOrientation(xAxis);
 	}
 	
 	private boolean axesSet = false;

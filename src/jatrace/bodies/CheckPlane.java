@@ -29,15 +29,14 @@ public class CheckPlane extends Plane
 	
 	//dealing with orientation
 	protected Vector oX, oY;
-	/** Sets object's checker orientation. The distance this point is from the
-	 *  origin determines how big the checkers will be. */
+	/** Sets object's checker orientation. */
 	@Override
 	public void setOrientation(Vector o)
 	{
 		super.setOrientation(o);
 		if (position != null && normal != null)
 		{
-			oX = o.sub(position).norm();
+			oX = o.dup().norm();
 			oY = normal.cross(oX).norm();
 			oX = oY.cross(normal).norm();
 		}
