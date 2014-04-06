@@ -1,0 +1,25 @@
+
+spawn bodies
+    scrollable panel filled with buttons
+        each button activates a frame containing body info
+
+change sky
+    combobox with options
+        button to edit the active sky setup
+
+adjust camera
+    vector builder for cam position
+    vector builder for cam focus
+    vector builder for cam up
+
+render settings
+    render button
+    text field for image name
+    pixels per window unit
+    rays per pixel
+    reflection depth
+
+preview
+    refresh preview button
+
+
