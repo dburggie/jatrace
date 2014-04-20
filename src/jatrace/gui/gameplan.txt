@@ -1,4 +1,27 @@
 
+gui
+	body
+		CheckPlaneBuilder
+		PlaneBuilder
+		SphereBuilder
+	sky
+	render
+	camera
+	preview
+	guiutils
+		BooleanBuilder
+		ColorBuilder
+		DoubleBuilder
+		IntegerBuilder
+		VectorBuilder
+	Gui
+	
+
+
+
+
+
+
 spawn bodies
     scrollable panel filled with buttons
         each button activates a frame containing body info
