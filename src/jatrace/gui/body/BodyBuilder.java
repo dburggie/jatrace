@@ -19,7 +19,7 @@ public class BodyBuilder
 	private JPanel activePanel;
 	private SphereBuilder sphereBuilder;
 	private PlaneBuilder planeBuilder;
-private CheckPlaneBuilder checkPlaneBuilder;
+	private CheckPlaneBuilder checkPlaneBuilder;
 	
 	private BodyPasser parent = null;
 	private JPanel body, header, bodyNamer, buildpanel;
